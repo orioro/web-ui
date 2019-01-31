@@ -2,24 +2,27 @@ const gulp = require('gulp')
 const less = require('gulp-less')
 const browserSync = require('browser-sync').create()
 
+const { series } = gulp
+
 const compileLess = () => {
-  return gulp.src('demo/**/*.less')
+  return gulp.src('demo/**/style.less')
     .pipe(less())
     .pipe(gulp.dest('demo'))
     .pipe(browserSync.stream())
 }
 
-gulp.task('compile:less', compileLess)
-
-gulp.task('develop', function () {
-	browserSync.init({
+const developmentServer = () => {
+  browserSync.init({
     server: {
       baseDir: 'demo'
     }
   })
 
-	return gulp.watch([
-		'atoms/**/*.less',
-		'demo/**/*.less',
-	], compileLess)
-})
+  return gulp.watch([
+    '**/*.less',
+  ], compileLess)
+}
+
+gulp.task('compile:less', compileLess)
+
+gulp.task('develop', series(compileLess, developmentServer))

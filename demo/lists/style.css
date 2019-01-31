@@ -1,0 +1,13 @@
+ul.link-list {
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+ul.link-list > li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+ul.link-list > li > a {
+  text-decoration: none;
+}

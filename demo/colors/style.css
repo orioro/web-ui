@@ -1,36 +1,34 @@
-.bg-yellow {
-  background-color: yellow;
-  color: black;
-}
 .bg-skyblue {
   background-color: skyblue;
   color: black;
 }
-.bg-darkred {
-  background-color: darkred;
-  color: white;
+.bg-yellow {
+  background-color: yellow;
+  color: black;
 }
 .bg-navy {
   background-color: navy;
   color: white;
 }
-.bg-black {
-  background-color: black;
+.bg-darkred {
+  background-color: darkred;
   color: white;
-}
-.fg-yellow {
-  color: yellow;
 }
 .fg-skyblue {
   color: skyblue;
 }
-.fg-darkred {
-  color: darkred;
+.fg-yellow {
+  color: yellow;
 }
 .fg-navy {
   color: navy;
 }
-.fg-black {
+.fg-darkred {
+  color: darkred;
+}
+.hover-skyblue:hover {
+  background-color: skyblue;
+  border-color: skyblue !important;
   color: black;
 }
 .hover-yellow:hover {
@@ -38,23 +36,13 @@
   border-color: yellow !important;
   color: black;
 }
-.hover-skyblue:hover {
-  background-color: skyblue;
-  border-color: skyblue !important;
-  color: black;
-}
-.hover-darkred:hover {
-  background-color: darkred;
-  border-color: darkred !important;
-  color: white;
-}
 .hover-navy:hover {
   background-color: navy;
   border-color: navy !important;
   color: white;
 }
-.hover-black:hover {
-  background-color: black;
-  border-color: black !important;
+.hover-darkred:hover {
+  background-color: darkred;
+  border-color: darkred !important;
   color: white;
 }

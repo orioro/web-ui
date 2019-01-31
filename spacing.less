@@ -1,0 +1,97 @@
+.mx__spacing-classes(@units) {
+	each(@units, {
+		/**
+		 * All sides
+		 */
+		.margin-@{key} {
+			margin: @value;
+		}
+		.padding-@{key} {
+			padding: @value;
+		}
+
+		/**
+		 * Vertical
+		 */
+		.margin-v-@{key} {
+			margin-top: @value;
+			margin-bottom: @value;
+		}
+		.padding-v-@{key} {
+			padding-top: @value;
+			padding-bottom: @value;
+		}
+
+		/**
+		 * Horizontal
+		 */
+		.margin-h-@{key} {
+			margin-left: @value;
+			margin-right: @value;
+		}
+		.padding-h-@{key} {
+			padding-left: @value;
+			padding-right: @value;
+		}
+		
+		/**
+		 * Top
+		 */
+		.margin-top-@{key} {
+			margin-top: @value;
+		}
+		.padding-top-@{key} {
+			padding-top: @value;
+		}
+
+		/**
+		 * Bottom
+		 */
+		.margin-bottom-@{key} {
+			margin-bottom: @value;
+		}
+		.padding-bottom-@{key} {
+			padding-bottom: @value;
+		}
+
+		/**
+		 * Left
+		 */
+		.margin-left-@{key} {
+			margin-left: @value;
+		}
+		.padding-left-@{key} {
+			padding-left: @value;
+		}
+
+		/**
+		 * Right
+		 */
+		.margin-right-@{key} {
+			margin-right: @value;
+		}
+		.padding-right-@{key} {
+			padding-right: @value;
+		}
+	});
+}
+
+@media (min-width: @ui--xs-min-width) and (max-width: @ui--xs-max-width) {
+	.mx__spacing-classes(@ui--spacing-units-xs);
+}
+
+@media (min-width: @ui--sm-min-width) and (max-width: @ui--sm-max-width) {
+	.mx__spacing-classes(@ui--spacing-units-sm);
+}
+
+@media (min-width: @ui--md-min-width) and (max-width: @ui--md-max-width) {
+	.mx__spacing-classes(@ui--spacing-units-md);
+}
+
+@media (min-width: @ui--lg-min-width) and (max-width: @ui--lg-max-width) {
+	.mx__spacing-classes(@ui--spacing-units-lg);
+}
+
+@media (min-width: @ui--xl-min-width) {
+	.mx__spacing-classes(@ui--spacing-units-xl);
+}
