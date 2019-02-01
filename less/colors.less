@@ -1,0 +1,91 @@
+@ui--dark-colors: {
+  black: black;
+}
+
+@ui--light-colors: {
+  white: white;
+};
+
+@ui--text-dark-color: black;
+@ui--text-light-color: white;
+
+.mx__bg-classes() {
+  each(@ui--light-colors, {
+    &.bg-@{key} {
+      background-color: @value;
+      color: @ui--text-dark-color;
+      border-color: @value;
+    }
+  })
+
+  each(@ui--dark-colors, {
+    &.bg-@{key} {
+      background-color: @value;
+      color: @ui--text-light-color;
+      border-color: @value;
+    }
+  })
+}
+.mx__bg-classes();
+
+
+each(@ui--light-colors, {
+	.fg-@{key} {
+		color: @value;
+    border-color: @value;
+	}
+})
+
+each(@ui--dark-colors, {
+	.fg-@{key} {
+		color: @value;
+    border-color: @value;
+	}
+})
+
+each(@ui--light-colors, {
+  .border-@{key} {
+    border-color: @value;
+  }
+})
+
+each(@ui--dark-colors, {
+  .border-@{key} {
+    border-color: @value;
+  }
+})
+
+.mx__hover-bg-classes() {
+  each(@ui--light-colors, {
+    &.hover-bg-@{key}:hover {
+      background-color: @value;
+      border-color: @value;
+      color: @ui--text-dark-color;
+    }
+  })
+
+  each(@ui--dark-colors, {
+    &.hover-bg-@{key}:hover {
+      background-color: @value;
+      border-color: @value;
+      color: @ui--text-light-color;
+    }
+  })
+}
+.mx__hover-bg-classes();
+
+
+.mx__hover-fg-classes() {
+  each(@ui--light-colors, {
+    &.hover-fg-@{key}:hover {
+      color: @value;
+    }
+  })
+
+  each(@ui--dark-colors, {
+    &.hover-fg-@{key}:hover {
+      color: @value;
+    }
+  })
+}
+.mx__hover-fg-classes();

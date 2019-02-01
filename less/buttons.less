@@ -1,0 +1,60 @@
+@import 'colors.less';
+
+@ui--btn-vertical-padding: 10px;
+@ui--btn-horizontal-padding: 20px;
+@ui--btn-border-width: 1px;
+@ui--btn-border-radius: 2px;
+@ui--btn-font-size: 1rem;
+@ui--btn-transition-duration: .3s;
+@ui--btn-transition-timing-function: ease;
+@ui--btn-icon-distance: 10px;
+
+.btn {
+  padding: @ui--btn-vertical-padding @ui--btn-horizontal-padding;
+
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+
+  box-sizing: border-box;
+  text-decoration: none;
+  border-width: @ui--btn-border-width;
+  border-style: solid;
+  border-radius: @ui--btn-border-radius;
+  font-family: sans-serif;
+  font-size: @ui--btn-font-size;
+
+  transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
+              color @ui--btn-transition-duration @ui--btn-transition-timing-function,
+              border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;
+
+  > svg {
+    height: 1em;
+    width: auto;
+    color: currentColor;
+  }
+
+  &.btn--icon-right {
+    > svg {
+      margin-left: @ui--btn-icon-distance;
+    }
+  }
+
+  &.btn--icon-left {
+    > svg {
+      margin-right: @ui--btn-icon-distance;
+    }
+  }
+
+  &.btn--icon-only {
+    padding: @ui--btn-vertical-padding;
+  }
+}
+
+button.btn {
+  background-color: transparent;
+
+  .mx__bg-classes();
+  .mx__hover-bg-classes();
+  .mx__hover-fg-classes();
+}

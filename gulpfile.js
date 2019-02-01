@@ -19,7 +19,9 @@ const developmentServer = () => {
   })
 
   return gulp.watch([
-    '**/*.less',
+    'defaults/**/*.less',
+    'less/**/*.less',
+    'demo/**/*.less',
   ], compileLess)
 }
 
