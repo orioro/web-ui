@@ -68,13 +68,17 @@
 }
 .hover-fg-skyblue:hover {
   color: skyblue;
+  border-color: skyblue;
 }
 .hover-fg-yellow:hover {
   color: yellow;
+  border-color: yellow;
 }
 .hover-fg-navy:hover {
   color: navy;
+  border-color: navy;
 }
 .hover-fg-darkred:hover {
   color: darkred;
+  border-color: darkred;
 }

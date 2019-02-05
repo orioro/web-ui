@@ -79,12 +79,14 @@ each(@ui--dark-colors, {
   each(@ui--light-colors, {
     &.hover-fg-@{key}:hover {
       color: @value;
+      border-color: @value;
     }
   })
 
   each(@ui--dark-colors, {
     &.hover-fg-@{key}:hover {
       color: @value;
+      border-color: @value;
     }
   })
 }

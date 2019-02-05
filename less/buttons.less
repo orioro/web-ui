@@ -3,11 +3,13 @@
 @ui--btn-vertical-padding: 10px;
 @ui--btn-horizontal-padding: 20px;
 @ui--btn-border-width: 1px;
-@ui--btn-border-radius: 2px;
+@ui--btn-border-radius: 0;
 @ui--btn-font-size: 1rem;
 @ui--btn-transition-duration: .3s;
 @ui--btn-transition-timing-function: ease;
 @ui--btn-icon-distance: 10px;
+
+@ui--btn-link-vertical-padding: @ui--btn-vertical-padding;
 
 .btn {
   padding: @ui--btn-vertical-padding @ui--btn-horizontal-padding;
@@ -23,6 +25,8 @@
   border-radius: @ui--btn-border-radius;
   font-family: sans-serif;
   font-size: @ui--btn-font-size;
+
+  cursor: pointer;
 
   transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
               color @ui--btn-transition-duration @ui--btn-transition-timing-function,
@@ -57,4 +61,40 @@ button.btn {
   .mx__bg-classes();
   .mx__hover-bg-classes();
   .mx__hover-fg-classes();
+}
+
+a.btn-link {
+  padding: @ui--btn-link-vertical-padding 0;
+
+
+  display: inline-flex;
+  text-decoration: none;
+
+  transition: color @ui--btn-transition-duration @ui--btn-transition-timing-function;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  > svg {
+    height: 1em;
+    width: auto;
+    color: currentColor;
+  }
+
+  &.btn-link--icon-right {
+    > svg {
+      margin-left: @ui--btn-icon-distance;
+    }
+  }
+
+  &.btn-link--icon-left {
+    > svg {
+      margin-right: @ui--btn-icon-distance;
+    }
+  }
+
+  &.btn-link--icon-only {
+    padding: @ui--btn-vertical-padding;
+  }
 }

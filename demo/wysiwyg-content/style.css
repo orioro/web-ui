@@ -1,170 +1,277 @@
-.bg-white {
-  background-color: white;
-  color: black;
-  border-color: white;
+/**
+ * Content
+ */
+/**
+ * Heading
+ */
+/**
+ * Anchor
+ */
+/**
+ * Figcaption
+ */
+/**
+ * Blockquote
+ */
+/**
+ * Cite
+ */
+/**
+ * Floated
+ */
+.wysiwyg-content {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: serif;
+  /**
+   * Headings
+   */
+  /**
+   * Content
+   */
 }
-.bg-coral {
-  background-color: coral;
-  color: black;
-  border-color: coral;
+.wysiwyg-content a {
+  color: blue;
+  text-decoration: underline;
+  transition: color 0.3s ease;
 }
-.bg-lavender {
-  background-color: lavender;
-  color: black;
-  border-color: lavender;
+.wysiwyg-content a:active {
+  color: #9999ff;
+}
+.wysiwyg-content a:visited {
+  color: #000099;
+}
+.wysiwyg-content a:hover {
+  color: #0000cc;
+}
+.wysiwyg-content > * {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+.wysiwyg-content > *:first-child {
+  margin-top: 0;
+}
+.wysiwyg-content > *:last-child {
+  margin-bottom: 0;
+}
+.wysiwyg-content > *.float-left {
+  float: left;
+  margin-right: 1em;
+  width: 50%;
+}
+.wysiwyg-content > *.float-right {
+  float: right;
+  margin-left: 1em;
+  width: 50%;
+}
+.wysiwyg-content h1,
+.wysiwyg-content h2,
+.wysiwyg-content h3,
+.wysiwyg-content h4,
+.wysiwyg-content h5,
+.wysiwyg-content h6 {
+  font-weight: bold;
+  font-family: serif;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.3;
+}
+.wysiwyg-content h1:first-child,
+.wysiwyg-content h2:first-child,
+.wysiwyg-content h3:first-child,
+.wysiwyg-content h4:first-child,
+.wysiwyg-content h5:first-child,
+.wysiwyg-content h6:first-child {
+  margin-top: 0;
+}
+.wysiwyg-content h1:last-child,
+.wysiwyg-content h2:last-child,
+.wysiwyg-content h3:last-child,
+.wysiwyg-content h4:last-child,
+.wysiwyg-content h5:last-child,
+.wysiwyg-content h6:last-child {
+  margin-bottom: 0;
+}
+.wysiwyg-content h1 {
+  font-size: 3rem;
+}
+.wysiwyg-content h2 {
+  font-size: 2rem;
+}
+.wysiwyg-content h3 {
+  font-size: 1.5rem;
+}
+.wysiwyg-content h4 {
+  font-size: 1.2rem;
+}
+.wysiwyg-content h5 {
+  font-size: 1rem;
+}
+.wysiwyg-content h6 {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+.wysiwyg-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.wysiwyg-content blockquote {
+  margin: 2em 2em;
+}
+.wysiwyg-content blockquote > * {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.wysiwyg-content blockquote > *:first-child {
+  margin-top: 0;
+}
+.wysiwyg-content blockquote > *:last-child {
+  margin-bottom: 0;
+}
+.wysiwyg-content blockquote h1,
+.wysiwyg-content blockquote h2,
+.wysiwyg-content blockquote h3,
+.wysiwyg-content blockquote h4,
+.wysiwyg-content blockquote h5,
+.wysiwyg-content blockquote h6 {
+  font-weight: bold;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.wysiwyg-content blockquote h1:first-child,
+.wysiwyg-content blockquote h2:first-child,
+.wysiwyg-content blockquote h3:first-child,
+.wysiwyg-content blockquote h4:first-child,
+.wysiwyg-content blockquote h5:first-child,
+.wysiwyg-content blockquote h6:first-child {
+  margin-top: 0;
+}
+.wysiwyg-content blockquote h1:last-child,
+.wysiwyg-content blockquote h2:last-child,
+.wysiwyg-content blockquote h3:last-child,
+.wysiwyg-content blockquote h4:last-child,
+.wysiwyg-content blockquote h5:last-child,
+.wysiwyg-content blockquote h6:last-child {
+  margin-bottom: 0;
+}
+.wysiwyg-content cite {
+  font-style: normal;
+}
+.wysiwyg-content strong,
+.wysiwyg-content b {
+  font-weight: bold;
+}
+.wysiwyg-content em,
+.wysiwyg-content i {
+  font-style: italic;
+}
+.wysiwyg-content del,
+.wysiwyg-content ins {
+  color: inherit;
+}
+.wysiwyg-content figure {
+  margin-right: 0;
+  margin-left: 0;
+}
+.wysiwyg-content figure figcaption {
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: normal;
+}
+.wysiwyg-content iframe {
+  width: 100%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+.wysiwyg-content iframe.instagram-media {
+  width: 50% !important;
+  float: left;
+  margin-right: 1em !important;
 }
 .bg-skyblue {
   background-color: skyblue;
   color: black;
   border-color: skyblue;
 }
-.bg-red {
-  background-color: red;
+.bg-yellow {
+  background-color: yellow;
+  color: black;
+  border-color: yellow;
+}
+.bg-navy {
+  background-color: navy;
   color: white;
-  border-color: red;
+  border-color: navy;
 }
-.bg-brown {
-  background-color: brown;
+.bg-darkred {
+  background-color: darkred;
   color: white;
-  border-color: brown;
-}
-.bg-firebrick {
-  background-color: firebrick;
-  color: white;
-  border-color: firebrick;
-}
-.bg-slateblue {
-  background-color: slateblue;
-  color: white;
-  border-color: slateblue;
-}
-.fg-white {
-  color: white;
-  border-color: white;
-}
-.fg-coral {
-  color: coral;
-  border-color: coral;
-}
-.fg-lavender {
-  color: lavender;
-  border-color: lavender;
+  border-color: darkred;
 }
 .fg-skyblue {
   color: skyblue;
   border-color: skyblue;
 }
-.fg-red {
-  color: red;
-  border-color: red;
+.fg-yellow {
+  color: yellow;
+  border-color: yellow;
 }
-.fg-brown {
-  color: brown;
-  border-color: brown;
+.fg-navy {
+  color: navy;
+  border-color: navy;
 }
-.fg-firebrick {
-  color: firebrick;
-  border-color: firebrick;
-}
-.fg-slateblue {
-  color: slateblue;
-  border-color: slateblue;
-}
-.border-white {
-  border-color: white;
-}
-.border-coral {
-  border-color: coral;
-}
-.border-lavender {
-  border-color: lavender;
+.fg-darkred {
+  color: darkred;
+  border-color: darkred;
 }
 .border-skyblue {
   border-color: skyblue;
 }
-.border-red {
-  border-color: red;
+.border-yellow {
+  border-color: yellow;
 }
-.border-brown {
-  border-color: brown;
+.border-navy {
+  border-color: navy;
 }
-.border-firebrick {
-  border-color: firebrick;
-}
-.border-slateblue {
-  border-color: slateblue;
-}
-.hover-bg-white:hover {
-  background-color: white;
-  border-color: white;
-  color: black;
-}
-.hover-bg-coral:hover {
-  background-color: coral;
-  border-color: coral;
-  color: black;
-}
-.hover-bg-lavender:hover {
-  background-color: lavender;
-  border-color: lavender;
-  color: black;
+.border-darkred {
+  border-color: darkred;
 }
 .hover-bg-skyblue:hover {
   background-color: skyblue;
   border-color: skyblue;
   color: black;
 }
-.hover-bg-red:hover {
-  background-color: red;
-  border-color: red;
+.hover-bg-yellow:hover {
+  background-color: yellow;
+  border-color: yellow;
+  color: black;
+}
+.hover-bg-navy:hover {
+  background-color: navy;
+  border-color: navy;
   color: white;
 }
-.hover-bg-brown:hover {
-  background-color: brown;
-  border-color: brown;
+.hover-bg-darkred:hover {
+  background-color: darkred;
+  border-color: darkred;
   color: white;
-}
-.hover-bg-firebrick:hover {
-  background-color: firebrick;
-  border-color: firebrick;
-  color: white;
-}
-.hover-bg-slateblue:hover {
-  background-color: slateblue;
-  border-color: slateblue;
-  color: white;
-}
-.hover-fg-white:hover {
-  color: white;
-  border-color: white;
-}
-.hover-fg-coral:hover {
-  color: coral;
-  border-color: coral;
-}
-.hover-fg-lavender:hover {
-  color: lavender;
-  border-color: lavender;
 }
 .hover-fg-skyblue:hover {
   color: skyblue;
   border-color: skyblue;
 }
-.hover-fg-red:hover {
-  color: red;
-  border-color: red;
+.hover-fg-yellow:hover {
+  color: yellow;
+  border-color: yellow;
 }
-.hover-fg-brown:hover {
-  color: brown;
-  border-color: brown;
+.hover-fg-navy:hover {
+  color: navy;
+  border-color: navy;
 }
-.hover-fg-firebrick:hover {
-  color: firebrick;
-  border-color: firebrick;
-}
-.hover-fg-slateblue:hover {
-  color: slateblue;
-  border-color: slateblue;
+.hover-fg-darkred:hover {
+  color: darkred;
+  border-color: darkred;
 }
 .btn {
   padding: 10px 20px;
@@ -174,7 +281,7 @@
   text-decoration: none;
   border-width: 1px;
   border-style: solid;
-  border-radius: 30px;
+  border-radius: 0;
   font-family: sans-serif;
   font-size: 1rem;
   cursor: pointer;
@@ -197,117 +304,61 @@
 button.btn {
   background-color: transparent;
 }
-button.btn.bg-white {
-  background-color: white;
-  color: black;
-  border-color: white;
-}
-button.btn.bg-coral {
-  background-color: coral;
-  color: black;
-  border-color: coral;
-}
-button.btn.bg-lavender {
-  background-color: lavender;
-  color: black;
-  border-color: lavender;
-}
 button.btn.bg-skyblue {
   background-color: skyblue;
   color: black;
   border-color: skyblue;
 }
-button.btn.bg-red {
-  background-color: red;
-  color: white;
-  border-color: red;
-}
-button.btn.bg-brown {
-  background-color: brown;
-  color: white;
-  border-color: brown;
-}
-button.btn.bg-firebrick {
-  background-color: firebrick;
-  color: white;
-  border-color: firebrick;
-}
-button.btn.bg-slateblue {
-  background-color: slateblue;
-  color: white;
-  border-color: slateblue;
-}
-button.btn.hover-bg-white:hover {
-  background-color: white;
-  border-color: white;
+button.btn.bg-yellow {
+  background-color: yellow;
   color: black;
+  border-color: yellow;
 }
-button.btn.hover-bg-coral:hover {
-  background-color: coral;
-  border-color: coral;
-  color: black;
+button.btn.bg-navy {
+  background-color: navy;
+  color: white;
+  border-color: navy;
 }
-button.btn.hover-bg-lavender:hover {
-  background-color: lavender;
-  border-color: lavender;
-  color: black;
+button.btn.bg-darkred {
+  background-color: darkred;
+  color: white;
+  border-color: darkred;
 }
 button.btn.hover-bg-skyblue:hover {
   background-color: skyblue;
   border-color: skyblue;
   color: black;
 }
-button.btn.hover-bg-red:hover {
-  background-color: red;
-  border-color: red;
+button.btn.hover-bg-yellow:hover {
+  background-color: yellow;
+  border-color: yellow;
+  color: black;
+}
+button.btn.hover-bg-navy:hover {
+  background-color: navy;
+  border-color: navy;
   color: white;
 }
-button.btn.hover-bg-brown:hover {
-  background-color: brown;
-  border-color: brown;
+button.btn.hover-bg-darkred:hover {
+  background-color: darkred;
+  border-color: darkred;
   color: white;
-}
-button.btn.hover-bg-firebrick:hover {
-  background-color: firebrick;
-  border-color: firebrick;
-  color: white;
-}
-button.btn.hover-bg-slateblue:hover {
-  background-color: slateblue;
-  border-color: slateblue;
-  color: white;
-}
-button.btn.hover-fg-white:hover {
-  color: white;
-  border-color: white;
-}
-button.btn.hover-fg-coral:hover {
-  color: coral;
-  border-color: coral;
-}
-button.btn.hover-fg-lavender:hover {
-  color: lavender;
-  border-color: lavender;
 }
 button.btn.hover-fg-skyblue:hover {
   color: skyblue;
   border-color: skyblue;
 }
-button.btn.hover-fg-red:hover {
-  color: red;
-  border-color: red;
+button.btn.hover-fg-yellow:hover {
+  color: yellow;
+  border-color: yellow;
 }
-button.btn.hover-fg-brown:hover {
-  color: brown;
-  border-color: brown;
+button.btn.hover-fg-navy:hover {
+  color: navy;
+  border-color: navy;
 }
-button.btn.hover-fg-firebrick:hover {
-  color: firebrick;
-  border-color: firebrick;
-}
-button.btn.hover-fg-slateblue:hover {
-  color: slateblue;
-  border-color: slateblue;
+button.btn.hover-fg-darkred:hover {
+  color: darkred;
+  border-color: darkred;
 }
 a.btn-link {
   padding: 10px 0;
