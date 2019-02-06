@@ -1,0 +1,90 @@
+/**
+ * Font-family
+ */
+@ui--typography-font-families: times, arial;
+@ui--typography-font-family: times;
+
+/**
+ * Font-weight
+ */
+@ui--typography-font-weight-lighter: lighter;
+@ui--typography-font-weight-normal: normal;
+@ui--typography-font-weight-bold: bold;
+
+/**
+ * Text font-size
+ */
+@ui--typography-text-font-sizes: {
+  1: 0.8rem;
+  2: 1rem;
+  3: 1.3rem;
+  4: 1.5rem;
+  5: 1.8rem;
+  6: 2rem;
+}
+
+/**
+ * Text line-height
+ */
+@ui--typography-text-line-height: 1.5;
+
+/**
+* Font-weight
+*/
+@typography-font-weights: {
+  lighter: @ui--typography-font-weight-lighter;
+  normal: @ui--typography-font-weight-normal;
+  bold: @ui--typography-font-weight-bold;
+}
+
+/**
+* Text-transform
+*/
+@typography-text-tranforms: {
+  uppercase: uppercase;
+  lowercase: lowercase;
+}
+
+// .mx__text-classes() {
+//   each(@ui--typography-text-font-size {
+//     &.text-@{key} {
+//       font-size: @value;
+//       font-family: @ui--typography-font-family;
+//       font-weight: @ui--typography-font-weight-lighter;
+//       line-height: @ui--typography-text-line-height;
+//   })
+
+//   each(@ {
+//     &.text-@{key} {
+//       background-color: @value;
+//       color: @ui--text-light-color;
+//       border-color: @value;
+//     }
+//   })
+// }
+// .mx__text-classes();
+
+each(@ui--typography-font-families, {
+  .font-family-@{value} {
+    font-family: @value;
+  }
+})
+
+each(@ui--typography-text-font-sizes, {
+  .text-font-size-@{key} {
+    font-size: @value;
+    line-height: @ui--typography-text-line-height;
+  }
+})
+
+each(@typography-font-weights, {
+  .font-weight-@{value} {
+    font-weight: @value;
+  }
+})
+
+each(@typography-text-tranforms, {
+  .text-tranform-@{key} {
+    text-transform: @value;
+  }
+})

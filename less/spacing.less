@@ -23,100 +23,106 @@
 
 @ui--spacing-units-xs: @ui--spacing-units-sm;
 
-.mx__spacing-classes(@units) {
+.mx__spacing-classes(@name, @value) {
+  /**
+   * All sides
+   */
+  .margin-@{name} {
+    margin: @value;
+  }
+  .padding-@{name} {
+    padding: @value;
+  }
+
+  /**
+   * Vertical
+   */
+  .margin-v-@{name} {
+    margin-top: @value;
+    margin-bottom: @value;
+  }
+  .padding-v-@{name} {
+    padding-top: @value;
+    padding-bottom: @value;
+  }
+
+  /**
+   * Horizontal
+   */
+  .margin-h-@{name} {
+    margin-left: @value;
+    margin-right: @value;
+  }
+  .padding-h-@{name} {
+    padding-left: @value;
+    padding-right: @value;
+  }
+  
+  /**
+   * Top
+   */
+  .margin-top-@{name} {
+    margin-top: @value;
+  }
+  .padding-top-@{name} {
+    padding-top: @value;
+  }
+
+  /**
+   * Bottom
+   */
+  .margin-bottom-@{name} {
+    margin-bottom: @value;
+  }
+  .padding-bottom-@{name} {
+    padding-bottom: @value;
+  }
+
+  /**
+   * Left
+   */
+  .margin-left-@{name} {
+    margin-left: @value;
+  }
+  .padding-left-@{name} {
+    padding-left: @value;
+  }
+
+  /**
+   * Right
+   */
+  .margin-right-@{name} {
+    margin-right: @value;
+  }
+  .padding-right-@{name} {
+    padding-right: @value;
+  }
+}
+
+.mx__units-spacing-classes(@units) {
 	each(@units, {
-		/**
-		 * All sides
-		 */
-		.margin-@{key} {
-			margin: @value;
-		}
-		.padding-@{key} {
-			padding: @value;
-		}
-
-		/**
-		 * Vertical
-		 */
-		.margin-v-@{key} {
-			margin-top: @value;
-			margin-bottom: @value;
-		}
-		.padding-v-@{key} {
-			padding-top: @value;
-			padding-bottom: @value;
-		}
-
-		/**
-		 * Horizontal
-		 */
-		.margin-h-@{key} {
-			margin-left: @value;
-			margin-right: @value;
-		}
-		.padding-h-@{key} {
-			padding-left: @value;
-			padding-right: @value;
-		}
-		
-		/**
-		 * Top
-		 */
-		.margin-top-@{key} {
-			margin-top: @value;
-		}
-		.padding-top-@{key} {
-			padding-top: @value;
-		}
-
-		/**
-		 * Bottom
-		 */
-		.margin-bottom-@{key} {
-			margin-bottom: @value;
-		}
-		.padding-bottom-@{key} {
-			padding-bottom: @value;
-		}
-
-		/**
-		 * Left
-		 */
-		.margin-left-@{key} {
-			margin-left: @value;
-		}
-		.padding-left-@{key} {
-			padding-left: @value;
-		}
-
-		/**
-		 * Right
-		 */
-		.margin-right-@{key} {
-			margin-right: @value;
-		}
-		.padding-right-@{key} {
-			padding-right: @value;
-		}
+    .mx__spacing-classes(@key, @value);
 	});
 }
 
+.mx__spacing-classes(0, 0px);
+
 @media (min-width: @ui--xs-min-width) and (max-width: @ui--xs-max-width) {
-	.mx__spacing-classes(@ui--spacing-units-xs);
+	.mx__units-spacing-classes(@ui--spacing-units-xs);
 }
 
 @media (min-width: @ui--sm-min-width) and (max-width: @ui--sm-max-width) {
-	.mx__spacing-classes(@ui--spacing-units-sm);
+	.mx__units-spacing-classes(@ui--spacing-units-sm);
 }
 
 @media (min-width: @ui--md-min-width) and (max-width: @ui--md-max-width) {
-	.mx__spacing-classes(@ui--spacing-units-md);
+	.mx__units-spacing-classes(@ui--spacing-units-md);
 }
 
 @media (min-width: @ui--lg-min-width) and (max-width: @ui--lg-max-width) {
-	.mx__spacing-classes(@ui--spacing-units-lg);
+	.mx__units-spacing-classes(@ui--spacing-units-lg);
 }
 
 @media (min-width: @ui--xl-min-width) {
-	.mx__spacing-classes(@ui--spacing-units-xl);
+	.mx__units-spacing-classes(@ui--spacing-units-xl);
 }

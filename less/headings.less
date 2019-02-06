@@ -1,0 +1,96 @@
+@import 'responsive.less';
+
+@ui--headings-font-family-h1: serif;
+@ui--headings-font-family-h2: @ui--headings-font-family-h1;
+@ui--headings-font-family-h3: @ui--headings-font-family-h2;
+@ui--headings-font-family-h4: @ui--headings-font-family-h3;
+@ui--headings-font-family-h5: @ui--headings-font-family-h4;
+@ui--headings-font-family-h6: @ui--headings-font-family-h5;
+
+@ui--headings-font-weight-h1: bold;
+@ui--headings-font-weight-h2: @ui--headings-font-weight-h1;
+@ui--headings-font-weight-h3: @ui--headings-font-weight-h2;
+@ui--headings-font-weight-h4: @ui--headings-font-weight-h3;
+@ui--headings-font-weight-h5: @ui--headings-font-weight-h4;
+@ui--headings-font-weight-h6: @ui--headings-font-weight-h5;
+
+@ui--headings-font-sizes-xl: {
+  h1: 5rem;
+  h2: 4rem;
+  h3: 3.5rem;
+  h4: 3rem;
+  h5: 2.5rem;
+  h6: 2rem;
+}
+
+@ui--headings-font-sizes-lg: @ui--headings-font-sizes-xl;
+@ui--headings-font-sizes-md: @ui--headings-font-sizes-lg;
+
+@ui--headings-font-sizes-sm: {
+  h1: 3rem;
+  h2: 2.5rem;
+  h3: 2.1rem;
+  h4: 1.8rem;
+  h5: 1.5rem;
+  h6: 1.3rem;
+}
+
+@ui--headings-font-sizes-xs: @ui--headings-font-sizes-sm;
+
+.mx__headings-classes(@units) {
+  each(@units, {
+    .@{key} {
+      font-size: @value;
+    }
+  });  
+}
+
+.h1 {
+  font-weight: @ui--headings-font-weight-h1;
+  font-family: @ui--headings-font-family-h1;
+}
+
+.h2 {
+  font-weight: @ui--headings-font-weight-h2;
+  font-family: @ui--headings-font-family-h2;
+}
+
+.h3 {
+  font-weight: @ui--headings-font-weight-h3;
+  font-family: @ui--headings-font-family-h3;
+}
+
+.h4 {
+  font-weight: @ui--headings-font-weight-h4;
+  font-family: @ui--headings-font-family-h4;
+}
+
+.h5 {
+  font-weight: @ui--headings-font-weight-h5;
+  font-family: @ui--headings-font-family-h5;
+}
+
+.h6 {
+  font-weight: @ui--headings-font-weight-h6;
+  font-family: @ui--headings-font-family-h6;
+}
+
+@media (min-width: @ui--xs-min-width) and (max-width: @ui--xs-max-width) {
+  .mx__headings-classes(@ui--headings-font-sizes-xs);
+}
+
+@media (min-width: @ui--sm-min-width) and (max-width: @ui--sm-max-width) {
+  .mx__headings-classes(@ui--headings-font-sizes-sm);
+}
+
+@media (min-width: @ui--md-min-width) and (max-width: @ui--md-max-width) {
+  .mx__headings-classes(@ui--headings-font-sizes-md);
+}
+
+@media (min-width: @ui--lg-min-width) and (max-width: @ui--lg-max-width) {
+  .mx__headings-classes(@ui--headings-font-sizes-lg);
+}
+
+@media (min-width: @ui--xl-min-width) {
+  .mx__headings-classes(@ui--headings-font-sizes-xl);
+}
