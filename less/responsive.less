@@ -11,3 +11,33 @@
 @ui--lg-max-width: 1400px;
 
 @ui--xl-min-width: @ui--lg-max-width + 1px;
+
+.mx__media-xs(@styles) {
+  @media (max-width: @ui--xs-max-width) {
+    @styles();
+  }
+}
+
+.mx__media-sm(@styles) {
+  @media (min-width: @ui--sm-min-width) and (max-width: @ui--sm-max-width) {
+    @styles();
+  }
+}
+
+.mx__media-md(@styles) {
+  @media (min-width: @ui--md-min-width) and (max-width: @ui--md-max-width) {
+    @styles();
+  }
+}
+
+.mx__media-lg(@styles) {
+  @media (min-width: @ui--lg-min-width) and (max-width: @ui--lg-max-width) {
+    @styles();
+  }
+}
+
+.mx__media-xl(@styles) {
+  @media (min-width: @ui--xl-min-width) {
+    @styles();
+  }
+}

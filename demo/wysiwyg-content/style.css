@@ -19,6 +19,13 @@
 /**
  * Floated
  */
+/**
+ * Generates heading selectors given a set of font size units
+ */
+/**
+ * Generates selectors for spacing between elements
+ * It is repeated for the main tree and for the blockquote tree
+ */
 .wysiwyg-content {
   font-size: 1rem;
   line-height: 1.5;
@@ -45,13 +52,41 @@
   color: #0000cc;
 }
 .wysiwyg-content > * {
-  margin-top: 0;
+  margin-top: 1em;
   margin-bottom: 1em;
 }
 .wysiwyg-content > *:first-child {
   margin-top: 0;
 }
 .wysiwyg-content > *:last-child {
+  margin-bottom: 0;
+}
+.wysiwyg-content h1,
+.wysiwyg-content h2,
+.wysiwyg-content h3,
+.wysiwyg-content h4,
+.wysiwyg-content h5,
+.wysiwyg-content h6 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+.wysiwyg-content h1:first-child,
+.wysiwyg-content h2:first-child,
+.wysiwyg-content h3:first-child,
+.wysiwyg-content h4:first-child,
+.wysiwyg-content h5:first-child,
+.wysiwyg-content h6:first-child {
+  margin-top: 0;
+}
+.wysiwyg-content h1:last-child,
+.wysiwyg-content h2:last-child,
+.wysiwyg-content h3:last-child,
+.wysiwyg-content h4:last-child,
+.wysiwyg-content h5:last-child,
+.wysiwyg-content h6:last-child {
+  margin-bottom: 0;
+}
+.wysiwyg-content h6 {
   margin-bottom: 0;
 }
 .wysiwyg-content > *.float-left {
@@ -72,44 +107,107 @@
 .wysiwyg-content h6 {
   font-weight: bold;
   font-family: serif;
-  margin-top: 2em;
-  margin-bottom: 1em;
   line-height: 1.3;
 }
-.wysiwyg-content h1:first-child,
-.wysiwyg-content h2:first-child,
-.wysiwyg-content h3:first-child,
-.wysiwyg-content h4:first-child,
-.wysiwyg-content h5:first-child,
-.wysiwyg-content h6:first-child {
-  margin-top: 0;
+@media (max-width: 576px) {
+  .wysiwyg-content h1 {
+    font-size: 3rem;
+  }
+  .wysiwyg-content h2 {
+    font-size: 2rem;
+  }
+  .wysiwyg-content h3 {
+    font-size: 1.5rem;
+  }
+  .wysiwyg-content h4 {
+    font-size: 1.2rem;
+  }
+  .wysiwyg-content h5 {
+    font-size: 1rem;
+  }
+  .wysiwyg-content h6 {
+    font-size: 1rem;
+  }
 }
-.wysiwyg-content h1:last-child,
-.wysiwyg-content h2:last-child,
-.wysiwyg-content h3:last-child,
-.wysiwyg-content h4:last-child,
-.wysiwyg-content h5:last-child,
-.wysiwyg-content h6:last-child {
-  margin-bottom: 0;
+@media (min-width: 577px) and (max-width: 768px) {
+  .wysiwyg-content h1 {
+    font-size: 3rem;
+  }
+  .wysiwyg-content h2 {
+    font-size: 2rem;
+  }
+  .wysiwyg-content h3 {
+    font-size: 1.5rem;
+  }
+  .wysiwyg-content h4 {
+    font-size: 1.2rem;
+  }
+  .wysiwyg-content h5 {
+    font-size: 1rem;
+  }
+  .wysiwyg-content h6 {
+    font-size: 1rem;
+  }
 }
-.wysiwyg-content h1 {
-  font-size: 3rem;
+@media (min-width: 769px) and (max-width: 992px) {
+  .wysiwyg-content h1 {
+    font-size: 3rem;
+  }
+  .wysiwyg-content h2 {
+    font-size: 2rem;
+  }
+  .wysiwyg-content h3 {
+    font-size: 1.5rem;
+  }
+  .wysiwyg-content h4 {
+    font-size: 1.2rem;
+  }
+  .wysiwyg-content h5 {
+    font-size: 1rem;
+  }
+  .wysiwyg-content h6 {
+    font-size: 1rem;
+  }
 }
-.wysiwyg-content h2 {
-  font-size: 2rem;
+@media (min-width: 993px) and (max-width: 1400px) {
+  .wysiwyg-content h1 {
+    font-size: 3rem;
+  }
+  .wysiwyg-content h2 {
+    font-size: 2rem;
+  }
+  .wysiwyg-content h3 {
+    font-size: 1.5rem;
+  }
+  .wysiwyg-content h4 {
+    font-size: 1.2rem;
+  }
+  .wysiwyg-content h5 {
+    font-size: 1rem;
+  }
+  .wysiwyg-content h6 {
+    font-size: 1rem;
+  }
 }
-.wysiwyg-content h3 {
-  font-size: 1.5rem;
-}
-.wysiwyg-content h4 {
-  font-size: 1.2rem;
-}
-.wysiwyg-content h5 {
-  font-size: 1rem;
-}
-.wysiwyg-content h6 {
-  font-size: 1rem;
-  margin-bottom: 0;
+@media (min-width: 1401px) {
+  .wysiwyg-content h1 {
+    font-size: 3rem;
+  }
+  .wysiwyg-content h2 {
+    font-size: 2rem;
+  }
+  .wysiwyg-content h3 {
+    font-size: 1.5rem;
+  }
+  .wysiwyg-content h4 {
+    font-size: 1.2rem;
+  }
+  .wysiwyg-content h5 {
+    font-size: 1rem;
+  }
+  .wysiwyg-content h6 {
+    font-size: 1rem;
+  }
 }
 .wysiwyg-content img {
   max-width: 100%;
@@ -135,7 +233,6 @@
 .wysiwyg-content blockquote h4,
 .wysiwyg-content blockquote h5,
 .wysiwyg-content blockquote h6 {
-  font-weight: bold;
   margin-top: 2em;
   margin-bottom: 1em;
 }
@@ -153,6 +250,9 @@
 .wysiwyg-content blockquote h4:last-child,
 .wysiwyg-content blockquote h5:last-child,
 .wysiwyg-content blockquote h6:last-child {
+  margin-bottom: 0;
+}
+.wysiwyg-content blockquote h6 {
   margin-bottom: 0;
 }
 .wysiwyg-content cite {
@@ -183,11 +283,6 @@
   width: 100%;
   margin-top: 2em;
   margin-bottom: 2em;
-}
-.wysiwyg-content iframe.instagram-media {
-  width: 50% !important;
-  float: left;
-  margin-right: 1em !important;
 }
 .bg-skyblue {
   background-color: skyblue;

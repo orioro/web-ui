@@ -1,3 +1,4 @@
+@import 'responsive.less';
 /**
  * Content
  */
@@ -10,12 +11,20 @@
 /**
  * Heading
  */
-@ui--wysiwyg-heading-font-size-1: 3rem;
-@ui--wysiwyg-heading-font-size-2: 2rem;
-@ui--wysiwyg-heading-font-size-3: 1.5rem;
-@ui--wysiwyg-heading-font-size-4: 1.2rem;
-@ui--wysiwyg-heading-font-size-5: 1rem;
-@ui--wysiwyg-heading-font-size-6: @ui--wysiwyg-heading-font-size-5;
+@ui--wysiwyg-headings-font-sizes-xl: {
+  1: 3rem;
+  2: 2rem;
+  3: 1.5rem;
+  4: 1.2rem;
+  5: 1rem;
+  6: 1rem;
+}
+
+@ui--wysiwyg-headings-font-sizes-lg: @ui--wysiwyg-headings-font-sizes-xl;
+@ui--wysiwyg-headings-font-sizes-md: @ui--wysiwyg-headings-font-sizes-lg;
+@ui--wysiwyg-headings-font-sizes-sm: @ui--wysiwyg-headings-font-sizes-md;
+@ui--wysiwyg-headings-font-sizes-xs: @ui--wysiwyg-headings-font-sizes-sm;
+
 @ui--wysiwyg-heading-margin-bottom: 1em;
 @ui--wysiwyg-heading-margin-top: 2em;
 @ui--wysiwyg-heading-font-weight: bold;
@@ -54,6 +63,53 @@
 @ui--wysiwyg-floated-content-width: 50%;
 @ui--wysiwyg-floated-content-side-margin: 1em;
 
+/**
+ * Generates heading selectors given a set of font size units
+ */
+.mx__wysiwyg-heading-selectors(@units) {
+  each(@units, {
+    h@{key} {
+      font-size: @value;
+    }
+  });  
+}
+
+/**
+ * Generates selectors for spacing between elements
+ * It is repeated for the main tree and for the blockquote tree
+ */
+.mx__wysiwyg-children-margins() {
+  > * {
+    margin-top: @ui--wysiwyg-content-vertical-margin;
+    margin-bottom: @ui--wysiwyg-content-vertical-margin;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top:  @ui--wysiwyg-heading-margin-top;
+    margin-bottom: @ui--wysiwyg-heading-margin-bottom;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h6 {
+    margin-bottom: 0;
+  }
+}
+
 .wysiwyg-content {
   font-size: @ui--wysiwyg-content-font-size;
   line-height: @ui--wysiwyg-content-line-height;
@@ -82,24 +138,14 @@
     }
   }
 
+  .mx__wysiwyg-children-margins();
+
   > * {
-    margin-top: 0;
-    margin-bottom: @ui--wysiwyg-content-vertical-margin;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-
     &.float-left {
       float: left;
       margin-right: @ui--wysiwyg-floated-content-side-margin;
       width: @ui--wysiwyg-floated-content-width;
     }
-
     &.float-right {
       float: right;
       margin-left: @ui--wysiwyg-floated-content-side-margin;
@@ -113,44 +159,14 @@
   h1, h2, h3, h4, h5, h6 {
     font-weight: @ui--wysiwyg-heading-font-weight;
     font-family: @ui--wysiwyg-heading-font-family;
-    margin-top:  @ui--wysiwyg-heading-margin-top;
-    margin-bottom: @ui--wysiwyg-heading-margin-bottom;
     line-height: @ui--wysiwyg-heading-line-height;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
 
-  h1 {
-    font-size: @ui--wysiwyg-heading-font-size-1;
-  }
-
-  h2 {
-    font-size: @ui--wysiwyg-heading-font-size-2;
-  }
-
-  h3 {
-    font-size: @ui--wysiwyg-heading-font-size-3;
-  }
-
-  h4 {
-    font-size: @ui--wysiwyg-heading-font-size-4;
-  }
-
-  h5 {
-    font-size: @ui--wysiwyg-heading-font-size-5;
-  }
-
-  h6 {
-    font-size: @ui--wysiwyg-heading-font-size-6;
-    margin-bottom: 0;
-  }
-
+  .mx__media-xs(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-xs));
+  .mx__media-sm(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-sm));
+  .mx__media-md(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-md));
+  .mx__media-lg(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-lg));
+  .mx__media-xl(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-xl));
 
   /**
    * Content
@@ -164,34 +180,7 @@
 
   blockquote {
     margin: @ui--wysiwyg-blockquote-vertical-margin @ui--wysiwyg-blockquote-horizontal-margin;
-
-    > * {
-      margin-top: @ui--wysiwyg-content-vertical-margin;
-      margin-bottom: @ui--wysiwyg-content-vertical-margin;
-
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: @ui--wysiwyg-heading-font-weight;
-      font-weight: @ui--wysiwyg-heading-font-weight;
-      margin-top:  @ui--wysiwyg-heading-margin-top;
-      margin-bottom: @ui--wysiwyg-heading-margin-bottom;
-    
-      &:first-child {
-        margin-top: 0;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
+    .mx__wysiwyg-children-margins();
   }
 
   cite {
@@ -225,11 +214,5 @@
     width: 100%;
     margin-top: @ui--wysiwyg-content-special-content-vertical-margin;
     margin-bottom: @ui--wysiwyg-content-special-content-vertical-margin;
-
-    &.instagram-media {
-      width: 50% !important;
-      float: left;
-      margin-right: 1em !important;
-    }
   }
 }
