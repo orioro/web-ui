@@ -1,0 +1,77 @@
+@import '../responsive.less';
+
+/**
+ * Padding top
+ */
+.mx__spacing-p-top(@size) {
+  .mx__media-responsive(padding-top, {
+    xl: @ui-private--spacing-units-xl[@@size];
+    lg: @ui-private--spacing-units-lg[@@size];
+    md: @ui-private--spacing-units-md[@@size];
+    sm: @ui-private--spacing-units-sm[@@size];
+    xs: @ui-private--spacing-units-xs[@@size];
+  });
+}
+
+/**
+ * Padding bottom
+ */
+.mx__spacing-p-bottom(@size) {
+  .mx__media-responsive(padding-bottom, {
+    xl: @ui-private--spacing-units-xl[@@size];
+    lg: @ui-private--spacing-units-lg[@@size];
+    md: @ui-private--spacing-units-md[@@size];
+    sm: @ui-private--spacing-units-sm[@@size];
+    xs: @ui-private--spacing-units-xs[@@size];
+  });
+}
+
+/**
+ * Padding left
+ */
+.mx__spacing-p-left(@size) {
+  .mx__media-responsive(padding-left, {
+    xl: @ui-private--spacing-units-xl[@@size];
+    lg: @ui-private--spacing-units-lg[@@size];
+    md: @ui-private--spacing-units-md[@@size];
+    sm: @ui-private--spacing-units-sm[@@size];
+    xs: @ui-private--spacing-units-xs[@@size];
+  });
+}
+
+/**
+ * Padding right
+ */
+.mx__spacing-p-right(@size) {
+  .mx__media-responsive(padding-right, {
+    xl: @ui-private--spacing-units-xl[@@size];
+    lg: @ui-private--spacing-units-lg[@@size];
+    md: @ui-private--spacing-units-md[@@size];
+    sm: @ui-private--spacing-units-sm[@@size];
+    xs: @ui-private--spacing-units-xs[@@size];
+  });
+}
+
+/**
+ * Padding horizontal
+ */
+.mx__spacing-p-horizontal(@size) {
+  .mx__spacing-p-left(@size);
+  .mx__spacing-p-right(@size);
+}
+
+/**
+ * Padding vertical
+ */
+.mx__spacing-p-vertical(@size) {
+  .mx__spacing-p-top(@size);
+  .mx__spacing-p-bottom(@size);
+}
+
+/**
+ * Padding
+ */
+.mx__spacing-p(@size) {
+  .mx__spacing-p-vertical(@size);
+  .mx__spacing-p-horizontal(@size);
+}

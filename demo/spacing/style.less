@@ -1,1 +1,57 @@
 @import '../../less/spacing.less';
+
+@ui--spacing-units-xl: {
+  1: 200px;
+  2: 160px;
+  3: 60px;
+  4: 40px;
+  5: 30px;
+  6: 10px;
+}
+@ui--spacing-units-lg: @ui--spacing-units-xl;
+@ui--spacing-units-md: @ui--spacing-units-lg;
+@ui--spacing-units-sm: {
+  1: 120px;
+  2: 80px;
+  3: 30px;
+  4: 30px;
+  5: 20px;
+  6: 5px;
+}
+@ui--spacing-units-xs: @ui--spacing-units-sm;
+
+.test-element {
+	&::before {
+		content: 'test element';
+	}
+}
+
+#element-1 {
+	&::before {
+		content: 'm-top(1) p(2)';
+	}
+	background-color: skyblue;
+
+	.mx__spacing-m-top(1);
+	.mx__spacing-p(2);
+}
+
+#element-2 {
+	&::before {
+		content: 'm(4) p-horizontal(3)';
+	}
+	background-color: yellow;
+
+	.mx__spacing-m(4);
+	.mx__spacing-p-horizontal(3);
+}
+
+#element-3 {
+	&::before {
+		content: 'm-vertical(5) p-vertical(6)';
+	}
+	background-color: darkred;
+
+	.mx__spacing-m-vertical(5);
+	.mx__spacing-p-vertical(6);
+}

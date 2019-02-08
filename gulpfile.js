@@ -5,7 +5,7 @@ const browserSync = require('browser-sync').create()
 const { series } = gulp
 
 const compileLess = () => {
-  return gulp.src('demo/**/style.less')
+  return gulp.src('demo/**/*.less')
     .pipe(less())
     .pipe(gulp.dest('demo'))
     .pipe(browserSync.stream())
