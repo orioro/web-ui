@@ -1,4 +1,22 @@
 /**
+ * Extral small: xs
+ */
+/**
+ * Small: sm
+ */
+/**
+ * Medium: md
+ */
+/**
+ * Large: lg
+ */
+/**
+ * Extra large: xl
+ */
+/**
+ * 
+ */
+/**
  * Content
  */
 /**
@@ -109,7 +127,7 @@
   font-family: serif;
   line-height: 1.3;
 }
-@media (max-width: 576px) {
+@media (max-width: 575px) {
   .wysiwyg-content h1 {
     font-size: 3rem;
   }
@@ -129,7 +147,7 @@
     font-size: 1rem;
   }
 }
-@media (min-width: 577px) and (max-width: 768px) {
+@media (min-width: 576px) and (max-width: 767px) {
   .wysiwyg-content h1 {
     font-size: 3rem;
   }
@@ -149,7 +167,7 @@
     font-size: 1rem;
   }
 }
-@media (min-width: 769px) and (max-width: 992px) {
+@media (min-width: 768px) and (max-width: 991px) {
   .wysiwyg-content h1 {
     font-size: 3rem;
   }
@@ -169,7 +187,7 @@
     font-size: 1rem;
   }
 }
-@media (min-width: 993px) and (max-width: 1400px) {
+@media (min-width: 992px) and (max-width: 1399px) {
   .wysiwyg-content h1 {
     font-size: 3rem;
   }
@@ -189,7 +207,7 @@
     font-size: 1rem;
   }
 }
-@media (min-width: 1401px) {
+@media (min-width: 1400px) {
   .wysiwyg-content h1 {
     font-size: 3rem;
   }

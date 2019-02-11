@@ -1,14 +1,37 @@
 @import '../../less/base.less';
-@import '../../less/headings.less';
 @import '../../less/typography.less';
 @import '../../less/spacing.less';
+@import '../../less/headings.less';
 
 body {
   background-color: turquoise;
+}
+
+@ui--typography-font-families: {
+  serif: serif;
+  sans-serif: sans-serif;
+  arial: Arial;
+  times: 'Times New Roman';
 }
 
 #content {
   max-width: 800px;
   margin: 0 auto;
   background-color: white
+}
+
+.demo-component {
+	display: flex;
+
+	> .demo-component__title {
+		.mx__heading-font-size(1);
+	}
+
+	> div {
+		.mx__typography-font-size(3);
+	}
+
+	> textarea {
+		.mx__typography-font-size(1);
+	}
 }

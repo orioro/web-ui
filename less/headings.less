@@ -1,20 +1,20 @@
 @import 'responsive.less';
 
-@ui--headings-font-family-h1: serif;
-@ui--headings-font-family-h2: @ui--headings-font-family-h1;
-@ui--headings-font-family-h3: @ui--headings-font-family-h2;
-@ui--headings-font-family-h4: @ui--headings-font-family-h3;
-@ui--headings-font-family-h5: @ui--headings-font-family-h4;
-@ui--headings-font-family-h6: @ui--headings-font-family-h5;
+@ui--heading-font-family-h1: serif;
+@ui--heading-font-family-h2: @ui--heading-font-family-h1;
+@ui--heading-font-family-h3: @ui--heading-font-family-h2;
+@ui--heading-font-family-h4: @ui--heading-font-family-h3;
+@ui--heading-font-family-h5: @ui--heading-font-family-h4;
+@ui--heading-font-family-h6: @ui--heading-font-family-h5;
 
-@ui--headings-font-weight-h1: bold;
-@ui--headings-font-weight-h2: @ui--headings-font-weight-h1;
-@ui--headings-font-weight-h3: @ui--headings-font-weight-h2;
-@ui--headings-font-weight-h4: @ui--headings-font-weight-h3;
-@ui--headings-font-weight-h5: @ui--headings-font-weight-h4;
-@ui--headings-font-weight-h6: @ui--headings-font-weight-h5;
+@ui--heading-font-weight-h1: bold;
+@ui--heading-font-weight-h2: @ui--heading-font-weight-h1;
+@ui--heading-font-weight-h3: @ui--heading-font-weight-h2;
+@ui--heading-font-weight-h4: @ui--heading-font-weight-h3;
+@ui--heading-font-weight-h5: @ui--heading-font-weight-h4;
+@ui--heading-font-weight-h6: @ui--heading-font-weight-h5;
 
-@ui--headings-font-sizes-xl: {
+@ui--heading-font-sizes-xl: {
   1: 5rem;
   2: 4rem;
   3: 3.5rem;
@@ -22,11 +22,9 @@
   5: 2.5rem;
   6: 2rem;
 }
-
-@ui--headings-font-sizes-lg: @ui--headings-font-sizes-xl;
-@ui--headings-font-sizes-md: @ui--headings-font-sizes-lg;
-
-@ui--headings-font-sizes-sm: {
+@ui--heading-font-sizes-lg: @ui--heading-font-sizes-xl;
+@ui--heading-font-sizes-md: @ui--heading-font-sizes-lg;
+@ui--heading-font-sizes-sm: {
   1: 3rem;
   2: 2.5rem;
   3: 2.1rem;
@@ -34,10 +32,54 @@
   5: 1.5rem;
   6: 1.3rem;
 }
+@ui--heading-font-sizes-xs: @ui--heading-font-sizes-sm;
 
-@ui--headings-font-sizes-xs: @ui--headings-font-sizes-sm;
+/**
+ * Transitional variables
+ * They are only used for enabling the mixin system
+ */
+@ui-private--heading-font-sizes-xl: {
+  @1: @ui--heading-font-sizes-xl[1];
+  @2: @ui--heading-font-sizes-xl[2];
+  @3: @ui--heading-font-sizes-xl[3];
+  @4: @ui--heading-font-sizes-xl[4];
+  @5: @ui--heading-font-sizes-xl[5];
+  @6: @ui--heading-font-sizes-xl[6];
+}
+@ui-private--heading-font-sizes-lg: {
+  @1: @ui--heading-font-sizes-lg[1];
+  @2: @ui--heading-font-sizes-lg[2];
+  @3: @ui--heading-font-sizes-lg[3];
+  @4: @ui--heading-font-sizes-lg[4];
+  @5: @ui--heading-font-sizes-lg[5];
+  @6: @ui--heading-font-sizes-lg[6];
+}
+@ui-private--heading-font-sizes-md: {
+  @1: @ui--heading-font-sizes-md[1];
+  @2: @ui--heading-font-sizes-md[2];
+  @3: @ui--heading-font-sizes-md[3];
+  @4: @ui--heading-font-sizes-md[4];
+  @5: @ui--heading-font-sizes-md[5];
+  @6: @ui--heading-font-sizes-md[6];
+}
+@ui-private--heading-font-sizes-sm: {
+  @1: @ui--heading-font-sizes-sm[1];
+  @2: @ui--heading-font-sizes-sm[2];
+  @3: @ui--heading-font-sizes-sm[3];
+  @4: @ui--heading-font-sizes-sm[4];
+  @5: @ui--heading-font-sizes-sm[5];
+  @6: @ui--heading-font-sizes-sm[6];
+}
+@ui-private--heading-font-sizes-xs: {
+  @1: @ui--heading-font-sizes-xs[1];
+  @2: @ui--heading-font-sizes-xs[2];
+  @3: @ui--heading-font-sizes-xs[3];
+  @4: @ui--heading-font-sizes-xs[4];
+  @5: @ui--heading-font-sizes-xs[5];
+  @6: @ui--heading-font-sizes-xs[6];
+}
 
-.mx__headings-classes(@units) {
+.mx__heading-classes(@units) {
   each(@units, {
     .h@{key} {
       font-size: @value;
@@ -45,38 +87,48 @@
   });  
 }
 
+.mx__heading-font-size(@size) {
+  .mx__media-responsive(font-size, {
+    xl: @ui-private--heading-font-sizes-xl[@@size];
+    lg: @ui-private--heading-font-sizes-lg[@@size];
+    md: @ui-private--heading-font-sizes-md[@@size];
+    sm: @ui-private--heading-font-sizes-sm[@@size];
+    xs: @ui-private--heading-font-sizes-xs[@@size];
+  });
+}
+
 .h1 {
-  font-weight: @ui--headings-font-weight-h1;
-  font-family: @ui--headings-font-family-h1;
+  font-weight: @ui--heading-font-weight-h1;
+  font-family: @ui--heading-font-family-h1;
 }
 
 .h2 {
-  font-weight: @ui--headings-font-weight-h2;
-  font-family: @ui--headings-font-family-h2;
+  font-weight: @ui--heading-font-weight-h2;
+  font-family: @ui--heading-font-family-h2;
 }
 
 .h3 {
-  font-weight: @ui--headings-font-weight-h3;
-  font-family: @ui--headings-font-family-h3;
+  font-weight: @ui--heading-font-weight-h3;
+  font-family: @ui--heading-font-family-h3;
 }
 
 .h4 {
-  font-weight: @ui--headings-font-weight-h4;
-  font-family: @ui--headings-font-family-h4;
+  font-weight: @ui--heading-font-weight-h4;
+  font-family: @ui--heading-font-family-h4;
 }
 
 .h5 {
-  font-weight: @ui--headings-font-weight-h5;
-  font-family: @ui--headings-font-family-h5;
+  font-weight: @ui--heading-font-weight-h5;
+  font-family: @ui--heading-font-family-h5;
 }
 
 .h6 {
-  font-weight: @ui--headings-font-weight-h6;
-  font-family: @ui--headings-font-family-h6;
+  font-weight: @ui--heading-font-weight-h6;
+  font-family: @ui--heading-font-family-h6;
 }
 
-.mx__media-xs(.mx__headings-classes(@ui--headings-font-sizes-xs));
-.mx__media-sm(.mx__headings-classes(@ui--headings-font-sizes-sm));
-.mx__media-md(.mx__headings-classes(@ui--headings-font-sizes-md));
-.mx__media-lg(.mx__headings-classes(@ui--headings-font-sizes-lg));
-.mx__media-xl(.mx__headings-classes(@ui--headings-font-sizes-xl));
+.mx__media-xs(.mx__heading-classes(@ui--heading-font-sizes-xs));
+.mx__media-sm(.mx__heading-classes(@ui--heading-font-sizes-sm));
+.mx__media-md(.mx__heading-classes(@ui--heading-font-sizes-md));
+.mx__media-lg(.mx__heading-classes(@ui--heading-font-sizes-lg));
+.mx__media-xl(.mx__heading-classes(@ui--heading-font-sizes-xl));
