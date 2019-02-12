@@ -50,6 +50,10 @@
 		margin-left: (100% / @total-column-count) * @remaining-column-count;
 	}
 
+	.order-@{remaining-column-count} {
+		order: @remaining-column-count;
+	}
+
 	/**
 	 * Small
 	 */
@@ -62,6 +66,10 @@
 
 		.offset-sm-@{remaining-column-count} {
 			margin-left: (100% / @total-column-count) * @remaining-column-count;
+		}
+
+		.order-sm-@{remaining-column-count} {
+			order: @remaining-column-count;
 		}
 	});
 
@@ -78,6 +86,10 @@
 		.offset-md-@{remaining-column-count} {
 			margin-left: (100% / @total-column-count) * @remaining-column-count;
 		}
+
+		.order-md-@{remaining-column-count} {
+			order: @remaining-column-count;
+		}
 	});
 
 	/**
@@ -93,6 +105,10 @@
 		.offset-lg-@{remaining-column-count} {
 			margin-left: (100% / @total-column-count) * @remaining-column-count;
 		}
+
+		.order-lg-@{remaining-column-count} {
+			order: @remaining-column-count;
+		}
 	});
 
 	/**
@@ -107,6 +123,10 @@
 
 		.offset-xl-@{remaining-column-count} {
 			margin-left: (100% / @total-column-count) * @remaining-column-count;
+		}
+
+		.order-xl-@{remaining-column-count} {
+			order: @remaining-column-count;
 		}
 	});
 }
