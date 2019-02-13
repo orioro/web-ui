@@ -30,6 +30,11 @@
   border-style: solid;
   border-radius: @ui--btn-border-radius;
   font-family: sans-serif;
+  cursor: pointer;
+  
+  transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
+              color @ui--btn-transition-duration @ui--btn-transition-timing-function,
+              border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;
 
   .mx__media-responsive(font-size, {
     xl: @ui--btn-font-size-xl;
@@ -38,12 +43,6 @@
     sm: @ui--btn-font-size-sm;
     xs: @ui--btn-font-size-xs;
   });
-
-  cursor: pointer;
-
-  transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
-              color @ui--btn-transition-duration @ui--btn-transition-timing-function,
-              border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;
 
   > svg {
     height: 1em;
@@ -83,6 +82,7 @@ button.btn {
 
   display: inline-flex;
   text-decoration: none;
+  cursor: pointer;
 
   transition: color @ui--btn-transition-duration @ui--btn-transition-timing-function;
   
