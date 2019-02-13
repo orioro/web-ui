@@ -309,27 +309,28 @@ button.btn.hover-fg-slateblue:hover {
   color: slateblue;
   border-color: slateblue;
 }
-a.btn-link {
+.btn-link {
   padding: 10px 0;
+  border: none;
   display: inline-flex;
   text-decoration: none;
   transition: color 0.3s ease;
 }
-a.btn-link:hover {
+.btn-link:hover {
   text-decoration: underline;
 }
-a.btn-link > svg {
+.btn-link > svg {
   height: 1em;
   width: auto;
   color: currentColor;
 }
-a.btn-link.btn-link--icon-right > svg {
+.btn-link.btn-link--icon-right > svg {
   margin-left: 10px;
 }
-a.btn-link.btn-link--icon-left > svg {
+.btn-link.btn-link--icon-left > svg {
   margin-right: 10px;
 }
-a.btn-link.btn-link--icon-only {
+.btn-link.btn-link--icon-only {
   padding: 10px;
 }
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
