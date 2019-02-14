@@ -54,6 +54,15 @@
 		order: @remaining-column-count;
 	}
 
+	.col-sm-@{remaining-column-count},
+	.col-md-@{remaining-column-count},
+	.col-lg-@{remaining-column-count},
+	.col-xl-@{remaining-column-count} {
+		width: 100%;
+		padding-left: @ui--grid-horizontal-gutter / 2;
+		padding-right: @ui--grid-horizontal-gutter / 2;
+	}
+
 	/**
 	 * Small
 	 */
