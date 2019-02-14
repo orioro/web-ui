@@ -5,17 +5,11 @@
 @ui--btn-border-width: 1px;
 @ui--btn-border-radius: 0;
 
-@ui--btn-font-size-xl: 1rem;
-@ui--btn-font-size-lg: @ui--btn-font-size-xl;
-@ui--btn-font-size-md: @ui--btn-font-size-lg;
-@ui--btn-font-size-sm: @ui--btn-font-size-md;
-@ui--btn-font-size-xs: @ui--btn-font-size-sm;
-
 @ui--btn-transition-duration: .3s;
 @ui--btn-transition-timing-function: ease;
 @ui--btn-icon-distance: 10px;
 
-@ui--btn-link-vertical-padding: @ui--btn-vertical-padding;
+@ui--link-vertical-padding: @ui--btn-vertical-padding;
 
 .btn {
   padding: @ui--btn-vertical-padding @ui--btn-horizontal-padding;
@@ -35,14 +29,6 @@
   transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
               color @ui--btn-transition-duration @ui--btn-transition-timing-function,
               border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;
-
-  .mx__media-responsive(font-size, {
-    xl: @ui--btn-font-size-xl;
-    lg: @ui--btn-font-size-lg;
-    md: @ui--btn-font-size-md;
-    sm: @ui--btn-font-size-sm;
-    xs: @ui--btn-font-size-xs;
-  });
 
   > svg {
     height: 1em;
@@ -65,6 +51,11 @@
   &.btn--icon-only {
     padding: @ui--btn-vertical-padding;
   }
+
+  &.btn--no-border,
+  &.btn--no-border:hover {
+    border-color: transparent !important;
+  }
 }
 
 button.btn {
@@ -73,50 +64,4 @@ button.btn {
   .mx__bg-classes();
   .mx__hover-bg-classes();
   .mx__hover-fg-classes();
-}
-
-.btn-link {
-  padding: @ui--btn-link-vertical-padding 0;
-
-  border: none;
-
-  display: inline-flex;
-  text-decoration: none;
-  cursor: pointer;
-
-  transition: color @ui--btn-transition-duration @ui--btn-transition-timing-function;
-  
-  .mx__media-responsive(font-size, {
-    xl: @ui--btn-font-size-xl;
-    lg: @ui--btn-font-size-lg;
-    md: @ui--btn-font-size-md;
-    sm: @ui--btn-font-size-sm;
-    xs: @ui--btn-font-size-xs;
-  });
-
-  &:hover {
-    text-decoration: underline;
-  }
-
-  > svg {
-    height: 1em;
-    width: auto;
-    color: currentColor;
-  }
-
-  &.btn-link--icon-right {
-    > svg {
-      margin-left: @ui--btn-icon-distance;
-    }
-  }
-
-  &.btn-link--icon-left {
-    > svg {
-      margin-right: @ui--btn-icon-distance;
-    }
-  }
-
-  &.btn-link--icon-only {
-    padding: @ui--btn-vertical-padding;
-  }
 }

@@ -1,0 +1,38 @@
+@ui--link-transition-duration: .3s;
+@ui--link-transition-timing-function: ease;
+@ui--link-icon-distance: 10px;
+
+.link {
+  border: none;
+
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: color @ui--link-transition-duration @ui--link-transition-timing-function;
+
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  > svg {
+    height: 1em;
+    width: auto;
+    color: currentColor;
+  }
+
+  &.link--icon-right {
+    > svg {
+      margin-left: @ui--link-icon-distance;
+    }
+  }
+
+  &.link--icon-left {
+    > svg {
+      margin-right: @ui--link-icon-distance;
+    }
+  }
+}
