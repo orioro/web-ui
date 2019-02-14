@@ -1,4 +1,3 @@
-export * from './element-props'
 export * from './scroll'
 export * from './url-selection'
 

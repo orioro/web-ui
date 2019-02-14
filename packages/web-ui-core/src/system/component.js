@@ -1,10 +1,6 @@
-import PropTypes from 'prop-types'
-import delegate from 'delegate'
+import { attributeSelector } from '@orioro/web-ui-util'
 
-import {
-	getElementProps,
-	attributeSelector
-} from '../util'
+import { getElementProps } from '../util'
 
 export const validateComponentSpec = spec => {
 	if (!spec.componentName) {

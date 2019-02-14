@@ -1,10 +1,10 @@
 import { componentSystem, trigger } from '@orioro/web-ui-core'
-import dialog from '../../src'
+import tabs from '../../src'
 
 document.addEventListener('DOMContentLoaded', e => {
 	const system = componentSystem('component', [
 		trigger(),
-		dialog(),
+		tabs()
 	])
 
 	system.initialize()

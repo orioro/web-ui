@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
+import { PropTypes } from '@orioro/web-ui-core'
 
 import {
 	getElementsArray,
 	attributeSelector
-} from '../../src/util'
+} from '@orioro/web-ui-util'
 
 const TABS_COMPONENT_NAME = 'tabs'
 

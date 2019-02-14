@@ -15,7 +15,7 @@ import {
 	getUrlHash,
 	getTargetElementGivenUrl,
 	attributeSelector,
-} from '../util'
+} from '@orioro/web-ui-util'
 
 const DOM_ATTRIBUTE_ALLOWED_CHARS_RE = /^[a-z\-]+$/
 
@@ -200,6 +200,6 @@ class ComponentSystem extends EventEmitter {
 	}
 }
 
-export default (namespace, specs) => {
+export default (namespace = 'component', specs) => {
 	return new ComponentSystem(namespace, specs)
 }

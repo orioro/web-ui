@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types'
-
 import defaults from 'lodash.defaults'
+
+import { PropTypes } from '@orioro/web-ui-core'
 
 import {
 	getElementsArray,
 	animateScrollTo,
 	getAnchorSelector,
-} from '../../src/util'
+} from '@orioro/web-ui-util'
 
 const noop = () => {}
 
