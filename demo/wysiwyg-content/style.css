@@ -396,7 +396,6 @@
   border-style: solid;
   border-radius: 0;
   font-family: sans-serif;
-  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
@@ -413,6 +412,10 @@
 }
 .btn.btn--icon-only {
   padding: 10px;
+}
+.btn.btn--no-border,
+.btn.btn--no-border:hover {
+  border-color: transparent !important;
 }
 button.btn {
   background-color: transparent;
@@ -472,30 +475,6 @@ button.btn.hover-fg-navy:hover {
 button.btn.hover-fg-darkred:hover {
   color: darkred;
   border-color: darkred;
-}
-.btn-link {
-  padding: 10px 0;
-  border: none;
-  display: inline-flex;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.btn-link:hover {
-  text-decoration: underline;
-}
-.btn-link > svg {
-  height: 1em;
-  width: auto;
-  color: currentColor;
-}
-.btn-link.btn-link--icon-right > svg {
-  margin-left: 10px;
-}
-.btn-link.btn-link--icon-left > svg {
-  margin-right: 10px;
-}
-.btn-link.btn-link--icon-only {
-  padding: 10px;
 }
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document

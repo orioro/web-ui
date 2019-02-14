@@ -3,11 +3,6 @@
   color: black;
   border-color: white;
 }
-.bg-coral {
-  background-color: coral;
-  color: black;
-  border-color: coral;
-}
 .bg-lavender {
   background-color: lavender;
   color: black;
@@ -38,13 +33,14 @@
   color: white;
   border-color: slateblue;
 }
+.bg-coral {
+  background-color: coral;
+  color: white;
+  border-color: coral;
+}
 .fg-white {
   color: white;
   border-color: white;
-}
-.fg-coral {
-  color: coral;
-  border-color: coral;
 }
 .fg-lavender {
   color: lavender;
@@ -70,11 +66,12 @@
   color: slateblue;
   border-color: slateblue;
 }
+.fg-coral {
+  color: coral;
+  border-color: coral;
+}
 .border-white {
   border-color: white;
-}
-.border-coral {
-  border-color: coral;
 }
 .border-lavender {
   border-color: lavender;
@@ -94,14 +91,12 @@
 .border-slateblue {
   border-color: slateblue;
 }
+.border-coral {
+  border-color: coral;
+}
 .hover-bg-white:hover {
   background-color: white;
   border-color: white;
-  color: black;
-}
-.hover-bg-coral:hover {
-  background-color: coral;
-  border-color: coral;
   color: black;
 }
 .hover-bg-lavender:hover {
@@ -134,13 +129,14 @@
   border-color: slateblue;
   color: white;
 }
+.hover-bg-coral:hover {
+  background-color: coral;
+  border-color: coral;
+  color: white;
+}
 .hover-fg-white:hover {
   color: white;
   border-color: white;
-}
-.hover-fg-coral:hover {
-  color: coral;
-  border-color: coral;
 }
 .hover-fg-lavender:hover {
   color: lavender;
@@ -166,6 +162,10 @@
   color: slateblue;
   border-color: slateblue;
 }
+.hover-fg-coral:hover {
+  color: coral;
+  border-color: coral;
+}
 .btn {
   padding: 10px 20px;
   display: inline-flex;
@@ -176,7 +176,6 @@
   border-style: solid;
   border-radius: 30px;
   font-family: sans-serif;
-  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
@@ -194,6 +193,10 @@
 .btn.btn--icon-only {
   padding: 10px;
 }
+.btn.btn--no-border,
+.btn.btn--no-border:hover {
+  border-color: transparent !important;
+}
 button.btn {
   background-color: transparent;
 }
@@ -201,11 +204,6 @@ button.btn.bg-white {
   background-color: white;
   color: black;
   border-color: white;
-}
-button.btn.bg-coral {
-  background-color: coral;
-  color: black;
-  border-color: coral;
 }
 button.btn.bg-lavender {
   background-color: lavender;
@@ -237,14 +235,14 @@ button.btn.bg-slateblue {
   color: white;
   border-color: slateblue;
 }
+button.btn.bg-coral {
+  background-color: coral;
+  color: white;
+  border-color: coral;
+}
 button.btn.hover-bg-white:hover {
   background-color: white;
   border-color: white;
-  color: black;
-}
-button.btn.hover-bg-coral:hover {
-  background-color: coral;
-  border-color: coral;
   color: black;
 }
 button.btn.hover-bg-lavender:hover {
@@ -277,13 +275,14 @@ button.btn.hover-bg-slateblue:hover {
   border-color: slateblue;
   color: white;
 }
+button.btn.hover-bg-coral:hover {
+  background-color: coral;
+  border-color: coral;
+  color: white;
+}
 button.btn.hover-fg-white:hover {
   color: white;
   border-color: white;
-}
-button.btn.hover-fg-coral:hover {
-  color: coral;
-  border-color: coral;
 }
 button.btn.hover-fg-lavender:hover {
   color: lavender;
@@ -309,29 +308,9 @@ button.btn.hover-fg-slateblue:hover {
   color: slateblue;
   border-color: slateblue;
 }
-.btn-link {
-  padding: 10px 0;
-  border: none;
-  display: inline-flex;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.btn-link:hover {
-  text-decoration: underline;
-}
-.btn-link > svg {
-  height: 1em;
-  width: auto;
-  color: currentColor;
-}
-.btn-link.btn-link--icon-right > svg {
-  margin-left: 10px;
-}
-.btn-link.btn-link--icon-left > svg {
-  margin-right: 10px;
-}
-.btn-link.btn-link--icon-only {
-  padding: 10px;
+button.btn.hover-fg-coral:hover {
+  color: coral;
+  border-color: coral;
 }
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
@@ -642,7 +621,7 @@ body {
   background-color: lightgray;
 }
 #content {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   background-color: white;
 }
