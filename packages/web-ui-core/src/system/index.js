@@ -1,7 +1,6 @@
 import '../polyfills'
 import delegate from 'delegate'
 import EventEmitter from 'events'
-import closest from 'element-closest'
 
 import {
 	initializeHashNavigationTracking

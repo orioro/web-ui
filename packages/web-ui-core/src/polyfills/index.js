@@ -1,3 +1,10 @@
+import elementClosest from 'element-closest'
+
+/**
+ * Element#closest
+ */
+elementClosest(window)
+
 /**
  * Element.prototype.matches
  */
