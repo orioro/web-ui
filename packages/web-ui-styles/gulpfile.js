@@ -1,6 +1,6 @@
 const gulp = require('gulp')
 const less = require('gulp-less')
-const browserSync = require('browser-sync').create()
+const bsInstance = require('browser-sync').create()
 
 const { series } = gulp
 
@@ -8,17 +8,26 @@ const compileLess = () => {
   return gulp.src('demo/**/*.less')
     .pipe(less())
     .pipe(gulp.dest('demo'))
-    .pipe(browserSync.stream())
+    .pipe(bsInstance.stream())
 }
 
-const developmentServer = () => {
-  browserSync.init({
+const developmentServer = developmentServerDone => {
+  bsInstance.init({
     server: {
       baseDir: 'demo'
     }
   })
 
-  return gulp.watch([
+  gulp.watch([
+    'demo/**/*',
+    '!demo/**/*.less',
+    '!demo/**/*.css',
+  ], done => {
+    bsInstance.reload()
+    done()
+  })
+
+  gulp.watch([
     'defaults/**/*.less',
     'less/**/*.less',
     'demo/**/*.less',
