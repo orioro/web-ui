@@ -8,6 +8,9 @@
   },
   "author": "",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "browser-sync": "^2.26.3",
     "gulp": "^4.0.0",
