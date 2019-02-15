@@ -1,6 +1,5 @@
 import camelcase from 'camelcase'
 import dashify from 'dashify'
-// import decamelize from 'decamelize'
 import PropTypes from 'prop-types'
 
 export const coerceValue = (targetPropType, value) => {
