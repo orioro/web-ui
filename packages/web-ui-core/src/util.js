@@ -1,5 +1,6 @@
 import camelcase from 'camelcase'
-import decamelize from 'decamelize'
+import dashify from 'dashify'
+// import decamelize from 'decamelize'
 import PropTypes from 'prop-types'
 
 export const coerceValue = (targetPropType, value) => {
@@ -52,8 +53,8 @@ export const getElementProps = (element, elementPropTypes, namespace, validate =
 
 const convertToDataAttributeName = (property, namespace = null)  => {
 	return namespace ? 
-		`data-${decamelize(namespace, '-')}-${decamelize(property, '-')}` :
-		`data-${decamelize(property, '-')}`
+		`data-${dashify(namespace)}-${dashify(property)}` :
+		`data-${dashify(property)}`
 }
 
 const getElementDataProperty = (element, targetPropType, property, namespace = null) => {
