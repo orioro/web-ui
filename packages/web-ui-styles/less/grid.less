@@ -3,6 +3,7 @@
 
 @ui--grid-column-count: 12;
 @ui--grid-horizontal-gutter: 20px;
+@ui--grid-vertical-gutter: 30px;
 
 .grid {
 	padding-left: @ui--grid-horizontal-gutter / 2;
@@ -28,8 +29,26 @@
 	&.row--no-gutters {
 		> .col,
 		> [class*="col-"] {
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
+		}
+	}
+
+	&.row--no-horizontal-gutters {
+		> .col,
+		> [class*="col-"] {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+	}
+
+	&.row--no-vertical-gutters {
+		> .col,
+		> [class*="col-"] {
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
 		}
 	}
 }
@@ -66,6 +85,13 @@
 	/**
 	 * Small
 	 */
+	.mx__media-xs({
+		.col-sm-@{remaining-column-count} {
+			padding-top: @ui--grid-vertical-gutter / 2;
+			padding-bottom: @ui--grid-vertical-gutter / 2;
+		}
+	});
+
 	.mx__media-min-sm({
 		.col-sm-@{remaining-column-count} {
 			width: (100% / @total-column-count) * @remaining-column-count;
@@ -85,6 +111,13 @@
 	/**
 	 * Medium
 	 */
+	.mx__media-max-sm({
+		.col-md-@{remaining-column-count} {
+			padding-top: @ui--grid-vertical-gutter / 2;
+			padding-bottom: @ui--grid-vertical-gutter / 2;
+		}
+	});
+
 	.mx__media-min-md({
 		.col-md-@{remaining-column-count} {
 			width: (100% / @total-column-count) * @remaining-column-count;
@@ -104,6 +137,13 @@
 	/**
 	 * Large
 	 */
+	.mx__media-max-md({
+		.col-lg-@{remaining-column-count} {
+			padding-top: @ui--grid-vertical-gutter / 2;
+			padding-bottom: @ui--grid-vertical-gutter / 2;
+		}
+	});
+
 	.mx__media-min-lg({
 		.col-lg-@{remaining-column-count} {
 			width: (100% / @total-column-count) * @remaining-column-count;
@@ -123,6 +163,13 @@
 	/**
 	 * Extra large
 	 */
+	.mx__media-max-lg({
+		.col-xl-@{remaining-column-count} {
+			padding-top: @ui--grid-vertical-gutter / 2;
+			padding-bottom: @ui--grid-vertical-gutter / 2;
+		}
+	});
+
 	.mx__media-min-xl({
 		.col-xl-@{remaining-column-count} {
 			width: (100% / @total-column-count) * @remaining-column-count;
