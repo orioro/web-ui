@@ -79,7 +79,7 @@
  * Generates selectors for spacing between elements
  * It is repeated for the main tree and for the blockquote tree
  */
-.mx__wysiwyg-children-margins() {
+.mx__wysiwyg-immediate-children-styles() {
   > * {
     margin-top: @ui--wysiwyg-content-vertical-margin;
     margin-bottom: @ui--wysiwyg-content-vertical-margin;
@@ -93,9 +93,22 @@
     }
   }
 
-  h1, h2, h3, h4, h5, h6 {
+
+  /**
+   * Headings
+   */
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6 {
     margin-top:  @ui--wysiwyg-heading-margin-top;
     margin-bottom: @ui--wysiwyg-heading-margin-bottom;
+
+    font-weight: @ui--wysiwyg-heading-font-weight;
+    font-family: @ui--wysiwyg-heading-font-family;
+    line-height: @ui--wysiwyg-heading-line-height;
 
     &:first-child {
       margin-top: 0;
@@ -106,7 +119,7 @@
     }
   }
 
-  h6 {
+  > h6 {
     margin-bottom: 0;
   }
 }
@@ -139,7 +152,7 @@
     }
   }
 
-  .mx__wysiwyg-children-margins();
+  .mx__wysiwyg-immediate-children-styles();
 
   > * {
     &.float-left {
@@ -154,15 +167,6 @@
     }
   }
 
-  /**
-   * Headings
-   */
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: @ui--wysiwyg-heading-font-weight;
-    font-family: @ui--wysiwyg-heading-font-family;
-    line-height: @ui--wysiwyg-heading-line-height;
-  }
-
   .mx__media-xs(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-xs));
   .mx__media-sm(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-sm));
   .mx__media-md(.mx__wysiwyg-heading-selectors(@ui--wysiwyg-headings-font-sizes-md));
@@ -172,7 +176,6 @@
   /**
    * Content
    */
-
   img {
     max-width: 100%;
     height: auto;
@@ -181,7 +184,7 @@
 
   blockquote {
     margin: @ui--wysiwyg-blockquote-vertical-margin @ui--wysiwyg-blockquote-horizontal-margin;
-    .mx__wysiwyg-children-margins();
+    .mx__wysiwyg-immediate-children-styles();
   }
 
   cite {
