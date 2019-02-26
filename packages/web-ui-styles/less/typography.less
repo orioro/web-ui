@@ -89,7 +89,7 @@
 .mx__typography-font-size-classes(@units) {
   each(@units, {
     .text-font-size-@{key} {
-      font-size: @value;
+      font-size: @value !important;
     }
   })
 }
@@ -121,7 +121,7 @@ each(@ui--typography-font-families, {
 
 each(@ui--typography-font-weights, {
   .font-weight-@{key} {
-    font-weight: @value;
+    font-weight: @value !important;
   }
 })
 
@@ -129,7 +129,7 @@ each({
   uppercase: uppercase;
   lowercase: lowercase;
 }, {
-  .text-tranform-@{key} {
-    text-transform: @value;
+  .text-transform-@{key} {
+    text-transform: @value !important;
   }
 });
