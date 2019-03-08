@@ -14,6 +14,9 @@
   },
   "author": "",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
@@ -33,5 +36,6 @@
     "delegate": "^3.2.0",
     "insert-css": "^2.0.0",
     "swiper": "^4.5.0"
-  }
+  },
+  "gitHead": "13a3b0a3ee83567e7ae0b16e211bdd183647d917"
 }
