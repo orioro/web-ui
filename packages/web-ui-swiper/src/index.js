@@ -21,7 +21,7 @@ const createInstance = (system, componentRoot, {
 	}
 
 	const slideTo = slideIndex => {
-		swiperInstance.slideTo(slideIndex)
+		swiperInstance.slideTo(slideIndex + 1)
 	}
 
 	const previousSlide = () => {
