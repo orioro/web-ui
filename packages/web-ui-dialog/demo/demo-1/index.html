@@ -28,10 +28,17 @@
 		id="sample-dialog"
 		data-component="dialog"
 		data-dialog-active-class="active"
+		data-dialog-interaction-target="[data-component='some-component']"
+		data-dialog-on-open-action="activate"
+		data-dialog-on-close-action="deactivate"
 		class="dialog">
 
 		<div class="dialog__contents">
 			Sample dialog contents
+
+			<div data-component="some-component">
+				Some inner component
+			</div>
 		</div>
 
 		<button

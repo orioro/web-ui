@@ -6,7 +6,10 @@ const DIALOG_COMPONENT_NAME = 'dialog'
 const createInstance = (system, componentRoot, {
 	activeClass = 'active',
 	navigatable = false,
-	preventMovingToBody = false
+	preventMovingToBody = false,
+	interactionTarget = null,
+	onOpenAction = null,
+	onCloseAction = null,
 } = {}) => {
 	const state = {
 		active: false
@@ -16,6 +19,8 @@ const createInstance = (system, componentRoot, {
 		componentRoot.remove()
 		document.querySelector('body').appendChild(componentRoot)
 	}
+
+	interactionTarget = interactionTarget ? componentRoot.querySelector(interactionTarget) : null
 
 	const focusTrap = createFocusTrap(componentRoot)
 
@@ -27,8 +32,12 @@ const createInstance = (system, componentRoot, {
 
 			componentRoot.classList.add(activeClass)
 
-			focusTrap.activate('[autofocus]')
+			focusTrap.activate(interactionTarget ? interactionTarget : '[autofocus]')
 			state.active = true
+
+			if (interactionTarget && onOpenAction) {
+				system.invoke(interactionTarget, null, onOpenAction)
+			}
 		}
 	}
 
@@ -41,6 +50,10 @@ const createInstance = (system, componentRoot, {
 			focusTrap.deactivate()
 			componentRoot.classList.remove(activeClass)
 			state.active = false
+
+			if (interactionTarget && onCloseAction) {
+				system.invoke(interactionTarget, null, onCloseAction)
+			}
 		}
 	}
 
@@ -76,6 +89,9 @@ export default () => {
 			activeClass: PropTypes.string,
 			navigatable: PropTypes.bool,
 			preventMovingToBody: PropTypes.bool,
+			interactionTarget: PropTypes.string,
+			onOpenAction: PropTypes.string,
+			onCloseAction: PropTypes.string
 		},
 		createInstance,
 	}
