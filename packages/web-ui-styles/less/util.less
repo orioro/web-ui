@@ -3,10 +3,22 @@
 /**
  * Iterates nth times applying rulesets
  */
-.mx__util-nth-classes(@prefix, @ruleset, @total, @current: 1) when (@current <= @total) {
-	.@{prefix}-@{current} {
-		@ruleset();
-	}
+.mx__util-nth-classes(@prefix, @ruleset, @total, @current: 1, @append: false) when (@current <= @total) {
+	@output: if(
+		@append = append,
+		{
+			&.@{prefix}-@{current} {
+				@ruleset();
+			}
+		},
+		{
+			.@{prefix}-@{current} {
+				@ruleset();
+			}
+		}
+	);
 
-	.mx__util-nth-classes(@prefix, @ruleset, @total, @current + 1);
+	@output();
+
+	.mx__util-nth-classes(@prefix, @ruleset, @total, @current + 1, @append);
 }
