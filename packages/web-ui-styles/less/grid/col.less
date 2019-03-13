@@ -1,0 +1,91 @@
+@import '../responsive.less';
+@import '../util.less';
+
+/**
+ * Rules that apply to:
+ * ANY column in ANY media size
+ */
+[class^="col"] {
+	padding-left: @ui--grid-horizontal-gutter / 2;
+	padding-right: @ui--grid-horizontal-gutter / 2;
+	width: 100%;
+}
+
+.col {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+
+	.mx-private__grid-cancel-vertical-gutters();
+}
+
+/**
+ * col-{N}
+ *
+ * This set of columns stacks,
+ * thus its columns NEVER have vertical gutter
+ */
+.mx__util-nth-classes(
+	col,
+	{
+		width: (100% / @total) * @current;
+		.mx-private__grid-cancel-vertical-gutters();
+	},
+	@ui--grid-column-count
+);
+
+/**
+ * col-sm-{N}
+ * col-md-{N}
+ * col-lg-{N}
+ * col-xl-{N}
+ *
+ * These columns stack at each other at certain breakpoints.
+ * When they are stacked, they get a vertical gutter.
+ */
+each({
+	col-sm: @ui--sm-min-width;
+	col-md: @ui--md-min-width;
+	col-lg: @ui--lg-min-width;
+	col-xl: @ui--xl-min-width;
+}, {
+	@col-prefix: @key;
+
+	@smaller-than-breakpoint: {
+		[class^="@{col-prefix}-"] {
+			padding-top: @ui--grid-vertical-gutter / 2;
+			padding-bottom: @ui--grid-vertical-gutter / 2;
+
+			// Remove gutter padding from edges
+			&:first-child {
+				padding-top: 0 !important;
+			}
+
+			&:last-child {
+				padding-bottom: 0 !important;
+			}
+		};
+	};
+
+	@greater-than-breakpoint: {
+		.mx__util-nth-classes(
+			@col-prefix,
+			{
+				width: (100% / @total) * @current;
+				// If any col-{media-size}-{N} is still active,
+				// no vertical gutters should be applied.
+				// 
+				// Rely on @media-query to remove the `!important`s effect.
+				.mx-private__grid-cancel-vertical-gutters();
+			},
+			@ui--grid-column-count
+		);
+	};
+
+	.mx__media-breakpoint(
+		width,
+		@value,
+		@smaller-than-breakpoint,
+		@greater-than-breakpoint
+	);
+});

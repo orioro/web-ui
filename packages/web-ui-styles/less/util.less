@@ -1,0 +1,12 @@
+
+
+/**
+ * Iterates nth times applying rulesets
+ */
+.mx__util-nth-classes(@prefix, @ruleset, @total, @current: 1) when (@current <= @total) {
+	.@{prefix}-@{current} {
+		@ruleset();
+	}
+
+	.mx__util-nth-classes(@prefix, @ruleset, @total, @current + 1);
+}
