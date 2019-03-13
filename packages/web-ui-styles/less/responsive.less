@@ -13,9 +13,32 @@
 @ui--xs-min-width: 0px;
 
 /**
+ * Breakpoint mixins
+ */
+.mx__media-breakpoint(@property, @value, @before-styles, @after-styles) when (@property = width) {
+  @media (max-width: @value - 1px) {
+    @before-styles();
+  }
+
+  @media (min-width: @value) {
+    @after-styles();
+  }
+}
+
+.mx__media-breakpoint(@property, @value, @before-styles, @after-styles) when (@property = height) {
+  @media (max-height: @value - 1px) {
+    @before-styles();
+  }
+
+  @media (min-height: @value) {
+    @after-styles();
+  }
+}
+
+/**
  * Extral small: xs
  */
-.mx__media-xs(@styles) {
+.mx__media-only-xs(@styles) {
   @media (max-width: @ui--xs-max-width) {
     @styles();
   }
@@ -24,7 +47,11 @@
 /**
  * Small: sm
  */
-.mx__media-sm(@styles) {
+.mx__media-breakpoint-sm(@before-styles, @after-styles) {
+  .mx__media-breakpoint(width, @ui--sm-min-width, @before-styles, @after-styles);
+}
+
+.mx__media-only-sm(@styles) {
   @media (min-width: @ui--sm-min-width) and (max-width: @ui--sm-max-width) {
     @styles();
   }
@@ -45,7 +72,11 @@
 /**
  * Medium: md
  */
-.mx__media-md(@styles) {
+.mx__media-breakpoint-md(@before-styles, @after-styles) {
+  .mx__media-breakpoint(width, @ui--md-min-width, @before-styles, @after-styles);
+}
+
+.mx__media-only-md(@styles) {
   @media (min-width: @ui--md-min-width) and (max-width: @ui--md-max-width) {
     @styles();
   }
@@ -66,7 +97,11 @@
 /**
  * Large: lg
  */
-.mx__media-lg(@styles) {
+.mx__media-breakpoint-lg(@before-styles, @after-styles) {
+  .mx__media-breakpoint(width, @ui--lg-min-width, @before-styles, @after-styles);
+}
+
+.mx__media-only-lg(@styles) {
   @media (min-width: @ui--lg-min-width) and (max-width: @ui--lg-max-width) {
     @styles();
   }
@@ -87,57 +122,53 @@
 /**
  * Extra large: xl
  */
-.mx__media-xl(@styles) {
-  @media (min-width: @ui--xl-min-width) {
-    @styles();
-  }
+.mx__media-breakpoint-xl(@before-styles, @after-styles) {
+  .mx__media-breakpoint(width, @ui--xl-min-width, @before-styles, @after-styles);
 }
 
-.mx__media-min-xl(@styles) {
+.mx__media-only-xl(@styles) {
   @media (min-width: @ui--xl-min-width) {
-    @styles();
-  }
-}
-
-.mx__media-max-xl(@styles) {
-  @media (max-width: @ui--xl-max-width) {
     @styles();
   }
 }
 
 /**
- * 
+ * Systematic application mixins
  */
-.mx__media-responsive(@property, @values) {
+
+/**
+ * Simple responsive property
+ */
+.mx__responsive-property(@property, @values) {
 
 }
 
-.mx__media-responsive(@property, @values) when not (@values[xl] = false) {
-  .mx__media-xl({
+.mx__responsive-property(@property, @values) when not (@values[xl] = false) {
+  .mx__media-only-xl({
     @{property}: @values[xl];
   });
 }
 
-.mx__media-responsive(@property, @values) when not (@values[lg] = false) {
-  .mx__media-lg({
+.mx__responsive-property(@property, @values) when not (@values[lg] = false) {
+  .mx__media-only-lg({
     @{property}: @values[lg];
   });
 }
 
-.mx__media-responsive(@property, @values) when not (@values[md] = false) {
-  .mx__media-md({
+.mx__responsive-property(@property, @values) when not (@values[md] = false) {
+  .mx__media-only-md({
     @{property}: @values[md];
   });
 }
 
-.mx__media-responsive(@property, @values) when not (@values[sm] = false) {
-  .mx__media-sm({
+.mx__responsive-property(@property, @values) when not (@values[sm] = false) {
+  .mx__media-only-sm({
     @{property}: @values[sm];
   });
 }
 
-.mx__media-responsive(@property, @values) when not (@values[xs] = false) {
-  .mx__media-xs({
+.mx__responsive-property(@property, @values) when not (@values[xs] = false) {
+  .mx__media-only-xs({
     @{property}: @values[xs];
   });
 }

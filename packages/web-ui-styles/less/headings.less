@@ -89,7 +89,7 @@
 }
 
 .mx__heading-font-size(@size) {
-  .mx__media-responsive(font-size, {
+  .mx__responsive-property(font-size, {
     xl: @ui-private--heading-font-sizes-xl[@@size];
     lg: @ui-private--heading-font-sizes-lg[@@size];
     md: @ui-private--heading-font-sizes-md[@@size];
@@ -128,8 +128,8 @@
   font-family: @ui--heading-font-family-h6;
 }
 
-.mx__media-xs(.mx__heading-classes(@ui--heading-font-sizes-xs));
-.mx__media-sm(.mx__heading-classes(@ui--heading-font-sizes-sm));
-.mx__media-md(.mx__heading-classes(@ui--heading-font-sizes-md));
-.mx__media-lg(.mx__heading-classes(@ui--heading-font-sizes-lg));
-.mx__media-xl(.mx__heading-classes(@ui--heading-font-sizes-xl));
+.mx__media-only-xs(.mx__heading-classes(@ui--heading-font-sizes-xs));
+.mx__media-only-sm(.mx__heading-classes(@ui--heading-font-sizes-sm));
+.mx__media-only-md(.mx__heading-classes(@ui--heading-font-sizes-md));
+.mx__media-only-lg(.mx__heading-classes(@ui--heading-font-sizes-lg));
+.mx__media-only-xl(.mx__heading-classes(@ui--heading-font-sizes-xl));
