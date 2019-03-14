@@ -1,0 +1,26 @@
+@import '../grid.less';
+
+.dev-grid-ruler.row {
+	min-height: 50px;
+
+	> [class*="col"] {
+		position: relative;
+		box-shadow: inset 0px 0px 0px 1px @ui--dev-overlay-color;
+
+		&::before {
+			content: '';
+			display: block;
+
+			position: absolute;
+			z-index: 2;
+			top: 0;
+			left: 0;
+
+			height: 100%;
+			width: 100%;
+
+			border-left: solid (@ui--grid-horizontal-gutter / 2) @ui--dev-overlay-color;
+			border-right: solid (@ui--grid-horizontal-gutter / 2) @ui--dev-overlay-color;
+		}
+	}
+}
