@@ -1,0 +1,54 @@
+/**
+ *              │<-------- @parent-proportion -------->│<---- @target-proportion ---->│
+ * ┌────────┬───┬───┬──────────────────────────────┬───┬───┬──────────────────────┬───┐
+ * │        │   │   │                              │   │   │                      │   │
+ * │        │   │   │                              │   │   │                      │   │
+ * │        │   │   │        OFFSET_PARENT         │   │   │                      │   │
+ * │        │   │   │                              │   │   │                      │   │
+ * │        │   │   │                              │   │   │                      │   │
+ * │        │   │   │                              │   │   │                      │   │
+ * └────────┴───┴───┴──────────────────────────────┴───┴───┴──────────────────────┴───┘
+ *          │g/2 g/2│<--------- 100% ------------->│g/2│g/2│<-------- x% -------->│g/2│
+ *                         of OFFSET_PARENT                    of OFFSET_PARENT
+ * 
+ * 
+ * @target-proportion    x(% of OP) + g
+ * ────────────────── = ────────────────
+ * @parent-proportion   100(% of OP) + g
+ * 
+ *               @target-proportion
+ * @proportion = ──────────────────
+ *               @parent-proportion
+ * 
+ * x = @proportion * 100(% of OP) + @proportion * g - g
+ * 
+ * OBS: % of OP is a "magical" unit
+ * because it is always proportional to the offset parent
+ */
+.mx__grid-outer-calc-property(
+	@property,
+	@options,
+	@multiplier: 1,
+	@offset: 0px,
+	@gutter: @ui--grid-horizontal-gutter
+) {
+	@proportion: @options[target] / @options[parent];
+	@offset-gutters-value: @multiplier * @options[offset-gutters] * @gutter;
+
+	@{property}: calc(@multiplier * (@proportion * 100% + @proportion * @gutter - @gutter) + @offset-gutters-value + @offset);
+}
+
+.mx__grid-outer-calc-translate-x(
+	@options,
+	@multiplier: 1,
+	@offset: 0px,
+	@gutter: @ui--grid-horizontal-gutter
+) {
+	transform: translateX(.mx__grid-outer-calc-property(
+		any-text-is-valid-here,
+		@options,
+		@multiplier,
+		@offset,
+		@gutter
+	)[]);
+}
