@@ -35,6 +35,7 @@
   "dependencies": {
     "@orioro/web-ui-core": "^0.0.1-alpha.18",
     "@orioro/web-ui-util": "^0.0.1-alpha.18",
+    "classlist.js": "^1.1.20150312",
     "focus-trap": "^4.0.2",
     "prop-types": "^15.7.2"
   },

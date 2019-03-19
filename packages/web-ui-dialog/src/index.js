@@ -1,5 +1,6 @@
 import {PropTypes} from '@orioro/web-ui-core'
 import createFocusTrap from 'focus-trap'
+import 'classlist.js'
 
 const DIALOG_COMPONENT_NAME = 'dialog'
 
