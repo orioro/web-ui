@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-tabs",
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1-alpha.17",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -32,7 +32,7 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "dependencies": {
-    "@orioro/web-ui-core": "^0.0.1-alpha.4",
-    "@orioro/web-ui-util": "^0.0.1-alpha.0"
+    "@orioro/web-ui-core": "^0.0.1-alpha.17",
+    "@orioro/web-ui-util": "^0.0.1-alpha.17"
   }
 }
