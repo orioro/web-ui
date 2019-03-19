@@ -45,7 +45,12 @@ export const instantiateComponents = (system, rootElement, componentDataAttribut
 				return null
 			}
 
-			return createComponentInstance(system, spec, element)
+			try {
+				return createComponentInstance(system, spec, element)
+			} catch (err) {
+				console.warn(`Error instantiating component ${componentName}`, element, err)
+				return null
+			}
 		})
 		.filter(Boolean)
 }
