@@ -34,8 +34,6 @@ const createInstance = (system, componentRoot, {
 
 	const updateSlideIndicators = () => {
 		ELEMENTS.slideIndicators.forEach(indicator => {
-			console.log(indicator)
-
 			if (parseInt(indicator.getAttribute('data-swiper-slide-indicator')) === swiperInstance.realIndex) {
 				indicator.classList.add('active')
 			} else {
@@ -52,9 +50,7 @@ const createInstance = (system, componentRoot, {
 	updateSlideIndicators()
 
 	return {
-		defaultAction: () => {
-			console.log('defaultAction')
-		},
+		defaultAction: () => {},
 		previousSlide,
 		nextSlide,
 		slideTo,
