@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo-1</title>
+	<style type="text/css">
+		body {
+			font-family: 'Helvetica', sans-serif;
+		}
+	</style>
+</head>
+<body>
+	<div
+		id="player"
+		data-component="yt-player"
+		data-yt-player-video="https://www.youtube.com/watch?v=dRUqLsdwIhA">
+	</div>
+
+	<button
+		data-component="trigger"
+		data-trigger-target="#player"
+		data-trigger-action="togglePlayPlause">
+		togglePlayPlause
+	</button>
+
+	<button
+		data-component="trigger"
+		data-trigger-target="#player"
+		data-trigger-action="play">
+		play
+	</button>
+
+	<button
+		data-component="trigger"
+		data-trigger-target="#player"
+		data-trigger-action="pause">
+		pause
+	</button>
+
+	<button
+		data-component="trigger"
+		data-trigger-target="#player"
+		data-trigger-action="stop">
+		stop
+	</button>
+
+	<script type="text/javascript" src="index.bundle.js"></script>
+</body>
+</html>
