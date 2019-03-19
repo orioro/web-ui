@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-dialog",
-  "version": "0.0.1-alpha.13",
+  "version": "0.0.1-alpha.17",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -33,9 +33,10 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "dependencies": {
-    "@orioro/web-ui-core": "^0.0.1-alpha.4",
-    "@orioro/web-ui-util": "^0.0.1-alpha.0",
+    "@orioro/web-ui-core": "^0.0.1-alpha.17",
+    "@orioro/web-ui-util": "^0.0.1-alpha.17",
     "focus-trap": "^4.0.2",
     "prop-types": "^15.7.2"
-  }
+  },
+  "gitHead": "bef9dabd0aacc1a04015d75065a6a9295727f2a9"
 }

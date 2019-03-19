@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-yt-player",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.17",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -15,6 +15,9 @@
   },
   "author": "",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
@@ -30,8 +33,9 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "dependencies": {
-    "@orioro/web-ui-core": "^0.0.1-alpha.4",
+    "@orioro/web-ui-core": "^0.0.1-alpha.17",
     "get-video-id": "^3.1.0",
     "yt-player": "^3.1.0"
-  }
+  },
+  "gitHead": "bef9dabd0aacc1a04015d75065a6a9295727f2a9"
 }
