@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-util",
-  "version": "0.0.1-alpha.17",
+  "version": "0.0.1-alpha.18",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

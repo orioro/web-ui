@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-styles",
-  "version": "0.0.1-alpha.17",
+  "version": "0.0.1-alpha.18",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "gulp-less": "^4.0.1"
   },
   "dependencies": {
-    "@orioro/web-ui-util": "^0.0.1-alpha.17",
+    "@orioro/web-ui-util": "^0.0.1-alpha.18",
     "normalize.css": "^8.0.1"
   },
   "gitHead": "bef9dabd0aacc1a04015d75065a6a9295727f2a9"

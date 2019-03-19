@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-swiper",
-  "version": "0.0.1-alpha.17",
+  "version": "0.0.1-alpha.18",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -33,7 +33,7 @@
     "rollup-plugin-string": "^3.0.0"
   },
   "dependencies": {
-    "@orioro/web-ui-core": "^0.0.1-alpha.17",
+    "@orioro/web-ui-core": "^0.0.1-alpha.18",
     "delegate": "^3.2.0",
     "insert-css": "^2.0.0",
     "swiper": "^4.5.0"
