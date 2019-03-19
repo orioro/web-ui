@@ -6,12 +6,19 @@ const babel = require('rollup-plugin-babel')
 
 module.exports = {
 	input: 'src/index.js',
-	output: {
-		file: 'index.js',
-		dir: 'dist',
-		format: 'cjs',
-		exports: 'named',
-	},
+	output: [
+		{
+			file: 'index.js',
+			dir: 'dist',
+			format: 'cjs',
+			exports: 'named',
+		},
+		{
+			file: 'index.mjs',
+			dir: 'dist',
+			format: 'esm',
+		}
+	],
 	external: Object.keys(require('../package.json').dependencies || {}),
 	plugins: [
 		babel({
