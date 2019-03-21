@@ -17,7 +17,6 @@ const createInstance = (system, componentRoot, {
 
 	const open = () => {
 		if (!state.active) {
-			console.log('open')
 			componentRoot.classList.add(activeClass)
 
 			if (focusTrap) {
@@ -30,7 +29,6 @@ const createInstance = (system, componentRoot, {
 
 	const close = () => {
 		if (state.active) {
-			console.log('close')
 			componentRoot.classList.remove(activeClass)
 
 			if (focusTrap) {
