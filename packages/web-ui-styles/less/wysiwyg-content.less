@@ -3,7 +3,7 @@
 /**
  * Content
  */
-@ui--wysiwyg-content-vertical-margin: 1em;
+@ui--wysiwyg-content-vertical-margin: 1.5em;
 @ui--wysiwyg-content-font-size: 1rem;
 @ui--wysiwyg-content-special-content-vertical-margin: 2 * @ui--wysiwyg-content-vertical-margin;
 @ui--wysiwyg-content-font-family: serif;
@@ -122,6 +122,13 @@
   > h6 {
     margin-bottom: 0;
   }
+
+  > img,
+  > figure,
+  > iframe {
+    margin-top: @ui--wysiwyg-content-special-content-vertical-margin;
+    margin-bottom: @ui--wysiwyg-content-special-content-vertical-margin;
+  }
 }
 
 .wysiwyg-content {
@@ -216,7 +223,5 @@
 
   iframe {
     width: 100%;
-    margin-top: @ui--wysiwyg-content-special-content-vertical-margin;
-    margin-bottom: @ui--wysiwyg-content-special-content-vertical-margin;
   }
 }
