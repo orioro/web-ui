@@ -1,13 +1,6 @@
 @import 'responsive.less';
 
 @ui--base-font-family: sans-serif;
-
-@ui--base-font-size-xl: 1rem;
-@ui--base-font-size-lg: @ui--base-font-size-xl;
-@ui--base-font-size-md: @ui--base-font-size-lg;
-@ui--base-font-size-sm: @ui--base-font-size-md;
-@ui--base-font-size-xs: @ui--base-font-size-sm;
-
 @ui--base-line-height: 1.5;
 
 /**
@@ -32,18 +25,13 @@
 	}
 
 	body {
+		// https://developer.mozilla.org/en-US/docs/Web/CSS/word-break
+		// ATTENTION: break-word is not a standard, but works in Chrome
+		word-break: break-word;
 		font-family: @ui--base-font-family;
 		line-height: @ui--base-line-height;
 
 		box-sizing: border-box;
-
-		.mx__responsive-property(font-size, {
-			xl: @ui--base-font-size-xl;
-			lg: @ui--base-font-size-lg;
-			md: @ui--base-font-size-md;
-			sm: @ui--base-font-size-sm;
-			xs: @ui--base-font-size-xs;
-		});
 	}
 
 	a {
