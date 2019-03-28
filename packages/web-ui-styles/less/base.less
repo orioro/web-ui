@@ -1,4 +1,3 @@
-@import (less) '../node_modules/normalize.css/normalize.css';
 @import 'responsive.less';
 
 @ui--base-font-family: sans-serif;
@@ -11,44 +10,52 @@
 
 @ui--base-line-height: 1.5;
 
-h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-img {
-	max-width: 100%;
-}
-
-p {
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-body {
-	font-family: @ui--base-font-family;
-	line-height: @ui--base-line-height;
-
-	box-sizing: border-box;
-
-	.mx__responsive-property(font-size, {
-		xl: @ui--base-font-size-xl;
-		lg: @ui--base-font-size-lg;
-		md: @ui--base-font-size-md;
-		sm: @ui--base-font-size-sm;
-		xs: @ui--base-font-size-xs;
-	});
-}
-
-a {
-	color: inherit;
-}
-
 /**
- * Inherig box sizing
+ * Generates base rulesets
+ * @return {[type]} [description]
  */
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+.mx__base-rulesets() {
+	@import (less) '../node_modules/normalize.css/normalize.css';
+
+	h1, h2, h3, h4, h5, h6 {
+	  margin-top: 0;
+	  margin-bottom: 0;
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	p {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	body {
+		font-family: @ui--base-font-family;
+		line-height: @ui--base-line-height;
+
+		box-sizing: border-box;
+
+		.mx__responsive-property(font-size, {
+			xl: @ui--base-font-size-xl;
+			lg: @ui--base-font-size-lg;
+			md: @ui--base-font-size-md;
+			sm: @ui--base-font-size-sm;
+			xs: @ui--base-font-size-xs;
+		});
+	}
+
+	a {
+		color: inherit;
+	}
+
+	/**
+	 * Inherig box sizing
+	 */
+	*,
+	*::before,
+	*::after {
+	  box-sizing: inherit;
+	}	
 }
