@@ -1,10 +1,11 @@
-@import '../responsive.less';
-@import '../util.less';
+@import './responsive.less';
+@import './util.less';
+@import './grid.less';
 
 /**
  * Order
  */
-.mx-private__grid-order-classes(@ruleset, @total-column-count) {
+.mx-private__order-classes(@ruleset, @total-column-count) {
 	.mx__util-nth-classes(order, @ruleset, @total-column-count, 0);
 	.order-first {
 		order: -1;
@@ -55,8 +56,13 @@
 };
 
 /**
- * @total and @current are exposed by `.mx__util-nth-classes` mixin
+ * Generates order-related rulesets
  */
-.mx-private__grid-order-classes({
-	order: @current;
-}, @ui--grid-column-count);
+.mx__order-rulesets() {
+	/**
+	 * @total and @current are exposed by `.mx__util-nth-classes` mixin
+	 */
+	.mx-private__order-classes({
+		order: @current;
+	}, @ui--grid-column-count);
+}

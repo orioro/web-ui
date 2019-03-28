@@ -1,6 +1,5 @@
 @import 'base.less';
 @import 'grid/mixins.less';
-@import 'grid/order.less';
 
 @ui--grid-column-count: 12;
 @ui--grid-horizontal-gutter: 20px;
@@ -28,43 +27,48 @@
 	}
 }
 
-.container-neutralize-row-negative-margins {
-	padding-left: @ui--grid-horizontal-gutter / 2;
-	padding-right: @ui--grid-horizontal-gutter / 2;
+/**
+ * Generates grid rulesets
+ */
+.mx__grid-rulesets() {
+
+	.container-neutralize-row-negative-margins {
+		padding-left: @ui--grid-horizontal-gutter / 2;
+		padding-right: @ui--grid-horizontal-gutter / 2;
+	}
+
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+
+		margin-left: -1 * @ui--grid-horizontal-gutter / 2;
+		margin-right: -1 * @ui--grid-horizontal-gutter / 2;
+
+		&.row--no-gutters {
+			.mx-private__grid-apply-rules-to-columns-with-prefix(
+				all,
+				{
+					.mx-private__grid-cancel-horizontal-gutters();
+					.mx-private__grid-cancel-vertical-gutters();
+				}
+			);
+		}
+
+		&.row--no-horizontal-gutters {
+			.mx-private__grid-apply-rules-to-columns-with-prefix(
+				all,
+				.mx-private__grid-cancel-horizontal-gutters()
+			);
+		}
+
+		&.row--no-vertical-gutters {
+			.mx-private__grid-apply-rules-to-columns-with-prefix(
+				all,
+				.mx-private__grid-cancel-vertical-gutters()
+			);
+		}
+
+		@import 'grid/col.less';
+		@import 'grid/offset.less';
+	}
 }
-
-.row {
-	display: flex;
-	flex-wrap: wrap;
-
-	margin-left: -1 * @ui--grid-horizontal-gutter / 2;
-	margin-right: -1 * @ui--grid-horizontal-gutter / 2;
-
-	&.row--no-gutters {
-		.mx-private__grid-apply-rules-to-columns-with-prefix(
-			all,
-			{
-				.mx-private__grid-cancel-horizontal-gutters();
-				.mx-private__grid-cancel-vertical-gutters();
-			}
-		);
-	}
-
-	&.row--no-horizontal-gutters {
-		.mx-private__grid-apply-rules-to-columns-with-prefix(
-			all,
-			.mx-private__grid-cancel-horizontal-gutters()
-		);
-	}
-
-	&.row--no-vertical-gutters {
-		.mx-private__grid-apply-rules-to-columns-with-prefix(
-			all,
-			.mx-private__grid-cancel-vertical-gutters()
-		);
-	}
-
-	@import 'grid/col.less';
-	@import 'grid/offset.less';
-}
-
