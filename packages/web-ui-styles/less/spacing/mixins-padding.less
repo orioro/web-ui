@@ -5,11 +5,11 @@
  */
 .mx__spacing-p-top(@size) {
   .mx__responsive-property(padding-top, {
-    xl: @ui-private--spacing-units-xl[@@size];
-    lg: @ui-private--spacing-units-lg[@@size];
-    md: @ui-private--spacing-units-md[@@size];
-    sm: @ui-private--spacing-units-sm[@@size];
-    xs: @ui-private--spacing-units-xs[@@size];
+    xl: extract(@ui--spacing-units-xl, @size);
+    lg: extract(@ui--spacing-units-lg, @size);
+    md: extract(@ui--spacing-units-md, @size);
+    sm: extract(@ui--spacing-units-sm, @size);
+    xs: extract(@ui--spacing-units-xs, @size);
   });
 }
 
@@ -18,11 +18,11 @@
  */
 .mx__spacing-p-bottom(@size) {
   .mx__responsive-property(padding-bottom, {
-    xl: @ui-private--spacing-units-xl[@@size];
-    lg: @ui-private--spacing-units-lg[@@size];
-    md: @ui-private--spacing-units-md[@@size];
-    sm: @ui-private--spacing-units-sm[@@size];
-    xs: @ui-private--spacing-units-xs[@@size];
+    xl: extract(@ui--spacing-units-xl, @size);
+    lg: extract(@ui--spacing-units-lg, @size);
+    md: extract(@ui--spacing-units-md, @size);
+    sm: extract(@ui--spacing-units-sm, @size);
+    xs: extract(@ui--spacing-units-xs, @size);
   });
 }
 
@@ -31,11 +31,11 @@
  */
 .mx__spacing-p-left(@size) {
   .mx__responsive-property(padding-left, {
-    xl: @ui-private--spacing-units-xl[@@size];
-    lg: @ui-private--spacing-units-lg[@@size];
-    md: @ui-private--spacing-units-md[@@size];
-    sm: @ui-private--spacing-units-sm[@@size];
-    xs: @ui-private--spacing-units-xs[@@size];
+    xl: extract(@ui--spacing-units-xl, @size);
+    lg: extract(@ui--spacing-units-lg, @size);
+    md: extract(@ui--spacing-units-md, @size);
+    sm: extract(@ui--spacing-units-sm, @size);
+    xs: extract(@ui--spacing-units-xs, @size);
   });
 }
 
@@ -44,11 +44,11 @@
  */
 .mx__spacing-p-right(@size) {
   .mx__responsive-property(padding-right, {
-    xl: @ui-private--spacing-units-xl[@@size];
-    lg: @ui-private--spacing-units-lg[@@size];
-    md: @ui-private--spacing-units-md[@@size];
-    sm: @ui-private--spacing-units-sm[@@size];
-    xs: @ui-private--spacing-units-xs[@@size];
+    xl: extract(@ui--spacing-units-xl, @size);
+    lg: extract(@ui--spacing-units-lg, @size);
+    md: extract(@ui--spacing-units-md, @size);
+    sm: extract(@ui--spacing-units-sm, @size);
+    xs: extract(@ui--spacing-units-xs, @size);
   });
 }
 

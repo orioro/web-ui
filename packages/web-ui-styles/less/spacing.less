@@ -4,86 +4,29 @@
 @import 'spacing/mixins-margin.less';
 @import 'spacing/mixins-padding.less';
 
-@ui--spacing-units-xl: {
-  1: 100px;
-  2: 80px;
-  3: 60px;
-  4: 50px;
-  5: 40px;
-  6: 30px;
-  7: 20px;
-  8: 10px;
-}
+@ui--spacing-units-xl:
+  100px,
+  80px,
+  60px,
+  50px,
+  40px,
+  30px,
+  20px,
+  10px;
 @ui--spacing-units-lg: @ui--spacing-units-xl;
 @ui--spacing-units-md: @ui--spacing-units-lg;
-@ui--spacing-units-sm: {
-  1: 60px;
-  2: 50px;
-  3: 40px;
-  4: 40px;
-  5: 30px;
-  6: 20px;
-  7: 20px;
-  8: 10px;
-}
+@ui--spacing-units-sm: 
+  60px,
+  50px,
+  40px,
+  40px,
+  30px,
+  20px,
+  20px,
+  10px;
 @ui--spacing-units-xs: @ui--spacing-units-sm;
 
-/**
- * Transitional variables
- * They are only used for enabling the mixin system
- */
-@ui-private--spacing-units-xl: {
-  @1: @ui--spacing-units-xl[1];
-  @2: @ui--spacing-units-xl[2];
-  @3: @ui--spacing-units-xl[3];
-  @4: @ui--spacing-units-xl[4];
-  @5: @ui--spacing-units-xl[5];
-  @6: @ui--spacing-units-xl[6];
-  @7: @ui--spacing-units-xl[7];
-  @8: @ui--spacing-units-xl[8];
-}
-@ui-private--spacing-units-lg: {
-  @1: @ui--spacing-units-lg[1];
-  @2: @ui--spacing-units-lg[2];
-  @3: @ui--spacing-units-lg[3];
-  @4: @ui--spacing-units-lg[4];
-  @5: @ui--spacing-units-lg[5];
-  @6: @ui--spacing-units-lg[6];
-  @7: @ui--spacing-units-xl[7];
-  @8: @ui--spacing-units-xl[8];
-}
-@ui-private--spacing-units-md: {
-  @1: @ui--spacing-units-md[1];
-  @2: @ui--spacing-units-md[2];
-  @3: @ui--spacing-units-md[3];
-  @4: @ui--spacing-units-md[4];
-  @5: @ui--spacing-units-md[5];
-  @6: @ui--spacing-units-md[6];
-  @7: @ui--spacing-units-xl[7];
-  @8: @ui--spacing-units-xl[8];
-}
-@ui-private--spacing-units-sm: {
-  @1: @ui--spacing-units-sm[1];
-  @2: @ui--spacing-units-sm[2];
-  @3: @ui--spacing-units-sm[3];
-  @4: @ui--spacing-units-sm[4];
-  @5: @ui--spacing-units-sm[5];
-  @6: @ui--spacing-units-sm[6];
-  @7: @ui--spacing-units-xl[7];
-  @8: @ui--spacing-units-xl[8];
-}
-@ui-private--spacing-units-xs: {
-  @1: @ui--spacing-units-xs[1];
-  @2: @ui--spacing-units-xs[2];
-  @3: @ui--spacing-units-xs[3];
-  @4: @ui--spacing-units-xs[4];
-  @5: @ui--spacing-units-xs[5];
-  @6: @ui--spacing-units-xs[6];
-  @7: @ui--spacing-units-xl[7];
-  @8: @ui--spacing-units-xl[8];
-}
-
-.mx__spacing-classes(@name, @value) {
+.mx-private__spacing-classes-single-unit(@name, @value) {
   /**
    * All sides
    */
@@ -159,16 +102,20 @@
   }
 }
 
-.mx__units-spacing-classes(@units) {
+.mx-private__spacing-classes-multiple-units(@units) {
 	each(@units, {
-    .mx__spacing-classes(@key, @value);
+    .mx-private__spacing-classes-single-unit(@key, @value);
 	});
 }
 
-.mx__spacing-classes(0, 0px);
-
-.mx__media-only-xs(.mx__units-spacing-classes(@ui--spacing-units-xs));
-.mx__media-only-sm(.mx__units-spacing-classes(@ui--spacing-units-sm));
-.mx__media-only-md(.mx__units-spacing-classes(@ui--spacing-units-md));
-.mx__media-only-lg(.mx__units-spacing-classes(@ui--spacing-units-lg));
-.mx__media-only-xl(.mx__units-spacing-classes(@ui--spacing-units-xl));
+/**
+ * Generates spacing rulesets
+ */
+.mx__spacing-rulesets() {
+  .mx-private__spacing-classes-single-unit(0, 0px);
+  .mx__media-only-xs(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-xs));
+  .mx__media-only-sm(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-sm));
+  .mx__media-only-md(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-md));
+  .mx__media-only-lg(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-lg));
+  .mx__media-only-xl(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-xl));
+}
