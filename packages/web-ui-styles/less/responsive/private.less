@@ -69,3 +69,44 @@
   );
 }
 
+/**
+ * Grouped responsive ruleset generator
+ */
+.mx-private__responsive-group-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[xs-sm] = false) {
+  .mx__media-max-sm(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[xs-sm]
+    )
+  );
+}
+
+.mx-private__responsive-group-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[md] = false) {
+  .mx__media-only-md(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[md]
+    )
+  );
+}
+
+.mx-private__responsive-group-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[lg-xl] = false) {
+  .mx__media-min-lg(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[lg-xl]
+    )
+  );
+}

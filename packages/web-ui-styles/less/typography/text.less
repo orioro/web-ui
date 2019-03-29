@@ -4,37 +4,33 @@
 /**
  * Text font-sizes
  */
-@ui--typography-text-font-sizes-xl:
+@ui--typography-text-font-sizes-lg-xl:
   1.875rem, // 30px
   1.5rem,   // 24px
   1.125rem, // 18px
   1rem,     // 16px
   0.875rem, // 14px
   0.75rem;  // 12px
-@ui--typography-text-font-sizes-lg: @ui--typography-text-font-sizes-xl;
-@ui--typography-text-font-sizes-md: @ui--typography-text-font-sizes-lg;
-@ui--typography-text-font-sizes-sm:
+@ui--typography-text-font-sizes-md: @ui--typography-text-font-sizes-lg-xl;
+@ui--typography-text-font-sizes-xs-sm:
   1.375rem, // 22px
   1.125rem, // 18px
   1rem,     // 16px
   1rem,     // 16px
   0.875rem, // 14px
   0.75rem;  // 12px
-@ui--typography-text-font-sizes-xs: @ui--typography-text-font-sizes-sm;
 
 /**
  * Responsive .text-1 - .text-6
  */
-.mx-private__responsive-rulesets-from-list(
+.mx-private__responsive-group-rulesets-from-list(
   ~'.text-',
   {
     font-size: @value !important;
   },
   {
-    xs: @ui--typography-text-font-sizes-xs;
-    sm: @ui--typography-text-font-sizes-sm;
+    xs-sm: @ui--typography-text-font-sizes-xs-sm;
     md: @ui--typography-text-font-sizes-md;
-    lg: @ui--typography-text-font-sizes-lg;
-    xl: @ui--typography-text-font-sizes-xl;
+    lg-xl: @ui--typography-text-font-sizes-lg-xl;
   }
 );

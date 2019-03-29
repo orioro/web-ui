@@ -3,7 +3,7 @@
 @import './spacing/mixins-margin.less';
 @import './spacing/mixins-padding.less';
 
-@ui--spacing-units-xl:
+@ui--spacing-units-lg-xl:
   100px,
   80px,
   60px,
@@ -12,9 +12,8 @@
   30px,
   20px,
   10px;
-@ui--spacing-units-lg: @ui--spacing-units-xl;
-@ui--spacing-units-md: @ui--spacing-units-lg;
-@ui--spacing-units-sm: 
+@ui--spacing-units-md: @ui--spacing-units-lg-xl;
+@ui--spacing-units-xs-sm: 
   60px,
   50px,
   40px,
@@ -23,7 +22,12 @@
   20px,
   20px,
   10px;
-@ui--spacing-units-xs: @ui--spacing-units-sm;
+
+@ui-private--spacing-unit-lists: {
+  xs-sm: @ui--spacing-units-xs-sm;
+  md: @ui--spacing-units-md;
+  lg-xl: @ui--spacing-units-lg-xl;
+};
 
 .mx-private__spacing-classes-single-unit(@name, @value) {
   /**
@@ -107,14 +111,20 @@
 	});
 }
 
+.mx-private__spacing-apply-prop(@property, @lists, @size) {
+  .mx__responsive-group-property(@property, {
+    xs-sm: extract(@lists[xs-sm], @size);
+    md: extract(@lists[md], @size);
+    lg-xl: extract(@lists[lg-xl], @size);
+  });
+}
+
 /**
  * Generates spacing rulesets
  */
 .mx__spacing-rulesets() {
   .mx-private__spacing-classes-single-unit(0, 0px);
-  .mx__media-only-xs(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-xs));
-  .mx__media-only-sm(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-sm));
+  .mx__media-max-sm(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-xs-sm));
   .mx__media-only-md(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-md));
-  .mx__media-only-lg(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-lg));
-  .mx__media-only-xl(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-xl));
+  .mx__media-min-lg(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-lg-xl));
 }

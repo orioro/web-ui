@@ -174,3 +174,28 @@
     @{property}: @values[xs];
   });
 }
+
+/**
+ * Grouped responsive property
+ */
+.mx__responsive-group-property(@property, @values) {
+
+}
+
+.mx__responsive-group-property(@property, @values) when not (@values[lg-xl] = false) {
+  .mx__media-min-lg({
+    @{property}: @values[lg-xl];
+  });
+}
+
+.mx__responsive-group-property(@property, @values) when not (@values[md] = false) {
+  .mx__media-only-md({
+    @{property}: @values[md];
+  });
+}
+
+.mx__responsive-group-property(@property, @values) when not (@values[xs-sm] = false) {
+  .mx__media-max-sm({
+    @{property}: @values[xs-sm];
+  });
+}
