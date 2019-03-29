@@ -5,69 +5,72 @@
 @ui--link-icon-distance: 10px;
 @ui--link-text-transform: uppercase;
 
-.link {
-  border: none;
+.mx__link-rulesets() {
+  .link {
+    border: none;
 
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  text-transform: @ui--link-text-transform;
-  cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    text-transform: @ui--link-text-transform;
+    cursor: pointer;
 
-  transition: color @ui--link-transition-duration @ui--link-transition-timing-function;
+    transition: color @ui--link-transition-duration @ui--link-transition-timing-function;
 
-  padding: 0;
+    padding: 0;
 
-  &:hover {
-    text-decoration: underline;
-  }
+    &:hover {
+      text-decoration: underline;
+    }
 
-  > svg {
-    height: 1em;
-    /**
-     * IE does not work well with width auto
-     */
-    width: 1em;
-    color: currentColor;
-  }
-
-  &.link--icon-right {
     > svg {
-      margin-left: @ui--link-icon-distance;
+      height: 1em;
+      /**
+       * IE does not work well with width auto
+       */
+      width: 1em;
+      color: currentColor;
+    }
+
+    &.link--icon-right {
+      > svg {
+        margin-left: @ui--link-icon-distance;
+      }
+    }
+
+    &.link--icon-left {
+      > svg {
+        margin-right: @ui--link-icon-distance;
+      }
+    }
+
+    &.link--icon-xs {
+      > svg {
+        height: .5em;
+        width: .5em;
+      }
+    }
+
+    &.link--icon-sm {
+      > svg {
+        height: .75em;
+        width: .75em;
+      }
+    }
+
+    &.link--icon-lg {
+      > svg {
+        height: 1.5em;
+        width: 1.5em;
+      }
+    }
+
+    &.link--icon-xl {
+      > svg {
+        height: 2em;
+        width: 2em;
+      }
     }
   }
 
-  &.link--icon-left {
-    > svg {
-      margin-right: @ui--link-icon-distance;
-    }
-  }
-
-  &.link--icon-xs {
-    > svg {
-      height: .5em;
-      width: .5em;
-    }
-  }
-
-  &.link--icon-sm {
-    > svg {
-      height: .75em;
-      width: .75em;
-    }
-  }
-
-  &.link--icon-lg {
-    > svg {
-      height: 1.5em;
-      width: 1.5em;
-    }
-  }
-
-  &.link--icon-xl {
-    > svg {
-      height: 2em;
-      width: 2em;
-    }
-  }
 }
