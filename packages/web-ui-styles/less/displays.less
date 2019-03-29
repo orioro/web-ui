@@ -1,23 +1,19 @@
-@import 'base.less';
 @import 'responsive.less';
 
-@ui-private--displays: none, inline, inline-block, block, table, table-cell, table-row, flex, inline-flex;
+.mx__display-rulesets() {
+	@displays: none, inline, inline-block, block, table, table-cell, table-row, flex, inline-flex;
 
-each(@ui-private--displays, {
-	.d-@{value} {
-		display: @value;
+	.mx-private__display-classes(@prefix) {
+		each(@displays, {
+			@{prefix}@{value} {
+				display: @value;
+			}
+		});
 	}
-});
 
-.mx__display-classes(@prefix) {
-	each(@ui-private--displays, {
-		.d-@{prefix}-@{value} {
-			display: @value;
-		}
-	});
+	.mx-private__display-classes(~'.d-');
+	.mx__media-min-sm(.mx-private__display-classes(~'.d-sm-'));
+	.mx__media-min-md(.mx-private__display-classes(~'.d-md-'));
+	.mx__media-min-lg(.mx-private__display-classes(~'.d-lg-'));
+	.mx__media-only-xl(.mx-private__display-classes(~'.d-xl-'));
 }
-
-.mx__media-min-sm(.mx__display-classes(sm));
-.mx__media-min-md(.mx__display-classes(md));
-.mx__media-min-lg(.mx__display-classes(lg));
-.mx__media-only-xl(.mx__display-classes(xl));
