@@ -1,6 +1,5 @@
-@import '../../less/wysiwyg-content.less';
-@import '../../less/buttons.less';
-@import (less) '../../node_modules/normalize.css/normalize.css';
+@import '../../less/base.less';
+@import '../../less/rich-text.less';
 
 @ui--wysiwyg-top-2: 100px;
 @ui--dark-colors: {
@@ -13,6 +12,7 @@
   yellow: yellow;
 };
 
+.mx__rich-text-rulesets();
 
 body {
   background-color: lightgray;
@@ -22,11 +22,3 @@ body {
   margin: 0 auto;
   background-color: white;
 }
-
-.wysiwyg-content {
-  cite {
-
-  }
-}
-
-

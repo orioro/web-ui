@@ -1,0 +1,18 @@
+.mx__rich-text-float(@float-direction) {
+
+  @margin-property: if(@float-direction = left, margin-right, margin-left);
+
+  float: @float-direction;
+  @{margin-property}: @ui--rich-text-floated-content-side-margin;
+  width: @ui--rich-text-floated-content-width;
+}
+
+.mx__rich-text-floated-content-rulesets() {
+  > .float-left {
+    .mx__rich-text-float(left);
+  }
+
+  > .float-right {
+    .mx__rich-text-float(right);
+  }
+}

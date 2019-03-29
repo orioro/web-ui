@@ -1,0 +1,65 @@
+@import './rich-text/vertical-spacing.less';
+@import './rich-text/elements.less';
+@import './rich-text/floated-content.less';
+@import './responsive.less';
+
+/**
+ * Basic configs
+ */
+@ui--rich-text-font-size: 1rem;
+@ui--rich-text-font-family: sans-serif;
+@ui--rich-text-line-height: 1.5;
+
+/**
+ * Spacing system
+ */
+@ui--rich-text-vertical-spacing-default-distance: 1.5em;
+@ui--rich-text-vertical-spacing-special-distance: 1.5 * @ui--rich-text-vertical-spacing-default-distance;
+
+/**
+ * Heading
+ */
+@ui--rich-text-headings-font-sizes:
+  2.2rem
+  1.666666rem
+  1.333333rem
+  1.2rem
+  1rem
+  1rem;
+@ui--rich-text-heading-margin-bottom: 1em;
+@ui--rich-text-heading-margin-top: 2em;
+@ui--rich-text-heading-font-weight: bold;
+@ui--rich-text-heading-line-height: 1.3;
+@ui--rich-text-heading-font-family: sans-serif;
+
+/**
+ * Anchor
+ */
+@ui--rich-text-anchor-color: blue;
+@ui--rich-text-anchor-active-color: saturate(@ui--rich-text-anchor-color, 40%);
+@ui--rich-text-anchor-visited-color: darken(@ui--rich-text-anchor-color, 20%);
+@ui--rich-text-anchor-hover-color: @ui--rich-text-anchor-active-color;
+
+/**
+ * Indented content:
+ * blockquote
+ */
+@ui--rich-text-indented-content-side-margin: 3em;
+
+/**
+ * Floated
+ */
+@ui--rich-text-floated-content-side-margin: 1em;
+@ui--rich-text-floated-content-width: calc(50% - @ui--rich-text-floated-content-side-margin / 2);
+
+.mx__rich-text-rulesets() {
+  .rich-text {
+    font-size: @ui--rich-text-font-size;
+    line-height: @ui--rich-text-line-height;
+    font-family: @ui--rich-text-font-family;
+
+    .mx__rich-text-vertical-spacing-rulesets();
+    .mx__rich-text-elements-styles-rulesets();
+    .mx__rich-text-floated-content-rulesets();
+  }
+}

@@ -50,3 +50,33 @@
 		@ruleset();
 	}
 }
+
+/**
+ * Reset a direction-conditioned property:
+ * margin, padding, border, border-radius
+ */
+.mx__util-reset-when-first-or-last(
+	@property,
+	@orientation) when (@orientation = horizontal) {
+
+	&:first-child {
+		@{property}-left: 0 !important;
+	}
+
+	&:last-child {
+		@{property}-right: 0 !important;
+	}
+}
+
+.mx__util-reset-when-first-or-last(
+	@property,
+	@orientation) when (@orientation = vertical) {
+
+	&:first-child {
+		@{property}-top: 0 !important;
+	}
+
+	&:last-child {
+		@{property}-bottom: 0 !important;
+	}
+}

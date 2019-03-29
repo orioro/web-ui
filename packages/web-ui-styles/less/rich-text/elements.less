@@ -1,0 +1,124 @@
+@import './vertical-spacing.less';
+
+.mx__rich-text-elements-styles-rulesets() {
+  /**
+   * Anchor tags
+   */
+  a:not([class]) {
+    &:link {
+      color: @ui--rich-text-anchor-color;
+      text-decoration: underline;
+
+      transition: color .2s ease;
+    }
+
+    &:active {
+      color: @ui--rich-text-anchor-active-color;
+    }
+
+    &:visited {
+      color: @ui--rich-text-anchor-visited-color;
+    }
+
+    &:hover {
+      color: @ui--rich-text-anchor-hover-color;
+    }
+  }
+
+  /**
+   * Headings
+   */
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6 {
+    font-weight: @ui--rich-text-heading-font-weight;
+    font-family: @ui--rich-text-heading-font-family;
+    line-height: @ui--rich-text-heading-line-height;
+  }
+
+  each(@ui--rich-text-headings-font-sizes, {
+    h@{key} {
+      font-size: @value;
+    }
+  });
+
+  /**
+   * Image
+   */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /**
+   * Blockquote
+   */
+  blockquote {
+    margin-left: @ui--rich-text-indented-content-side-margin;
+    margin-right: @ui--rich-text-indented-content-side-margin;
+    .mx__rich-text-vertical-spacing-rulesets();
+  }
+
+  cite {
+    font-style: normal;
+  }
+
+  strong, b {
+    font-weight: bold;
+  }
+
+  em, i {
+    font-style: italic;
+  }
+
+  del, ins {
+    color: inherit;
+  }
+
+  figure {
+    margin-right: 0;
+    margin-left: 0;
+
+    > * {
+      width: 100%;
+    }
+
+    a {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    figcaption {
+      margin-top: .5em;
+      font-size: .8em;
+      font-style: normal;
+    }
+  }
+
+  iframe {
+    width: 100%;
+    border: none;
+    display: block;
+  }
+
+  table {
+    border-collapse: collapse;
+    font-size: .8em;
+
+    th {
+      font-weight: bold;
+    }
+    
+    th, td {
+      border: 1px solid currentColor;
+      padding: 4px;
+    }
+  }
+}
