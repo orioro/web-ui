@@ -24,13 +24,17 @@
 			display: block;
 			padding: 3px 5px;
 			color: white;
-			background-color: fade(@ui--dev-overlay-color, 80%);
+			background-color: fade(@ui--dev-overlay-color, 40%);
+			border: 1px solid fade(@ui--dev-overlay-color, 40%);
+
+			transform: translateY(calc(-100% + 1px));
 
 			@ui--dev-shared-styles();
 		}
 
 		&:hover::before {
 			background-color: @ui--dev-overlay-color;
+			border: 1px dashed black;
 			z-index: 2;
 		}
 	}

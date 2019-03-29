@@ -1,6 +1,7 @@
 @import './grid.less';
 
 @ui--list-column-variants: 2, 3, 4, 5, 6;
+@ui--list-sm-max-columns: 3;
 
 .mx__list-reset() {
 	list-style: none;
@@ -9,34 +10,39 @@
 	padding-left: 0;
 }
 
+.mx__list-n-column-rules(@column-count) {
+  @gutter-count: @column-count - 1;
+  @gutter-total: @gutter-count * @ui--grid-horizontal-gutter;
+
+  > * {
+    width: calc((100% - @gutter-total) / @column-count);
+    margin-right: @ui--grid-horizontal-gutter;
+    margin-top: @ui--grid-horizontal-gutter;
+
+    /**
+     * Neutralize margin right for all items located
+     * on the right edge of the container.
+     * Example:
+     * If column count is 3, ensure any item
+     * that is multiple of 3 has no margin right.
+     */
+    &:nth-child(@{column-count}n),
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:nth-child(-n+@{column-count}) {
+      margin-top: 0;
+    }
+  }
+}
+
 .mx-private__list-column-variants() {
   each(@ui--list-column-variants, {
-    @gutter-count: @value - 1;
-    @gutter-total: @gutter-count * @ui--grid-horizontal-gutter;
 
     &.list--@{value} {
-      > * {
-        width: calc((100% - @gutter-total) / @value);
-        margin-right: @ui--grid-horizontal-gutter;
-        margin-top: @ui--grid-horizontal-gutter;
-
-        /**
-         * Neutralize margin right for all items located
-         * on the right edge of the container.
-         * Example:
-         * If column count is 3, ensure any item
-         * that is multiple of 3 has no margin right.
-         */
-        &:nth-child(@{value}n),
-        &:last-child {
-          margin-right: 0;
-        }
-
-        &:nth-child(-n+@{value}) {
-          margin-top: 0;
-        }
-      }
-
+      .mx__media-min-md(.mx__list-n-column-rules(@value));
+      .mx__media-only-sm(.mx__list-n-column-rules(min(@value, @ui--list-sm-max-columns)));
       .mx__media-only-xs({
         > * {
           width: 100%;
@@ -61,7 +67,6 @@
 
 	.list {
 	  display: flex;
-	  justify-content: flex-start;
 	  flex-wrap: wrap;
 
     .mx-private__list-column-variants();
