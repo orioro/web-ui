@@ -1,0 +1,27 @@
+@import './colors.less';
+@import './spacing.less';
+@import './util.less';
+
+@ui--section-distance-spacing-unit: 1;
+@ui--section-bg-colors: black;
+
+.mx__section-rulesets() {
+	.mx__util-immediate-sibling-relationships({
+		reference: ~'.section-transparent';
+		others: ~'.section-with-bg';
+
+		reference-after-itself: .mx__spacing-m-top(@ui--section-distance-spacing-unit);
+		reference-after-other: .mx__spacing-m-top(@ui--section-distance-spacing-unit);
+		other-after-reference: .mx__spacing-m-top(@ui--section-distance-spacing-unit);
+	});
+
+	.section-with-bg {
+		.mx__spacing-p-vertical(@ui--section-distance-spacing-unit);
+
+		each(@ui--section-bg-colors, {
+			&.bg-@{value} + &.bg-@{value} {
+				padding-top: 0;
+			}
+		});
+	}
+}
