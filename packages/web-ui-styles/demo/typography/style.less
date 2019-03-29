@@ -1,7 +1,6 @@
 @import '../../less/base.less';
 @import '../../less/typography.less';
 @import '../../less/spacing.less';
-@import '../../less/headings.less';
 
 body {
   background-color: turquoise;
@@ -14,6 +13,8 @@ body {
   times: 'Times New Roman';
 }
 
+.mx__typography-rulesets();
+
 #content {
   max-width: 800px;
   margin: 0 auto;
@@ -24,14 +25,14 @@ body {
 	display: flex;
 
 	> .demo-component__title {
-		.mx__heading-font-size(1);
+		.mx__typography-font-size(heading, 1);
 	}
 
 	> div {
-		.mx__typography-font-size(3);
+		.mx__typography-font-size(text, 3);
 	}
 
 	> textarea {
-		.mx__typography-font-size(1);
+		.mx__typography-font-size(text, 1);
 	}
 }

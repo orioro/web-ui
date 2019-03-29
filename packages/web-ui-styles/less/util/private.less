@@ -1,0 +1,31 @@
+/**
+ * Calls the ruleset generator inside a countdown.
+ * Exposes countdown variables to the @ruleset-generator:
+ * 
+ * @total
+ * @current
+ */
+.mx-private__util-rulesets-from-countdown(@prefix, @ruleset-generator, @total, @current: 1) when (@current <= @total) {
+	@{prefix}@{current} {
+		@ruleset-generator();
+	}
+
+	.mx-private__util-rulesets-from-countdown(@prefix, @ruleset-generator, @total, @current + 1);
+}
+
+/**
+ * Iterates over a list and generates rulesets
+ * combining the selector-prefix with each list key and value.
+ *
+ * Exposes list item variables to the @ruleset-generator:
+ *
+ * @key
+ * @value
+ */
+.mx-private__util-rulesets-from-list(@selector-prefix, @ruleset-generator, @list) {
+	each(@list, {
+		@{selector-prefix}@{key} {
+			@ruleset-generator();
+		}
+	});
+}

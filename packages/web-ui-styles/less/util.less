@@ -1,24 +1,42 @@
-
+@import './util/private.less';
 
 /**
- * Iterates nth times applying rulesets
+ * Empty ruleset and mixin
  */
-.mx__util-nth-classes(@prefix, @ruleset, @total, @current: 1, @append: false) when (@current <= @total) {
-	@output: if(
-		@append = append,
-		{
-			&.@{prefix}-@{current} {
-				@ruleset();
-			}
-		},
-		{
-			.@{prefix}-@{current} {
-				@ruleset();
-			}
+@ui--util-noop: {};
+.mx__util-noop() {}
+
+/**
+ * Helps setup immediate sibling relationships by
+ * establishing situations between a reference selector and a list of
+ * others
+ */
+.mx__util-immediate-sibling-relationships(@options) {
+	@reference: @options[reference];
+	@others: @options[others];
+
+	@reference-after-itself: @options[reference-after-itself];
+	@reference-after-other: @options[reference-after-other];
+	@other-after-reference: @options[other-after-reference];
+
+	/**
+	 * Relationship when the target has an immediate identical sibling
+	 */
+	@{reference} + @{reference} {
+		@reference-after-itself();
+	}
+
+	/**
+	 * Relationship when the target has an immediate sibling
+	 * that corresponds to any of the other selectors 
+	 */
+	each(@others, {
+		@{value} + @{reference} {
+			@reference-after-other();
 		}
-	);
 
-	@output();
-
-	.mx__util-nth-classes(@prefix, @ruleset, @total, @current + 1, @append);
+		@{reference} + @{value} {
+			@other-after-reference();
+		}
+	});
 }

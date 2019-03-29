@@ -1,0 +1,71 @@
+@import '../util.less';
+
+/**
+ * Combines responsive media queries with list ruleset generator.
+ * Works like .mx__responsive-property, but for lists of values.
+ */
+.mx-private__responsive-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[xs] = false) {
+  .mx__media-only-xs(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[xs]
+    )
+  );
+}
+
+.mx-private__responsive-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[sm] = false) {
+  .mx__media-only-sm(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[sm]
+    )
+  );
+}
+
+.mx-private__responsive-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[md] = false) {
+  .mx__media-only-md(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[md]
+    )
+  );
+}
+
+.mx-private__responsive-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[lg] = false) {
+  .mx__media-only-lg(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[lg]
+    )
+  );
+}
+
+.mx-private__responsive-rulesets-from-list(
+  @selector-prefix,
+  @ruleset-generator,
+  @lists) when not (@lists[xl] = false) {
+  .mx__media-only-xl(
+    .mx-private__util-rulesets-from-list(
+      @selector-prefix,
+      @ruleset-generator,
+      @lists[xl]
+    )
+  );
+}
+

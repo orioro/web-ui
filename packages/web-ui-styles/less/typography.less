@@ -1,5 +1,7 @@
-@import 'base.less';
-@import 'responsive.less';
+@import './base.less';
+@import './responsive.less';
+@import './typography/headings.less';
+@import './typography/text.less';
 
 /**
  * Font-family
@@ -7,7 +9,7 @@
 @ui--typography-font-families: {
   serif: serif;
   sans-serif: sans-serif;
-}
+};
 
 /**
 * Font-weights
@@ -16,120 +18,75 @@
   lighter: lighter;
   normal: normal;
   bold: bold;
-}
+};
 
 /**
- * Text font-size
+ * Applies responsive font-size from the text-font-sizes scale
  */
-@ui--typography-text-font-sizes-xl: {
-  1: 2rem;
-  2: 1.8rem;
-  3: 1.5rem;
-  4: 1.3rem;
-  5: 1rem;
-  6: 0.8rem;
-}
-@ui--typography-text-font-sizes-lg: @ui--typography-text-font-sizes-xl;
-@ui--typography-text-font-sizes-md: @ui--typography-text-font-sizes-lg;
-@ui--typography-text-font-sizes-sm: {
-  1: 1.8rem;
-  2: 1.5rem;
-  3: 1.3rem;
-  4: 1rem;
-  5: 1rem;
-  6: 0.8rem;
-}
-@ui--typography-text-font-sizes-xs: @ui--typography-text-font-sizes-sm;
-
-/**
- * Transitional variables
- * They are only used for enabling the mixin system
- */
-@ui-private--typography-text-font-sizes-xl: {
-  @1: @ui--typography-text-font-sizes-xl[1];
-  @2: @ui--typography-text-font-sizes-xl[2];
-  @3: @ui--typography-text-font-sizes-xl[3];
-  @4: @ui--typography-text-font-sizes-xl[4];
-  @5: @ui--typography-text-font-sizes-xl[5];
-  @6: @ui--typography-text-font-sizes-xl[6];
-}
-@ui-private--typography-text-font-sizes-lg: {
-  @1: @ui--typography-text-font-sizes-lg[1];
-  @2: @ui--typography-text-font-sizes-lg[2];
-  @3: @ui--typography-text-font-sizes-lg[3];
-  @4: @ui--typography-text-font-sizes-lg[4];
-  @5: @ui--typography-text-font-sizes-lg[5];
-  @6: @ui--typography-text-font-sizes-lg[6];
-}
-@ui-private--typography-text-font-sizes-md: {
-  @1: @ui--typography-text-font-sizes-md[1];
-  @2: @ui--typography-text-font-sizes-md[2];
-  @3: @ui--typography-text-font-sizes-md[3];
-  @4: @ui--typography-text-font-sizes-md[4];
-  @5: @ui--typography-text-font-sizes-md[5];
-  @6: @ui--typography-text-font-sizes-md[6];
-}
-@ui-private--typography-text-font-sizes-sm: {
-  @1: @ui--typography-text-font-sizes-sm[1];
-  @2: @ui--typography-text-font-sizes-sm[2];
-  @3: @ui--typography-text-font-sizes-sm[3];
-  @4: @ui--typography-text-font-sizes-sm[4];
-  @5: @ui--typography-text-font-sizes-sm[5];
-  @6: @ui--typography-text-font-sizes-sm[6];
-}
-@ui-private--typography-text-font-sizes-xs: {
-  @1: @ui--typography-text-font-sizes-xs[1];
-  @2: @ui--typography-text-font-sizes-xs[2];
-  @3: @ui--typography-text-font-sizes-xs[3];
-  @4: @ui--typography-text-font-sizes-xs[4];
-  @5: @ui--typography-text-font-sizes-xs[5];
-  @6: @ui--typography-text-font-sizes-xs[6];
-}
-
-.mx__typography-font-size-classes(@units) {
-  each(@units, {
-    .text-font-size-@{key} {
-      font-size: @value !important;
-    }
-  })
-}
-
-/**
- * Mixes in responsive typography font sizes
- */
-.mx__typography-font-size(@size) {
+.mx__typography-font-size(@type, @size) when (@type = text) {
   .mx__responsive-property(font-size, {
-    xl: @ui-private--typography-text-font-sizes-xl[@@size];
-    lg: @ui-private--typography-text-font-sizes-lg[@@size];
-    md: @ui-private--typography-text-font-sizes-md[@@size];
-    sm: @ui-private--typography-text-font-sizes-sm[@@size];
-    xs: @ui-private--typography-text-font-sizes-xs[@@size];
+    xl: extract(@ui--typography-text-font-sizes-xl, @size);
+    lg: extract(@ui--typography-text-font-sizes-lg, @size);
+    md: extract(@ui--typography-text-font-sizes-md, @size);
+    sm: extract(@ui--typography-text-font-sizes-sm, @size);
+    xs: extract(@ui--typography-text-font-sizes-xs, @size);
   });
 }
 
-each(@ui--typography-font-families, {
-  .font-family-@{key} {
-    font-family: @value !important;
-  }
-});
+/**
+ * Applies responsive font-size from the heading-font-sizes scale
+ */
+.mx__typography-font-size(@type, @size) when (@type = heading) {
+  .mx__responsive-property(font-size, {
+    xl: extract(@ui--typography-heading-font-sizes-xl, @size);
+    lg: extract(@ui--typography-heading-font-sizes-lg, @size);
+    md: extract(@ui--typography-heading-font-sizes-md, @size);
+    sm: extract(@ui--typography-heading-font-sizes-sm, @size);
+    xs: extract(@ui--typography-heading-font-sizes-xs, @size);
+  });
+}
 
-.mx__media-only-xs(.mx__typography-font-size-classes(@ui--typography-text-font-sizes-xs));
-.mx__media-only-sm(.mx__typography-font-size-classes(@ui--typography-text-font-sizes-sm));
-.mx__media-only-md(.mx__typography-font-size-classes(@ui--typography-text-font-sizes-md));
-.mx__media-only-lg(.mx__typography-font-size-classes(@ui--typography-text-font-sizes-lg));
-.mx__media-only-xl(.mx__typography-font-size-classes(@ui--typography-text-font-sizes-xl));
+/**
+ * Generates typography rulesets
+ */
+.mx__typography-rulesets() {
+  /**
+   * .font-family-*
+   */
+  .mx-private__util-rulesets-from-list(
+    ~'.font-family-',
+    {
+      font-family: @value !important;
+    },
+    @ui--typography-font-families
+  );
 
-each(@ui--typography-font-weights, {
-  .font-weight-@{key} {
-    font-weight: @value !important;
-  }
-})
+  /**
+   * .font-weight-*
+   */
+  .mx-private__util-rulesets-from-list(
+    ~'.font-weight-',
+    {
+      font-weight: @value !important;
+    },
+    @ui--typography-font-weights
+  );
 
-each({
-  uppercase: uppercase;
-  lowercase: lowercase;
-}, {
-  .text-transform-@{key} {
-    text-transform: @value !important;
-  }
-});
+  /**
+   * .text-transform-uppercase
+   * .text-transform-lowercase
+   */
+  .mx-private__util-rulesets-from-list(
+    ~'.text-transform-',
+    {
+      text-transform: @value !important;
+    },
+    {
+      uppercase: uppercase;
+      lowercase: lowercase;
+    }
+  );
+
+
+  .mx__typography-heading-rulesets();
+}

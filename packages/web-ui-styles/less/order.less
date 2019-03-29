@@ -5,64 +5,84 @@
 /**
  * Order
  */
-.mx-private__order-classes(@ruleset, @total-column-count) {
-	.mx__util-nth-classes(order, @ruleset, @total-column-count, 0);
+.mx__order-rulesets() {
+	/**
+	 * @current is exposed by `.mx-private__util-rulesets-from-countdown` mixin
+	 */
+	@order-ruleset-generator: {
+		order: @current;
+	};
+
+	.mx-private__util-rulesets-from-countdown(
+		~'.order-',
+		@order-ruleset-generator,
+		@ui--grid-column-count,
+		0
+	);
 	.order-first {
 		order: -1;
 	}
 	.order-last {
-		order: @total-column-count + 1;
+		order: @ui--grid-column-count + 1;
 	}
 
 	.mx__media-min-sm({
-		.mx__util-nth-classes(order-sm, @ruleset, @total-column-count, 0);
+		.mx-private__util-rulesets-from-countdown(
+			~'.order-sm-',
+			@order-ruleset-generator,
+			@ui--grid-column-count,
+			0
+		);
 		.order-sm-first {
 			order: -1;
 		}
 		.order-sm-last {
-			order: @total-column-count + 1;
+			order: @ui--grid-column-count + 1;
 		}
 	});
 
 	.mx__media-min-md({
-		.mx__util-nth-classes(order-md, @ruleset, @total-column-count, 0);
+		.mx-private__util-rulesets-from-countdown(
+			~'.order-md-',
+			@order-ruleset-generator,
+			@ui--grid-column-count,
+			0
+		);
 		.order-md-first {
 			order: -1;
 		}
 		.order-md-last {
-			order: @total-column-count + 1;
+			order: @ui--grid-column-count + 1;
 		}
 	});
 
 	.mx__media-min-lg({
-		.mx__util-nth-classes(order-lg, @ruleset, @total-column-count, 0);
+		.mx-private__util-rulesets-from-countdown(
+			~'.order-lg-',
+			@order-ruleset-generator,
+			@ui--grid-column-count,
+			0
+		);
 		.order-lg-first {
 			order: -1;
 		}
 		.order-lg-last {
-			order: @total-column-count + 1;
+			order: @ui--grid-column-count + 1;
 		}
 	});
 
 	.mx__media-only-xl({
-		.mx__util-nth-classes(order-xl, @ruleset, @total-column-count, 0);
+		.mx-private__util-rulesets-from-countdown(
+			~'.order-xl-',
+			@order-ruleset-generator,
+			@ui--grid-column-count,
+			0
+		);
 		.order-xl-first {
 			order: -1;
 		}
 		.order-xl-last {
-			order: @total-column-count + 1;
+			order: @ui--grid-column-count + 1;
 		}
 	});
 };
-
-/**
- * Generates order-related rulesets
- */
-.mx__order-rulesets() {
-	/**
-	 * @total and @current are exposed by `.mx__util-nth-classes` mixin
-	 */
-	.mx-private__order-classes({
-		order: @current;
-	}, @ui--grid-column-count);
-}

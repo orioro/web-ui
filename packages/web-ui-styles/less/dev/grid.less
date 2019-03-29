@@ -5,7 +5,9 @@
 
 	> [class*="col"] {
 		position: relative;
-		box-shadow: inset 0px 0px 0px 1px @ui--dev-overlay-color;
+		box-shadow: inset 0px 0px 0px 1px fade(@ui--dev-overlay-color, 20%);
+
+		@half-gutter: (@ui--grid-horizontal-gutter / 2);
 
 		&::before {
 			content: '';
@@ -19,8 +21,16 @@
 			height: 100%;
 			width: 100%;
 
-			border-left: solid (@ui--grid-horizontal-gutter / 2) @ui--dev-overlay-color;
-			border-right: solid (@ui--grid-horizontal-gutter / 2) @ui--dev-overlay-color;
+			border-left: solid @half-gutter fade(@ui--dev-overlay-color, 20%);
+			border-right: solid @half-gutter fade(@ui--dev-overlay-color, 20%);
+		}
+
+		&:first-child::before {
+			border-left: solid @half-gutter fade(black, 20%);
+		}
+
+		&:last-child::before {
+			border-right: solid @half-gutter fade(black, 20%);
 		}
 	}
 }

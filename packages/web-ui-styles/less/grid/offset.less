@@ -4,29 +4,54 @@
 /**
  * Offset
  */
-.mx-private__grid-offset-classes(@ruleset, @total-column-count) {
-	.mx__util-nth-classes(offset, @ruleset, @total-column-count);
+.mx-private__grid-offset-rulesets() {
+	/**
+	 * @current is exposed by `.mx-private__util-rulesets-from-countdown` mixin
+	 */
+	@offset-ruleset-generator: {
+		margin-left: (100% / @ui--grid-column-count) * @current;
+	};
+
+	.mx-private__util-rulesets-from-countdown(
+		~'> .offset-',
+		@offset-ruleset-generator,
+		@ui--grid-column-count - 1,
+		0
+	);
 
 	.mx__media-min-sm(
-		.mx__util-nth-classes(offset-sm, @ruleset, @total-column-count - 1, 0)
+		.mx-private__util-rulesets-from-countdown(
+			~'> .offset-sm-',
+			@offset-ruleset-generator,
+			@ui--grid-column-count - 1,
+			0
+		);
 	);
 
 	.mx__media-min-md(
-		.mx__util-nth-classes(offset-md, @ruleset, @total-column-count - 1, 0);
+		.mx-private__util-rulesets-from-countdown(
+			~'> .offset-md-',
+			@offset-ruleset-generator,
+			@ui--grid-column-count - 1,
+			0
+		);
 	);
 
 	.mx__media-min-lg(
-		.mx__util-nth-classes(offset-lg, @ruleset, @total-column-count - 1, 0);
+		.mx-private__util-rulesets-from-countdown(
+			~'> .offset-lg-',
+			@offset-ruleset-generator,
+			@ui--grid-column-count - 1,
+			0
+		);
 	);
 
 	.mx__media-only-xl(
-		.mx__util-nth-classes(offset-xl, @ruleset, @total-column-count - 1, 0);
+		.mx-private__util-rulesets-from-countdown(
+			~'> .offset-xl-',
+			@offset-ruleset-generator,
+			@ui--grid-column-count - 1,
+			0
+		);
 	);
 };
-
-/**
- * @total and @current are exposed by `.mx__util-nth-classes` mixin
- */
-.mx-private__grid-offset-classes({
-	margin-left: (100% / @ui--grid-column-count) * @current;
-}, @ui--grid-column-count);

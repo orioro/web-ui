@@ -1,0 +1,21 @@
+.mx-private__grid-cancel-horizontal-gutters() {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+.mx-private__grid-cancel-vertical-gutters() {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.mx-private__grid-apply-rules-to-columns-with-prefix(@column-prefix, @ruleset) when (@column-prefix = all) {
+	.row > [class*="col"] {
+		@ruleset();
+	}
+}
+
+.mx-private__grid-apply-rules-to-columns-with-prefix(@column-prefix, @ruleset) when not (@column-prefix = all) {
+	.row > [class*="@{column-prefix}"] {
+		@ruleset();
+	}
+}

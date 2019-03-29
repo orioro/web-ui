@@ -1,24 +1,25 @@
+@import './private.less';
 @import '../responsive.less';
 @import '../util.less';
 
-/**
- * Rules that apply to:
- * ANY column in ANY media size
- */
-.mx-private__grid-apply-rules-to-columns-with-prefix(all, {
-	padding-left: @ui--grid-horizontal-gutter / 2;
-	padding-right: @ui--grid-horizontal-gutter / 2;
-	width: 100%;
-});
+.mx-private__grid-col-rulesets() {
+	/**
+	 * Rules that apply to:
+	 * ANY column in ANY media size
+	 */
+	.mx-private__grid-apply-rules-to-columns-with-prefix(all, {
+		padding-left: @ui--grid-horizontal-gutter / 2;
+		padding-right: @ui--grid-horizontal-gutter / 2;
+		width: 100%;
+	});
 
-/**
- * col-{N}
- *
- * This set of columns stacks,
- * thus its columns NEVER have vertical gutter
- */
-> * {
-	&.col {
+	/**
+	 * col-{N}
+	 *
+	 * This set of columns stacks,
+	 * thus its columns NEVER have vertical gutter
+	 */
+	.row > .col {
 	  flex-basis: 0;
 	  flex-grow: 1;
 	  max-width: 100%;
@@ -26,61 +27,57 @@
 		.mx-private__grid-cancel-vertical-gutters();
 	}
 
-	.mx__util-nth-classes(
-		col,
+	.mx-private__util-rulesets-from-countdown(
+		~'.row > .col-',
 		{
 			width: (100% / @total) * @current;
 			.mx-private__grid-cancel-vertical-gutters();
 		},
-		@ui--grid-column-count,
-		1,
-		append
+		@ui--grid-column-count
 	);
-}
 
-/**
- * col-sm-{N}
- * col-md-{N}
- * col-lg-{N}
- * col-xl-{N}
- *
- * These columns stack at each other at certain breakpoints.
- * When they are stacked, they get a vertical gutter.
- */
-each({
-	col-sm: @ui--sm-min-width;
-	col-md: @ui--md-min-width;
-	col-lg: @ui--lg-min-width;
-	col-xl: @ui--xl-min-width;
-}, {
-	@col-prefix: @key;
+	/**
+	 * col-sm-{N}
+	 * col-md-{N}
+	 * col-lg-{N}
+	 * col-xl-{N}
+	 *
+	 * These columns stack at each other at certain breakpoints.
+	 * When they are stacked, they get a vertical gutter.
+	 */
+	each({
+		col-sm: @ui--sm-min-width;
+		col-md: @ui--md-min-width;
+		col-lg: @ui--lg-min-width;
+		col-xl: @ui--xl-min-width;
+	}, {
+		@col-prefix: @key;
 
-	@smaller-than-breakpoint: {
-		.mx-private__grid-apply-rules-to-columns-with-prefix(@col-prefix, {
-			padding-top: @ui--grid-vertical-gutter / 2;
-			padding-bottom: @ui--grid-vertical-gutter / 2;
+		@smaller-than-breakpoint: {
+			.mx-private__grid-apply-rules-to-columns-with-prefix(@col-prefix, {
+				padding-top: @ui--grid-vertical-gutter / 2;
+				padding-bottom: @ui--grid-vertical-gutter / 2;
 
-			// Remove gutter padding from edges
-			&:first-child {
-				padding-top: 0 !important;
-			}
+				// Remove gutter padding from edges
+				&:first-child {
+					padding-top: 0 !important;
+				}
 
-			&:last-child {
-				padding-bottom: 0 !important;
-			}
-		});
-	};
+				&:last-child {
+					padding-bottom: 0 !important;
+				}
+			});
+		};
 
-	@greater-than-breakpoint: {
-		> * {
-			&.@{col-prefix} {
+		@greater-than-breakpoint: {
+			.row > .@{col-prefix} {
 	  		flex-basis: 0;
 		    flex-grow: 1;
 		    max-width: 100%;
 			};
 
-			.mx__util-nth-classes(
-				@col-prefix,
+			.mx-private__util-rulesets-from-countdown(
+				~'.row > .@{col-prefix}-',
 				{
 					width: (100% / @total) * @current;
 					// If any col-{media-size}-{N} is still active,
@@ -89,17 +86,15 @@ each({
 					// Rely on @media-query to remove the `!important`s effect.
 					.mx-private__grid-cancel-vertical-gutters();
 				},
-				@ui--grid-column-count,
-				1,
-				append
+				@ui--grid-column-count
 			);
-		}
-	};
+		};
 
-	.mx__media-breakpoint(
-		width,
-		@value,
-		@smaller-than-breakpoint,
-		@greater-than-breakpoint
-	);
-});
+		.mx__media-breakpoint(
+			width,
+			@value,
+			@smaller-than-breakpoint,
+			@greater-than-breakpoint
+		);
+	});
+}

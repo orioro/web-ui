@@ -1,9 +1,33 @@
 @import './dev/grid.less';
 
-@ui--dev-overlay-color: rgba(255, 0, 0, 0.2);
+@ui--dev-overlay-color: red;
 
 .dev-x-ray {
 	* {
-		box-shadow: inset 0px 0px 0px 1px @ui--dev-overlay-color;
+		box-shadow: inset 0px 0px 0px 1px fade(@ui--dev-overlay-color, 20%);
+
+		&:hover {
+			box-shadow: inset 0px 0px 0px 2px @ui--dev-overlay-color;
+		}
+	}
+}
+
+.dev-show-classes {
+	[class] {
+		&::before {
+			position: absolute;
+			content: attr(class);
+			display: block;
+			padding: 3px 5px;
+			color: white;
+			font-size: 10px;
+			font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+			background-color: fade(@ui--dev-overlay-color, 80%);
+		}
+
+		&:hover::before {
+			background-color: @ui--dev-overlay-color;
+			z-index: 2;
+		}
 	}
 }
