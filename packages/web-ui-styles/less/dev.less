@@ -1,6 +1,10 @@
 @import './dev/grid.less';
 
 @ui--dev-overlay-color: red;
+@ui--dev-shared-styles: {
+	font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+	font-size: 10px;
+};
 
 .dev-x-ray {
 	* {
@@ -20,9 +24,9 @@
 			display: block;
 			padding: 3px 5px;
 			color: white;
-			font-size: 10px;
-			font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 			background-color: fade(@ui--dev-overlay-color, 80%);
+
+			@ui--dev-shared-styles();
 		}
 
 		&:hover::before {
