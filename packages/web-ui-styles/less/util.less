@@ -40,3 +40,13 @@
 		}
 	});
 }
+
+/**
+ * Applies the @ruleset to the element when it is a descendant
+ * of any element corresponding to the @ancestor-selector
+ */
+.mx__util-apply-ruleset-when-descendant-of(@ancestor-selector, @ruleset) {
+	@{ancestor-selector} & {
+		@ruleset();
+	}
+}
