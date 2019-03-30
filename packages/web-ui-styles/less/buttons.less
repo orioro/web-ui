@@ -1,19 +1,27 @@
+@import './typography.less';
+@import './spacing.less';
 @import './colors.less';
 
-@ui--btn-sm-vertical-padding: 5px;
-@ui--btn-sm-horizontal-padding: 10px;
-@ui--btn-vertical-padding: 10px;
-@ui--btn-horizontal-padding: 20px;
-@ui--btn-lg-vertical-padding: 20px;
-@ui--btn-lg-horizontal-padding: 30px;
+@ui--btn-units: {
+  font-size: 4;
+  vertical-padding: 8;
+  horizontal-padding: 7;
+  icon-distance: 9;
+};
 
-@ui--btn-sm-icon-distance: 8px;
-@ui--btn-icon-distance: 10px;
-@ui--btn-lg-icon-distance: 12px;
+@ui--btn-sm-units: {
+  font-size: 5;
+  vertical-padding: 10;
+  horizontal-padding: 6;
+  icon-distance: 10;
+};
 
-@ui--btn-sm-font-size: 0.75rem;
-@ui--btn-font-size: 1rem;
-@ui--btn-lg-font-size: 1.5rem;
+@ui--btn-lg-units: {
+  font-size: 2;
+  vertical-padding: 7;
+  horizontal-padding: 6;
+  icon-distance: 8;
+};
 
 @ui--btn-border-width: 1px;
 @ui--btn-border-radius: 0;
@@ -27,13 +35,15 @@
  */
 .mx-private__buttons-size-variants() {
   &.btn--sm {
-    padding: @ui--btn-sm-vertical-padding @ui--btn-sm-horizontal-padding;
-    font-size: @ui--btn-sm-font-size;
+    .mx__typography-font-size(text, @ui--btn-sm-units[font-size]);
+    .mx__spacing-p-vertical(@ui--btn-sm-units[vertical-padding]);
+    .mx__spacing-p-horizontal(@ui--btn-sm-units[horizontal-padding]);
   }
 
   &.btn--lg {
-    padding: @ui--btn-lg-vertical-padding @ui--btn-lg-horizontal-padding;
-    font-size: @ui--btn-lg-font-size;
+    .mx__typography-font-size(text, @ui--btn-lg-units[font-size]);
+    .mx__spacing-p-vertical(@ui--btn-lg-units[vertical-padding]);
+    .mx__spacing-p-horizontal(@ui--btn-lg-units[horizontal-padding]);
   }
 }
 
@@ -42,34 +52,34 @@
  */
 .mx-private__buttons-icon-variants() {
   &.btn--icon-only {
-    padding: @ui--btn-vertical-padding;
+    .mx__spacing-p(@ui--btn-units[vertical-padding]);
   }
 
   &.btn--icon-right {
     > svg {
-      margin-left: @ui--btn-icon-distance;
+      .mx__spacing-m-left(@ui--btn-units[icon-distance]);
     }
 
     &.btn--sm > svg {
-      margin-left: @ui--btn-sm-icon-distance;
+      .mx__spacing-m-left(@ui--btn-sm-units[icon-distance]);
     }
 
     &.btn--lg > svg {
-      margin-left: @ui--btn-lg-icon-distance;
+      .mx__spacing-m-left(@ui--btn-lg-units[icon-distance]);
     }
   }
 
   &.btn--icon-left {
     > svg {
-      margin-right: @ui--btn-icon-distance;
+      .mx__spacing-m-right(@ui--btn-units[icon-distance]);
     }
 
     &.btn--sm > svg {
-      margin-right: @ui--btn-sm-icon-distance;
+      .mx__spacing-m-right(@ui--btn-sm-units[icon-distance]);
     }
 
     &.btn--lg > svg {
-      margin-right: @ui--btn-lg-icon-distance;
+      .mx__spacing-m-right(@ui--btn-lg-units[icon-distance]);
     }
   }
 
@@ -107,8 +117,9 @@
  */
 .mx__button-rulesets() {
   .btn {
-    font-size: @ui--btn-font-size;
-    padding: @ui--btn-vertical-padding @ui--btn-horizontal-padding;
+    .mx__typography-font-size(text, @ui--btn-units[font-size]);
+    .mx__spacing-p-vertical(@ui--btn-units[vertical-padding]);
+    .mx__spacing-p-horizontal(@ui--btn-units[horizontal-padding]);
 
     display: inline-flex;
     align-items: center;

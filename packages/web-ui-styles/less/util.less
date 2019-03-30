@@ -80,3 +80,16 @@
 		@{property}-bottom: 0 !important;
 	}
 }
+
+/**
+ * Tries to extract the property's value
+ * from the list at specified index.
+ * If the list is shorter, uses the last value as default.
+ */
+.mx__util-extract-default-to-last(@property, @list, @index) {
+	@{property}: if(
+		length(@list) >= @index,
+		extract(@list, @index),
+		extract(@list, length(@list))
+	);
+}

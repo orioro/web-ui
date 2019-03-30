@@ -1,77 +1,14 @@
 @import '../util.less';
 @import '../responsive.less';
 
-/**
- * Heading font-families
- */
-@ui--typography-heading-font-families:
-	sans-serif,
-	sans-serif,
-	sans-serif,
-	sans-serif,
-	sans-serif,
-	sans-serif;
-
-/**
- * Heading font-weights
- */
-@ui--typography-heading-font-weights:
-	bold,
-	bold,
-	bold,
-	bold,
-	bold,
-	bold;
-
-/**
- * Heading font-sizes
- */
-@ui--typography-heading-font-sizes-lg-xl:
-  2.5rem,
-  2rem,
-  1.875rem,
-  1.75rem,
-  1.375rem,
-  1.125rem;
-@ui--typography-heading-font-sizes-md: @ui--typography-heading-font-sizes-lg-xl;
-@ui--typography-heading-font-sizes-xs-sm:
-  1.875rem,
-  1.5rem,
-  1.375rem,
-  1.3125rem,
-  1.0625rem,
-  1rem;
-
 .mx__typography-heading-rulesets() {
-	.h1 {
-	  font-weight: extract(@ui--typography-heading-font-weights, 1);
-	  font-family: extract(@ui--typography-heading-font-families, 1);
-	}
 
-	.h2 {
-	  font-weight: extract(@ui--typography-heading-font-weights, 2);
-	  font-family: extract(@ui--typography-heading-font-families, 2);
-	}
-
-	.h3 {
-	  font-weight: extract(@ui--typography-heading-font-weights, 3);
-	  font-family: extract(@ui--typography-heading-font-families, 3);
-	}
-
-	.h4 {
-	  font-weight: extract(@ui--typography-heading-font-weights, 4);
-	  font-family: extract(@ui--typography-heading-font-families, 4);
-	}
-
-	.h5 {
-	  font-weight: extract(@ui--typography-heading-font-weights, 5);
-	  font-family: extract(@ui--typography-heading-font-families, 5);
-	}
-
-	.h6 {
-	  font-weight: extract(@ui--typography-heading-font-weights, 6);
-	  font-family: extract(@ui--typography-heading-font-families, 6);
-	}
+	each(range(length(@ui--typography-heading-font-sizes-lg-xl)), {
+		.h@{key} {
+			.mx__util-extract-default-to-last(font-weight, @ui--typography-heading-font-weights, @key);
+			.mx__util-extract-default-to-last(font-family, @ui--typography-heading-font-families, @key);
+		}
+	});
 
 	/**
 	 * Responsive .h1 - .h6

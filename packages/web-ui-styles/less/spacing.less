@@ -3,25 +3,28 @@
 @import './spacing/mixins-margin.less';
 @import './spacing/mixins-padding.less';
 
-@ui--spacing-units-lg-xl:
-  100px,
-  80px,
-  60px,
-  50px,
-  40px,
-  30px,
-  20px,
-  10px;
-@ui--spacing-units-md: @ui--spacing-units-lg-xl;
-@ui--spacing-units-xs-sm: 
-  60px,
-  50px,
-  40px,
-  40px,
-  30px,
-  20px,
-  20px,
-  10px;
+/**
+ * Controls how many standalone spacing classes should be generated
+ * @type {Number}
+ */
+@ui--spacing-standalone-class-count: 6;
+
+/**
+ * Spacing units            1     2     3     4     5     6     7     8     9    10
+ */
+@ui--spacing-units-lg-xl: 100px, 80px, 60px, 50px, 40px, 30px, 20px, 14px, 10px, 8px;
+@ui--spacing-units-xs-sm:  60px, 50px, 40px, 40px, 30px, 20px, 20px, 12px, 10px, 8px;
+@ui--spacing-units-md:
+  (extract(@ui--spacing-units-lg-xl, 1) + extract(@ui--spacing-units-xs-sm, 1)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 2) + extract(@ui--spacing-units-xs-sm, 2)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 3) + extract(@ui--spacing-units-xs-sm, 3)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 4) + extract(@ui--spacing-units-xs-sm, 4)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 5) + extract(@ui--spacing-units-xs-sm, 5)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 6) + extract(@ui--spacing-units-xs-sm, 6)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 7) + extract(@ui--spacing-units-xs-sm, 7)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 8) + extract(@ui--spacing-units-xs-sm, 8)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 9) + extract(@ui--spacing-units-xs-sm, 9)) / 2,
+  (extract(@ui--spacing-units-lg-xl, 10) + extract(@ui--spacing-units-xs-sm, 10)) / 2;
 
 @ui-private--spacing-unit-lists: {
   xs-sm: @ui--spacing-units-xs-sm;
@@ -106,9 +109,9 @@
 }
 
 .mx-private__spacing-classes-multiple-units(@units) {
-	each(@units, {
-    .mx-private__spacing-classes-single-unit(@key, @value);
-	});
+  each(range(@ui--spacing-standalone-class-count), {
+    .mx-private__spacing-classes-single-unit(@key, extract(@units, @key));
+  });
 }
 
 .mx-private__spacing-apply-prop(@property, @lists, @size) {

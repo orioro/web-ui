@@ -20,6 +20,34 @@
 };
 
 /**
+ * Headings                                 1       2           3        4           5      6
+ */
+@ui--typography-heading-font-families:    sans-serif;
+@ui--typography-heading-font-weights:     bold;
+@ui--typography-heading-font-sizes-lg-xl: 2.5rem,   2rem,   1.875rem, 1.75rem,   1.375rem,  1.125rem;
+@ui--typography-heading-font-sizes-xs-sm: 1.875rem, 1.5rem, 1.375rem, 1.3125rem, 1.0625rem, 1rem;
+@ui--typography-heading-font-sizes-md:
+  (extract(@ui--typography-heading-font-sizes-lg-xl, 1) + extract(@ui--typography-heading-font-sizes-xs-sm, 1)) / 2,
+  (extract(@ui--typography-heading-font-sizes-lg-xl, 2) + extract(@ui--typography-heading-font-sizes-xs-sm, 2)) / 2,
+  (extract(@ui--typography-heading-font-sizes-lg-xl, 3) + extract(@ui--typography-heading-font-sizes-xs-sm, 3)) / 2,
+  (extract(@ui--typography-heading-font-sizes-lg-xl, 4) + extract(@ui--typography-heading-font-sizes-xs-sm, 4)) / 2,
+  (extract(@ui--typography-heading-font-sizes-lg-xl, 5) + extract(@ui--typography-heading-font-sizes-xs-sm, 5)) / 2,
+  (extract(@ui--typography-heading-font-sizes-lg-xl, 6) + extract(@ui--typography-heading-font-sizes-xs-sm, 6)) / 2;
+
+/**
+ * Text font-sizes                         1       2           3     4         5        6
+ */
+@ui--typography-text-font-sizes-lg-xl: 1.875rem, 1.5rem,   1.125rem, 1rem, 0.875rem, 0.75rem;
+@ui--typography-text-font-sizes-xs-sm: 1.375rem, 1.125rem, 1rem,     1rem, 0.875rem, 0.75rem;
+@ui--typography-text-font-sizes-md:
+  (extract(@ui--typography-text-font-sizes-lg-xl, 1) + extract(@ui--typography-text-font-sizes-xs-sm, 1)) / 2,
+  (extract(@ui--typography-text-font-sizes-lg-xl, 2) + extract(@ui--typography-text-font-sizes-xs-sm, 2)) / 2,
+  (extract(@ui--typography-text-font-sizes-lg-xl, 3) + extract(@ui--typography-text-font-sizes-xs-sm, 3)) / 2,
+  (extract(@ui--typography-text-font-sizes-lg-xl, 4) + extract(@ui--typography-text-font-sizes-xs-sm, 4)) / 2,
+  (extract(@ui--typography-text-font-sizes-lg-xl, 5) + extract(@ui--typography-text-font-sizes-xs-sm, 5)) / 2,
+  (extract(@ui--typography-text-font-sizes-lg-xl, 6) + extract(@ui--typography-text-font-sizes-xs-sm, 6)) / 2;
+
+/**
  * Applies responsive font-size from the text-font-sizes scale
  */
 .mx__typography-font-size(@type, @size) when (@type = text) {
