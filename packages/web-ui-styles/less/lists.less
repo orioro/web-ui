@@ -3,6 +3,8 @@
 @ui--list-column-variants: 2, 3, 4, 5, 6;
 @ui--list-sm-max-columns: 3;
 
+@ui-private--floor-multiplier: 100000;
+
 .mx__list-reset() {
 	list-style: none;
 	margin-top: 0;
@@ -14,8 +16,21 @@
   @gutter-count: @column-count - 1;
   @gutter-total: @gutter-count * @ui--grid-horizontal-gutter;
 
+  @percentage-part: floor(@ui-private--floor-multiplier * 100% / @column-count) / @ui-private--floor-multiplier;
+  @px-part: floor(@ui-private--floor-multiplier * @gutter-total / @column-count) / @ui-private--floor-multiplier;
+
   > * {
-    width: calc((100% - @gutter-total) / @column-count);
+    // width: calc((100% - @gutter-total) / @column-count);
+    /**
+     * EDGE rounds the pixels upwards causing lists to break in incorrect places.
+     * Example case: 3 columns, gutter-width 40px
+     * `(100% - 80px) / 3` becomes
+     * `33.333333% - 26.666667px` in EDGE
+     *
+     * Thus we need to pre-calculate and correctly round
+     * numbers using floor.
+     */
+    width: calc(@percentage-part - @px-part);
     margin-right: @ui--grid-horizontal-gutter;
     margin-top: @ui--grid-horizontal-gutter;
 
@@ -58,7 +73,7 @@
   });
 }
 
-.mx__list-rulesets() {
+.mx__lists() {
 	.list-reset,
 	ul.list,
 	ol.list {
