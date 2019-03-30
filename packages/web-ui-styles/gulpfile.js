@@ -2,6 +2,8 @@ const path = require('path')
 const gulp = require('gulp')
 const less = require('gulp-less')
 const size = require('gulp-size')
+const autoprefixer = require('gulp-autoprefixer')
+const cleanCSS = require('gulp-clean-css')
 const bsInstance = require('browser-sync').create()
 
 const { series } = gulp
@@ -18,8 +20,16 @@ const compileLessDemo = () => {
 
   return gulp.src(LESS_GLOB, { base: 'demo' })
     .pipe(less())
+    // .pipe(cleanCSS({
+    //   level: 2
+    // }))
+    // .pipe(autoprefixer({
+    //   browsers: ['last 2 versions'],
+    //   cascade: false
+    // }))
     .pipe(size({
-      showFiles: true
+      showFiles: true,
+      gzip: true
     }))
     .pipe(gulp.dest('demo'))
     .pipe(bsInstance.stream())
