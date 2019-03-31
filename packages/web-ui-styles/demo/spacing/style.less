@@ -1,41 +1,12 @@
+@import '../../less/dev.less';
 @import '../../less/spacing.less';
-
-@ui--spacing-units-lg-xl:
-	200px,
-	160px,
-	60px,
-	40px,
-	30px,
-	10px,
-	10px,
-	10px,
-	8px,
-	6px;
-
-@ui--spacing-units-xs-sm:
-	120px,
-	80px,
-	30px,
-	30px,
-	20px,
-	5px,
-	10px,
-	10px,
-	6px,
-	4px;
 
 .mx__spacing();
 
 .test-element {
-	&::before {
-		content: 'test element';
-	}
 }
 
 #element-1 {
-	&::before {
-		content: 'm-top(1) p(2)';
-	}
 	background-color: skyblue;
 
 	.mx__spacing-m-top(1);
@@ -43,9 +14,6 @@
 }
 
 #element-2 {
-	&::before {
-		content: 'm(4) p-horizontal(3)';
-	}
 	background-color: yellow;
 
 	.mx__spacing-m(4);
@@ -53,9 +21,6 @@
 }
 
 #element-3 {
-	&::before {
-		content: 'm-vertical(5) p-vertical(6)';
-	}
 	background-color: darkred;
 
 	.mx__spacing-m-vertical(5);

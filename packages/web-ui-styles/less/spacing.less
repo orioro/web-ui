@@ -1,36 +1,50 @@
 @import './responsive.less';
+@import './util.less';
 
 @import './spacing/mixins-margin.less';
 @import './spacing/mixins-padding.less';
 
 /**
- * Controls how many standalone spacing classes should be generated
- * @type {Number}
+ * Pairs of [spacing-unit] [class-name]
  */
-@ui--spacing-standalone-class-count: 6;
+@ui--spacing-standalone-classes:
+  1,
+  2,
+  3,
+  4,
+  5,
+  6;
 
-/**
- * Spacing units            1     2     3     4     5     6     7     8     9    10
- */
-@ui--spacing-units-lg-xl: 100px, 80px, 60px, 50px, 40px, 30px, 20px, 14px, 10px, 8px;
-@ui--spacing-units-xs-sm:  60px, 50px, 40px, 40px, 30px, 20px, 20px, 12px, 10px, 8px;
-@ui--spacing-units-md:
-  (extract(@ui--spacing-units-lg-xl, 1) + extract(@ui--spacing-units-xs-sm, 1)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 2) + extract(@ui--spacing-units-xs-sm, 2)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 3) + extract(@ui--spacing-units-xs-sm, 3)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 4) + extract(@ui--spacing-units-xs-sm, 4)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 5) + extract(@ui--spacing-units-xs-sm, 5)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 6) + extract(@ui--spacing-units-xs-sm, 6)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 7) + extract(@ui--spacing-units-xs-sm, 7)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 8) + extract(@ui--spacing-units-xs-sm, 8)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 9) + extract(@ui--spacing-units-xs-sm, 9)) / 2,
-  (extract(@ui--spacing-units-lg-xl, 10) + extract(@ui--spacing-units-xs-sm, 10)) / 2;
+@ui--spacing-units:
+  120px 80px,
+  100px 70px,
+  80px  60px,
+  70px  50px,
+  60px  40px,
+  40px  30px,
+  30px  15px,
+  20px  20px,
+  14px  14px,
+  14px  9px,
+  10px,
+  8px;
 
-@ui-private--spacing-unit-lists: {
-  xs-sm: @ui--spacing-units-xs-sm;
-  md: @ui--spacing-units-md;
-  lg-xl: @ui--spacing-units-lg-xl;
-};
+.mx-private__spacing-apply-unit(@property, @unit-spec-list, @size) {
+  @unit-spec: if(
+    length(@unit-spec-list) >= @size,
+    extract(@unit-spec-list, @size),
+    extract(@unit-spec-list, length(@unit-spec-list))
+  );
+
+  .mx__responsive-viewport-indexed-property(@property, {
+    min-value: if(
+      length(@unit-spec) > 1,
+      extract(@unit-spec, 2),
+      extract(@unit-spec, 1)
+    );
+    max-value: extract(@unit-spec, 1);
+  });
+}
 
 .mx-private__spacing-classes-single-unit(@name, @value) {
   /**
@@ -66,7 +80,7 @@
     padding-left: @value !important;
     padding-right: @value !important;
   }
-  
+
   /**
    * Top
    */
@@ -108,26 +122,26 @@
   }
 }
 
-.mx-private__spacing-classes-multiple-units(@units) {
-  each(range(@ui--spacing-standalone-class-count), {
-    .mx-private__spacing-classes-single-unit(@key, extract(@units, @key));
-  });
-}
-
-.mx-private__spacing-apply-prop(@property, @lists, @size) {
-  .mx__responsive-group-property(@property, {
-    xs-sm: extract(@lists[xs-sm], @size);
-    md: extract(@lists[md], @size);
-    lg-xl: extract(@lists[lg-xl], @size);
-  });
-}
-
-/**
- * Generates spacing rulesets
- */
+//
+// Generates spacing rulesets
+//
 .mx__spacing() {
-  .mx-private__spacing-classes-single-unit(0, 0px);
-  .mx__media-max-sm(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-xs-sm));
-  .mx__media-only-md(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-md));
-  .mx__media-min-lg(.mx-private__spacing-classes-multiple-units(@ui--spacing-units-lg-xl));
+  each(@ui--spacing-standalone-classes, {
+    @size: extract(@value, 1);
+    @name: if(
+      length(@value) > 1,
+      extract(@value, 2),
+      @size
+    );
+
+    .mx-private__spacing-apply-unit(
+      {
+        .mx-private__spacing-classes-single-unit(@size, @responsive-viewport-indexed-value);
+      },
+      @ui--spacing-units,
+      @size
+    );
+  });
+
+  .mx-private__spacing-classes-single-unit(0, 0);
 }
