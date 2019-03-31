@@ -9,7 +9,7 @@
 /**
  * Detailed math:
  *
- * (@current-width - @breakpoint-min)    
+ * (@current-width - @breakpoint-min)
  * ─────────────────────────────────── * (@max-value - @min-value) + @min-value
  * (@breakpoint-max - @breakpoint-min)
  *
@@ -21,8 +21,8 @@
  * @max-value,
  * @min-value,
  * @breakpoint-max and
- * @breakpoint-min MUST be expressed in the same unit, as they become multipliers 
- * 
+ * @breakpoint-min MUST be expressed in the same unit, as they become multipliers
+ *
  *
  * E.G:
  * breakpoint-min: 400px
@@ -33,35 +33,35 @@
  * 12 / 800 * (100vw - 400px) + 38px
  * 1.5vw - 6px + 38px
  *
- * 
+ *
  * ATTENTION:
  * Ensure that the fixed part is at least 5px:
  * https://developer.mozilla.org/en-US/docs/Web/CSS/calc#Accessibility_concerns
- * 
+ *
  *   "When calc() is used for controlling text size,
  *    be sure that one of the values includes a
  *    relative length unit.
- *    
+ *
  *    h1 {
  *      font-size: calc(1.5rem + 3vw);
  *    }
- *    
+ *
  *    This ensures that text size will scale if the page is zoomed."
  *
  * In the equations above, the fixed part becomes:
- * 
+ *
  *                @min-value * @breakpoint-max - @max-value * @breakpoint-min
  * @fixed-value = ───────────────────────────────────────────────────────────
  *                             @breakpoint-max - @breakpoint-min
  *
  * Probably @min-value and @max-value variables are more flexible to change.
  * Thus these are their equations:
- * 
- *              @target-fixed-value * (@breakpoint-max - @breakpoint-min) + @max-value * @breakpoint-min
+ *
+ *              @target-min-fixed-value * (@breakpoint-max - @breakpoint-min) + @max-value * @breakpoint-min
  * @min-value = ───────────────────────────────────────────────────────────────────────────────────────────
  *                                             @breakpoint-max
  *
- *              @min-value * @breakpoint-max - @target-fixed-value * (@breakpoint-max - @breakpoint-min)
+ *              @min-value * @breakpoint-max - @target-min-fixed-value * (@breakpoint-max - @breakpoint-min)
  * @max-value = ───────────────────────────────────────────────────────────────────────────────────────────
  *                                             @breakpoint-min
  */
@@ -91,41 +91,40 @@
     );
   }
 
-  @current-fixed-value: if(
+  --web-ui-error: ~'".mx__responsive-viewport-indexed-property computed value resulted in a smaller than ideal fixed value. This might cause issues when the zoom level is higher than 100%"';
+  --current-fixed-value: if(
     @value-unit = px,
     unit(@fixed-value, px),
     unit(@fixed-value / @rem-value-unitless, rem)
   );
-
-  --web-ui-error: ~'".mx__responsive-viewport-indexed-property computed value resulted in a smaller than ideal fixed value (@{current-fixed-value}). This might cause issues when the zoom level is higher than 100%"';
-  --target-fixed-value: if(
+  --target-min-fixed-value: if(
     @value-unit = px,
-    unit(@target-fixed-value, px),
-    unit(@target-fixed-value / @rem-value-unitless, rem)
+    unit(@target-min-fixed-value, px),
+    unit(@target-min-fixed-value / @rem-value-unitless, rem)
   );
   .suggested-value-message(
     min-value,
     @value-unit,
     @values[min],
-    (@target-fixed-value * (@breakpoints[max] - @breakpoints[min]) + @values[max] * @breakpoints[min]) / @breakpoints[max]
+    (@target-min-fixed-value * (@breakpoints[max] - @breakpoints[min]) + @values[max] * @breakpoints[min]) / @breakpoints[max]
   );
   .suggested-value-message(
     max-value,
     @value-unit,
     @values[max],
-    (@values[min] * @breakpoints[max] - @target-fixed-value * (@breakpoints[max] - @breakpoints[min])) / @breakpoints[min]
+    (@values[min] * @breakpoints[max] - @target-min-fixed-value * (@breakpoints[max] - @breakpoints[min])) / @breakpoints[min]
   );
   .suggested-value-message(
     min-breakpoint,
     @breakpoint-unit,
     @breakpoints[min],
-    @breakpoints[max] * (@values[min] - @target-fixed-value) / (@values[max] - @target-fixed-value)
+    @breakpoints[max] * (@values[min] - @target-min-fixed-value) / (@values[max] - @target-min-fixed-value)
   );
   .suggested-value-message(
     max-breakpoint,
     @breakpoint-unit,
     @breakpoints[max],
-    @breakpoints[min] * (@values[max] - @target-fixed-value) / (@values[min] - @target-fixed-value)
+    @breakpoints[min] * (@values[max] - @target-min-fixed-value) / (@values[min] - @target-min-fixed-value)
   );
 }
 
@@ -157,7 +156,7 @@
   @rem-value-unitless: unit(@rem-value);
 
   /**
-   * Ensure all values are expressed 
+   * Ensure all values are expressed
    * in unitless px
    */
   @values: if(
@@ -223,9 +222,9 @@
 
     @ruleset-generator();
 
-    @target-fixed-value: @rem-value-unitless * .625;
+    @target-min-fixed-value: @rem-value-unitless * .5;
 
-    & when (@fixed-value < @target-fixed-value) {
+    & when (@fixed-value < @target-min-fixed-value) {
       .mx-private__responsive-viewport-indexed-property-warning();
     }
   }

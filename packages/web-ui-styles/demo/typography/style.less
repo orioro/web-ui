@@ -1,17 +1,55 @@
 @import '../../less/base.less';
 @import '../../less/typography.less';
 @import '../../less/spacing.less';
+@import '../../less/responsive.less';
 
 body {
   background-color: turquoise;
 }
 
-@ui--typography-font-families: {
-  serif: serif;
-  sans-serif: sans-serif;
-  arial: Arial;
-  times: 'Times New Roman';
+@h1-custom-ruleset: {
+  color: magenta;
+  display: flex;
+  align-items: stretch;
+  line-height: 2.5;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 10px;
+    flex-shrink: 0;
+    margin-right: 10px;
+
+    .mx__responsive-property(background-color, {
+      xs: red;
+      sm: spin(red, 90);
+      md: spin(green, 80);
+      lg: spin(blue, 40);
+      xl: spin(navy, 240);
+    });
+  }
+
+  .mx__responsive-property(color, {
+    xs: false;
+    sm: red;
+    md: green;
+    lg: blue;
+    xl: navy;
+  })
 }
+
+@font-family-custom: Georgia;
+
+@ui--typography-headings:
+  2.5rem   1.875rem  @font-family-custom bold    @h1-custom-ruleset,
+  2rem     1.5rem    sans-serif          lighter,
+  1.875rem 1.375rem  monospace           bold,
+  1.75rem  1.75rem   @font-family-custom bold,
+  1.75rem  1.3125rem,
+  1.375rem 1.0625rem,
+  1.125rem 1rem      @font-family-custom,
+  1.125rem 1rem      sans-serif          bold,
+  1rem 1rem;
 
 .mx__spacing();
 .mx__typography();
@@ -23,17 +61,17 @@ body {
 }
 
 .demo-component {
-	display: flex;
+	// display: flex;
 
 	> .demo-component__title {
-		.mx__typography-font-size(heading, 1);
+		.mx__typography-heading(1);
 	}
 
 	> div {
-		.mx__typography-font-size(text, 3);
+		.mx__typography-text(3);
 	}
 
 	> textarea {
-		.mx__typography-font-size(text, 1);
+		.mx__typography-text(9);
 	}
 }

@@ -35,13 +35,13 @@
  */
 .mx-private__buttons-size-variants() {
   &.btn--sm {
-    .mx__typography-font-size(text, @ui--btn-sm-units[font-size]);
+    .mx__typography-text-size(@ui--btn-sm-units[font-size]);
     .mx__spacing-p-vertical(@ui--btn-sm-units[vertical-padding]);
     .mx__spacing-p-horizontal(@ui--btn-sm-units[horizontal-padding]);
   }
 
   &.btn--lg {
-    .mx__typography-font-size(text, @ui--btn-lg-units[font-size]);
+    .mx__typography-text-size(@ui--btn-lg-units[font-size]);
     .mx__spacing-p-vertical(@ui--btn-lg-units[vertical-padding]);
     .mx__spacing-p-horizontal(@ui--btn-lg-units[horizontal-padding]);
   }
@@ -117,7 +117,7 @@
  */
 .mx__buttons() {
   .btn {
-    .mx__typography-font-size(text, @ui--btn-units[font-size]);
+    .mx__typography-text-size(@ui--btn-units[font-size]);
     .mx__spacing-p-vertical(@ui--btn-units[vertical-padding]);
     .mx__spacing-p-horizontal(@ui--btn-units[horizontal-padding]);
 
@@ -133,7 +133,7 @@
     border-radius: @ui--btn-border-radius;
     font-family: sans-serif;
     cursor: pointer;
-    
+
     transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
                 color @ui--btn-transition-duration @ui--btn-transition-timing-function,
                 border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;

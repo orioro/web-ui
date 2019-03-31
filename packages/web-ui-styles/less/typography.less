@@ -1,119 +1,98 @@
 @import './responsive.less';
-@import './typography/headings.less';
-@import './typography/text.less';
+@import './typography/utilities.less';
+@import './typography/profile-system.less';
 
 /**
- * Font-family
+ * Font-families
+ * [name-and-family]
+ * [name] [family]
  */
-@ui--typography-font-families: {
-  serif: serif;
-  sans-serif: sans-serif;
-};
+@ui--typography-font-families:
+  serif ~'Georgia, "Times New Roman", Times, serif',
+  sans-serif ~'-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol',
+  monospace ~'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace';
 
 /**
 * Font-weights
+* [name-and-weight]
+* [name] [weight]
 */
-@ui--typography-font-weights: {
-  lighter: lighter;
-  normal: normal;
-  bold: bold;
-};
+@ui--typography-font-weights:
+  lighter,
+  normal,
+  bold;
 
 /**
- * Headings                                 1       2           3        4           5      6
+ * Headings
+ * [max-font-size] [min-font-size] [font-family] [font-weight] [custom-ruleset] [custom-class-suffix]
  */
-@ui--typography-heading-font-families:    sans-serif;
-@ui--typography-heading-font-weights:     bold;
-@ui--typography-heading-font-sizes-lg-xl: 2.5rem,   2rem,   1.875rem, 1.75rem,   1.375rem,  1.125rem;
-@ui--typography-heading-font-sizes-xs-sm: 1.875rem, 1.5rem, 1.375rem, 1.3125rem, 1.0625rem, 1rem;
-@ui--typography-heading-font-sizes-md:
-  (extract(@ui--typography-heading-font-sizes-lg-xl, 1) + extract(@ui--typography-heading-font-sizes-xs-sm, 1)) / 2,
-  (extract(@ui--typography-heading-font-sizes-lg-xl, 2) + extract(@ui--typography-heading-font-sizes-xs-sm, 2)) / 2,
-  (extract(@ui--typography-heading-font-sizes-lg-xl, 3) + extract(@ui--typography-heading-font-sizes-xs-sm, 3)) / 2,
-  (extract(@ui--typography-heading-font-sizes-lg-xl, 4) + extract(@ui--typography-heading-font-sizes-xs-sm, 4)) / 2,
-  (extract(@ui--typography-heading-font-sizes-lg-xl, 5) + extract(@ui--typography-heading-font-sizes-xs-sm, 5)) / 2,
-  (extract(@ui--typography-heading-font-sizes-lg-xl, 6) + extract(@ui--typography-heading-font-sizes-xs-sm, 6)) / 2;
+@ui--typography-headings:
+  2.5rem   1.875rem  sans-serif bold,
+  2rem     1.5rem    sans-serif bold,
+  1.875rem 1.375rem,
+  1.75rem  1.3125rem,
+  1.375rem 1.0625rem,
+  1.125rem 1rem;
 
 /**
- * Text font-sizes                         1       2           3     4         5        6
+ * Text
+ * [max-font-size] [min-font-size] [font-family] [font-weight] [custom-ruleset] [custom-class-suffix]
  */
-@ui--typography-text-font-sizes-lg-xl: 1.875rem, 1.5rem,   1.125rem, 1rem, 0.875rem, 0.75rem;
-@ui--typography-text-font-sizes-xs-sm: 1.375rem, 1.125rem, 1rem,     1rem, 0.875rem, 0.75rem;
-@ui--typography-text-font-sizes-md:
-  (extract(@ui--typography-text-font-sizes-lg-xl, 1) + extract(@ui--typography-text-font-sizes-xs-sm, 1)) / 2,
-  (extract(@ui--typography-text-font-sizes-lg-xl, 2) + extract(@ui--typography-text-font-sizes-xs-sm, 2)) / 2,
-  (extract(@ui--typography-text-font-sizes-lg-xl, 3) + extract(@ui--typography-text-font-sizes-xs-sm, 3)) / 2,
-  (extract(@ui--typography-text-font-sizes-lg-xl, 4) + extract(@ui--typography-text-font-sizes-xs-sm, 4)) / 2,
-  (extract(@ui--typography-text-font-sizes-lg-xl, 5) + extract(@ui--typography-text-font-sizes-xs-sm, 5)) / 2,
-  (extract(@ui--typography-text-font-sizes-lg-xl, 6) + extract(@ui--typography-text-font-sizes-xs-sm, 6)) / 2;
-
-/**
- * Applies responsive font-size from the text-font-sizes scale
- */
-.mx__typography-font-size(@type, @size) when (@type = text) {
-  .mx__responsive-property(font-size, {
-    xl: extract(@ui--typography-text-font-sizes-lg-xl, @size);
-    lg: extract(@ui--typography-text-font-sizes-lg-xl, @size);
-    md: extract(@ui--typography-text-font-sizes-md, @size);
-    sm: extract(@ui--typography-text-font-sizes-xs-sm, @size);
-    xs: extract(@ui--typography-text-font-sizes-xs-sm, @size);
-  });
-}
-
-/**
- * Applies responsive font-size from the heading-font-sizes scale
- */
-.mx__typography-font-size(@type, @size) when (@type = heading) {
-  .mx__responsive-property(font-size, {
-    xl: extract(@ui--typography-heading-font-sizes-lg-xl, @size);
-    lg: extract(@ui--typography-heading-font-sizes-lg-xl, @size);
-    md: extract(@ui--typography-heading-font-sizes-md, @size);
-    sm: extract(@ui--typography-heading-font-sizes-xs-sm, @size);
-    xs: extract(@ui--typography-heading-font-sizes-xs-sm, @size);
-  });
-}
+@ui--typography-text-profiles:
+  1.875rem 1.375rem,
+  1.5rem   1.125rem,
+  1.125rem 1rem,
+  1rem     1rem,
+  0.875rem,
+  0.75rem;
 
 /**
  * Generates typography rulesets
  */
 .mx__typography() {
   /**
+   * Responsive .h1 - .h*
+   */
+  .mx__typography-generate-profile-classes(heading, @ui--typography-headings, true, ~'.h');
+
+  /**
+   * Responsive .text-1 - .text-*
+   */
+  .mx__typography-generate-profile-classes(text, @ui--typography-text-profiles, true);
+
+  /**
    * .font-family-*
    */
-  .mx-private__util-rulesets-from-list(
-    ~'.font-family-',
-    {
-      font-family: @value !important;
-    },
-    @ui--typography-font-families
-  );
+  each(@ui--typography-font-families, {
+    @font-family-name: extract(@value, 1);
+
+    @font-family-value: if(
+      length(@value) > 1,
+      extract(@value, 2),
+      extract(@value, 1)
+    );
+
+    .font-family-@{font-family-name} {
+      font-family: @font-family-value !important;
+    }
+  });
 
   /**
    * .font-weight-*
    */
-  .mx-private__util-rulesets-from-list(
-    ~'.font-weight-',
-    {
-      font-weight: @value !important;
-    },
-    @ui--typography-font-weights
-  );
+  each(@ui--typography-font-weights, {
+    @font-weight-name: extract(@value, 1);
 
-  /**
-   * .text-transform-uppercase
-   * .text-transform-lowercase
-   */
-  .mx-private__util-rulesets-from-list(
-    ~'.text-transform-',
-    {
-      text-transform: @value !important;
-    },
-    {
-      uppercase: uppercase;
-      lowercase: lowercase;
+    @font-weight-value: if(
+      length(@value) > 1,
+      extract(@value, 2),
+      extract(@value, 1)
+    );
+
+    .font-weight-@{font-weight-name} {
+      font-weight: @font-weight-value !important;
     }
-  );
+  });
 
-
-  .mx__typography-heading-rulesets();
+  .mx__typography-utilities();
 }
