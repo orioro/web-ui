@@ -5,3 +5,15 @@
 - OK: Integrate theming classes
 - OK: Improve spacing variables system
 - OK: List classes round .666667 to .6666666
+- Screen reader only https://github.com/twbs/bootstrap/blob/master/scss/mixins/_screen-reader.scss
+- Copy all from bootstrap
+- Button disabled
+- Shapes
+	- Arrow / Caret https://github.com/twbs/bootstrap/blob/master/scss/mixins/_caret.scss
+- Z-indexes
+- gradient
+- image 100%, height auto
+- nav-divider https://github.com/twbs/bootstrap/blob/master/scss/mixins/_nav-divider.scss
+- tables https://github.com/twbs/bootstrap/blob/master/scss/mixins/_table-row.scss
+- ellipsis https://github.com/twbs/bootstrap/blob/master/scss/mixins/_text-truncate.scss
+- simple-tooltip using attr() https://caniuse.com/#search=attr()

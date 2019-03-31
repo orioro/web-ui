@@ -12,33 +12,33 @@
  * others
  */
 .mx__util-immediate-sibling-relationships(@options) {
-	@reference: @options[reference];
-	@others: @options[others];
+  @reference: @options[reference];
+  @others: @options[others];
 
-	@reference-after-itself: @options[reference-after-itself];
-	@reference-after-other: @options[reference-after-other];
-	@other-after-reference: @options[other-after-reference];
+  @reference-after-itself: @options[reference-after-itself];
+  @reference-after-other: @options[reference-after-other];
+  @other-after-reference: @options[other-after-reference];
 
-	/**
-	 * Relationship when the target has an immediate identical sibling
-	 */
-	@{reference} + @{reference} {
-		@reference-after-itself();
-	}
+  /**
+   * Relationship when the target has an immediate identical sibling
+   */
+  @{reference} + @{reference} {
+    @reference-after-itself();
+  }
 
-	/**
-	 * Relationship when the target has an immediate sibling
-	 * that corresponds to any of the other selectors 
-	 */
-	each(@others, {
-		@{value} + @{reference} {
-			@reference-after-other();
-		}
+  /**
+   * Relationship when the target has an immediate sibling
+   * that corresponds to any of the other selectors
+   */
+  each(@others, {
+    @{value} + @{reference} {
+      @reference-after-other();
+    }
 
-		@{reference} + @{value} {
-			@other-after-reference();
-		}
-	});
+    @{reference} + @{value} {
+      @other-after-reference();
+    }
+  });
 }
 
 /**
@@ -46,9 +46,32 @@
  * of any element corresponding to the @ancestor-selector
  */
 .mx__util-apply-ruleset-when-descendant-of(@ancestor-selector, @ruleset) {
-	@{ancestor-selector} & {
-		@ruleset();
-	}
+  @{ancestor-selector} & {
+    @ruleset();
+  }
+}
+
+/**
+ * Separation between items
+ */
+.mx__util-distance-between-items(
+  @orientation,
+  @distance) when (@orientation = horizontal) {
+  margin-right: @distance;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.mx__util-distance-between-items(
+  @orientation,
+  @distance) when (@orientation = vertical) {
+  margin-bottom: @distance;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 /**
@@ -56,29 +79,29 @@
  * margin, padding, border, border-radius
  */
 .mx__util-reset-when-first-or-last(
-	@property,
-	@orientation) when (@orientation = horizontal) {
+  @property,
+  @orientation) when (@orientation = horizontal) {
 
-	&:first-child {
-		@{property}-left: 0 !important;
-	}
+  &:first-child {
+    @{property}-left: 0 !important;
+  }
 
-	&:last-child {
-		@{property}-right: 0 !important;
-	}
+  &:last-child {
+    @{property}-right: 0 !important;
+  }
 }
 
 .mx__util-reset-when-first-or-last(
-	@property,
-	@orientation) when (@orientation = vertical) {
+  @property,
+  @orientation) when (@orientation = vertical) {
 
-	&:first-child {
-		@{property}-top: 0 !important;
-	}
+  &:first-child {
+    @{property}-top: 0 !important;
+  }
 
-	&:last-child {
-		@{property}-bottom: 0 !important;
-	}
+  &:last-child {
+    @{property}-bottom: 0 !important;
+  }
 }
 
 /**
@@ -87,9 +110,9 @@
  * If the list is shorter, uses the last value as default.
  */
 .mx__util-extract-default-to-last(@property, @list, @index) {
-	@{property}: if(
-		length(@list) >= @index,
-		extract(@list, @index),
-		extract(@list, length(@list))
-	);
+  @{property}: if(
+    length(@list) >= @index,
+    extract(@list, @index),
+    extract(@list, length(@list))
+  );
 }

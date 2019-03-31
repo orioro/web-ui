@@ -1,23 +1,25 @@
 @import './responsive/private.less';
+@import './responsive/viewport-indexed.less';
 
-@ui--xl-min-width: 1400px;
+@ui--responsive-breakpoints: {
+  xl-min: 1400px;
+  lg-min: 992px;
+  md-min: 768px;
+  sm-min: 576px;
+}
 
-@ui--lg-max-width: @ui--xl-min-width - 1px;
-@ui--lg-min-width: 992px;
-
-@ui--md-max-width: @ui--lg-min-width - 1px;
-@ui--md-min-width: 768px;
-
-@ui--sm-max-width: @ui--md-min-width - 1px;
-@ui--sm-min-width: 576px;
-
-@ui--xs-max-width: @ui--sm-min-width - 1px;
-@ui--xs-min-width: 0px;
+@ui--responsive-viewport-indexed-default-rem-value: 16;
+@ui--responsive-viewport-indexed-default-breakpoints: {
+  min: @ui--responsive-breakpoints[sm-min];
+  max: @ui--responsive-breakpoints[lg-min];
+}
+@ui--responsive-viewport-indexed-default-breakpoint-min: @ui--responsive-breakpoints[sm-min];
+@ui--responsive-viewport-indexed-default-breakpoint-max: @ui--responsive-breakpoints[lg-min];
 
 /**
  * Breakpoint mixins
  */
-.mx__media-breakpoint(@property, @value, @before-styles, @after-styles) when (@property = width) {
+.mx__media-breakpoint(@media-property, @value, @before-styles, @after-styles) when (@media-property = width) {
   @media (max-width: @value - 1px) {
     @before-styles();
   }
@@ -27,7 +29,7 @@
   }
 }
 
-.mx__media-breakpoint(@property, @value, @before-styles, @after-styles) when (@property = height) {
+.mx__media-breakpoint(@media-property, @value, @before-styles, @after-styles) when (@media-property = height) {
   @media (max-height: @value - 1px) {
     @before-styles();
   }
@@ -41,7 +43,7 @@
  * Extral small: xs
  */
 .mx__media-only-xs(@styles) {
-  @media (max-width: @ui--xs-max-width) {
+  @media (max-width: @ui--responsive-breakpoints[sm-min] - 1px) {
     @styles();
   }
 }
@@ -50,23 +52,23 @@
  * Small: sm
  */
 .mx__media-breakpoint-sm(@before-styles, @after-styles) {
-  .mx__media-breakpoint(width, @ui--sm-min-width, @before-styles, @after-styles);
+  .mx__media-breakpoint(width, @ui--responsive-breakpoints[sm-min], @before-styles, @after-styles);
 }
 
 .mx__media-only-sm(@styles) {
-  @media (min-width: @ui--sm-min-width) and (max-width: @ui--sm-max-width) {
+  @media (min-width: @ui--responsive-breakpoints[sm-min]) and (max-width: @ui--responsive-breakpoints[md-min] - 1px) {
     @styles();
   }
 }
 
 .mx__media-min-sm(@styles) {
-  @media (min-width: @ui--sm-min-width) {
+  @media (min-width: @ui--responsive-breakpoints[sm-min]) {
     @styles();
   }
 }
 
 .mx__media-max-sm(@styles) {
-  @media (max-width: @ui--sm-max-width) {
+  @media (max-width: @ui--responsive-breakpoints[md-min] - 1px) {
     @styles();
   }
 }
@@ -75,23 +77,23 @@
  * Medium: md
  */
 .mx__media-breakpoint-md(@before-styles, @after-styles) {
-  .mx__media-breakpoint(width, @ui--md-min-width, @before-styles, @after-styles);
+  .mx__media-breakpoint(width, @ui--responsive-breakpoints[md-min], @before-styles, @after-styles);
 }
 
 .mx__media-only-md(@styles) {
-  @media (min-width: @ui--md-min-width) and (max-width: @ui--md-max-width) {
+  @media (min-width: @ui--responsive-breakpoints[md-min]) and (max-width: @ui--responsive-breakpoints[lg-min] - 1px) {
     @styles();
   }
 }
 
 .mx__media-min-md(@styles) {
-  @media (min-width: @ui--md-min-width) {
+  @media (min-width: @ui--responsive-breakpoints[md-min]) {
     @styles();
   }
 }
 
 .mx__media-max-md(@styles) {
-  @media (max-width: @ui--md-max-width) {
+  @media (max-width: @ui--responsive-breakpoints[lg-min] - 1px) {
     @styles();
   }
 }
@@ -100,23 +102,23 @@
  * Large: lg
  */
 .mx__media-breakpoint-lg(@before-styles, @after-styles) {
-  .mx__media-breakpoint(width, @ui--lg-min-width, @before-styles, @after-styles);
+  .mx__media-breakpoint(width, @ui--responsive-breakpoints[lg-min], @before-styles, @after-styles);
 }
 
 .mx__media-only-lg(@styles) {
-  @media (min-width: @ui--lg-min-width) and (max-width: @ui--lg-max-width) {
+  @media (min-width: @ui--responsive-breakpoints[lg-min]) and (max-width: @ui--responsive-breakpoints[xl-min] - 1px) {
     @styles();
   }
 }
 
 .mx__media-min-lg(@styles) {
-  @media (min-width: @ui--lg-min-width) {
+  @media (min-width: @ui--responsive-breakpoints[lg-min]) {
     @styles();
   }
 }
 
 .mx__media-max-lg(@styles) {
-  @media (max-width: @ui--lg-max-width) {
+  @media (max-width: @ui--responsive-breakpoints[xl-min] - 1px) {
     @styles();
   }
 }
@@ -125,11 +127,11 @@
  * Extra large: xl
  */
 .mx__media-breakpoint-xl(@before-styles, @after-styles) {
-  .mx__media-breakpoint(width, @ui--xl-min-width, @before-styles, @after-styles);
+  .mx__media-breakpoint(width, @ui--responsive-breakpoints[xl-min], @before-styles, @after-styles);
 }
 
 .mx__media-only-xl(@styles) {
-  @media (min-width: @ui--xl-min-width) {
+  @media (min-width: @ui--responsive-breakpoints[xl-min]) {
     @styles();
   }
 }
@@ -141,61 +143,73 @@
 /**
  * Simple responsive property
  */
-.mx__responsive-property(@property, @values) {
+.mx__responsive-property(@ruleset-generator-or-property, @values) {
+  @ruleset-generator: if(
+    isruleset(@ruleset-generator-or-property),
+    @ruleset-generator-or-property,
+    {
+      @{ruleset-generator-or-property}: @responsive-value;
+    }
+  );
 
-}
+  & when not (@values[xl] = false) {
+    @responsive-value: @values[xl];
 
-.mx__responsive-property(@property, @values) when not (@values[xl] = false) {
-  .mx__media-only-xl({
-    @{property}: @values[xl];
-  });
-}
+    .mx__media-only-xl(@ruleset-generator);
+  }
 
-.mx__responsive-property(@property, @values) when not (@values[lg] = false) {
-  .mx__media-only-lg({
-    @{property}: @values[lg];
-  });
-}
+  & when not (@values[lg] = false) {
+    @responsive-value: @values[lg];
 
-.mx__responsive-property(@property, @values) when not (@values[md] = false) {
-  .mx__media-only-md({
-    @{property}: @values[md];
-  });
-}
+    .mx__media-only-lg(@ruleset-generator);
+  }
 
-.mx__responsive-property(@property, @values) when not (@values[sm] = false) {
-  .mx__media-only-sm({
-    @{property}: @values[sm];
-  });
-}
+  & when not (@values[md] = false) {
+    @responsive-value: @values[md];
 
-.mx__responsive-property(@property, @values) when not (@values[xs] = false) {
-  .mx__media-only-xs({
-    @{property}: @values[xs];
-  });
+    .mx__media-only-md(@ruleset-generator);
+  }
+
+  & when not (@values[sm] = false) {
+    @responsive-value: @values[sm];
+
+    .mx__media-only-sm(@ruleset-generator);
+  }
+
+  & when not (@values[xs] = false) {
+    @responsive-value: @values[xs];
+
+    .mx__media-only-xs(@ruleset-generator);
+  }
 }
 
 /**
  * Grouped responsive property
  */
-.mx__responsive-group-property(@property, @values) {
+.mx__responsive-group-property(@ruleset-generator-or-property, @values) {
+  @ruleset-generator: if(
+    isruleset(@ruleset-generator-or-property),
+    @ruleset-generator-or-property,
+    {
+      @{ruleset-generator-or-property}: @responsive-group-value;
+    }
+  );
 
-}
+  & when not (@values[lg-xl] = false) {
+    @responsive-group-value: @values[lg-xl];
 
-.mx__responsive-group-property(@property, @values) when not (@values[lg-xl] = false) {
-  .mx__media-min-lg({
-    @{property}: @values[lg-xl];
-  });
-}
+    .mx__media-min-lg(@ruleset-generator);
+  }
 
-.mx__responsive-group-property(@property, @values) when not (@values[md] = false) {
-  .mx__media-only-md({
-    @{property}: @values[md];
-  });
-}
+  & when not (@values[md] = false) {
+    @responsive-group-value: @values[md];
 
-.mx__responsive-group-property(@property, @values) when not (@values[xs-sm] = false) {
-  .mx__media-max-sm({
-    @{property}: @values[xs-sm];
-  });
+    .mx__media-only-md(@ruleset-generator);
+  }
+
+  & when not (@values[xs-sm] = false) {
+    @responsive-group-value: @values[xs-sm];
+
+    .mx__media-max-sm(@ruleset-generator);
+  }
 }
