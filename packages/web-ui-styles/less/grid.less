@@ -2,26 +2,37 @@
 @import './grid/mixins.less';
 @import './grid/col.less';
 @import './grid/offset.less';
+@import './grid/gutter-system.less';
 
 @ui--grid-column-count: 12;
-@ui--grid-horizontal-gutter: 40px;
-@ui--grid-vertical-gutter: 30px;
 
-/**
- * Generates grid rulesets
- */
+//
+// 3 values required for each
+// [lg-xl] [md] [sm-xs]
+//
+@ui--grid-responsive-horizontal-gutters: 50px 30px 25px;
+@ui--grid-responsive-vertical-gutters: 50px 30px 25px;
+
+//
+// Generates grid rulesets
+//
 .mx__grid() {
 	.grid {
-		padding-left: @ui--grid-horizontal-gutter / 2;
-		padding-right: @ui--grid-horizontal-gutter / 2;
+		.mx__grid-apply-gutter(horizontal, {
+			padding-left: @gutter-value / 2;
+			padding-right: @gutter-value / 2;
+		});
 	}
 
 	.row {
 		display: flex;
 		flex-wrap: wrap;
 
-		margin-left: -1 * @ui--grid-horizontal-gutter / 2;
-		margin-right: -1 * @ui--grid-horizontal-gutter / 2;
+		.mx__grid-apply-gutter(horizontal, {
+			// @gutter-value is exposed by mx__grid-apply-gutter
+			margin-left: -1 / 2 * @gutter-value;
+			margin-right: -1 / 2 * @gutter-value;
+		});
 
 		&.row--no-gutters {
 			.mx-private__grid-apply-rules-to-columns-with-prefix(
@@ -48,13 +59,13 @@
 		}
 	}
 
-	/**
-	 * Column rulesets
-	 */
+	//
+	// Column rulesets
+	//
 	.mx-private__grid-col-rulesets();
 
-	/**
-	 * Offset rulesets
-	 */
+	//
+	// Offset rulesets
+	//
 	.mx-private__grid-offset-rulesets();
 }

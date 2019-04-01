@@ -17,3 +17,5 @@
 - tables https://github.com/twbs/bootstrap/blob/master/scss/mixins/_table-row.scss
 - ellipsis https://github.com/twbs/bootstrap/blob/master/scss/mixins/_text-truncate.scss
 - simple-tooltip using attr() https://caniuse.com/#search=attr()
+- adjust button system to use responsive measures
+- adjust grid system to use responsive measures in gutter

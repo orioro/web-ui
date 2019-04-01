@@ -16,9 +16,9 @@
 @ui--responsive-viewport-indexed-default-breakpoint-min: @ui--responsive-breakpoints[sm-min];
 @ui--responsive-viewport-indexed-default-breakpoint-max: @ui--responsive-breakpoints[lg-min];
 
-/**
- * Breakpoint mixins
- */
+//
+// Breakpoint mixins
+//
 .mx__media-breakpoint(@media-property, @value, @before-styles, @after-styles) when (@media-property = width) {
   @media (max-width: @value - 1px) {
     @before-styles();
@@ -39,18 +39,18 @@
   }
 }
 
-/**
- * Extral small: xs
- */
+//
+// Extral small: xs
+//
 .mx__media-only-xs(@styles) {
   @media (max-width: @ui--responsive-breakpoints[sm-min] - 1px) {
     @styles();
   }
 }
 
-/**
- * Small: sm
- */
+//
+// Small: sm
+//
 .mx__media-breakpoint-sm(@before-styles, @after-styles) {
   .mx__media-breakpoint(width, @ui--responsive-breakpoints[sm-min], @before-styles, @after-styles);
 }
@@ -73,9 +73,9 @@
   }
 }
 
-/**
- * Medium: md
- */
+//
+// Medium: md
+//
 .mx__media-breakpoint-md(@before-styles, @after-styles) {
   .mx__media-breakpoint(width, @ui--responsive-breakpoints[md-min], @before-styles, @after-styles);
 }
@@ -98,9 +98,9 @@
   }
 }
 
-/**
- * Large: lg
- */
+//
+// Large: lg
+//
 .mx__media-breakpoint-lg(@before-styles, @after-styles) {
   .mx__media-breakpoint(width, @ui--responsive-breakpoints[lg-min], @before-styles, @after-styles);
 }
@@ -123,9 +123,9 @@
   }
 }
 
-/**
- * Extra large: xl
- */
+//
+// Extra large: xl
+//
 .mx__media-breakpoint-xl(@before-styles, @after-styles) {
   .mx__media-breakpoint(width, @ui--responsive-breakpoints[xl-min], @before-styles, @after-styles);
 }
@@ -136,13 +136,13 @@
   }
 }
 
-/**
- * Systematic application mixins
- */
+//
+// Systematic application mixins
+//
 
-/**
- * Simple responsive property
- */
+//
+// Simple responsive property
+//
 .mx__responsive-property(@ruleset-generator-or-property, @values) {
   @ruleset-generator: if(
     isruleset(@ruleset-generator-or-property),
@@ -183,9 +183,9 @@
   }
 }
 
-/**
- * Grouped responsive property
- */
+//
+// Grouped responsive property
+//
 .mx__responsive-group-property(@ruleset-generator-or-property, @values) {
   @ruleset-generator: if(
     isruleset(@ruleset-generator-or-property),

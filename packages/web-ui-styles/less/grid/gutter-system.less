@@ -1,0 +1,34 @@
+@import '../responsive.less';
+
+/**
+ * Variable names must be long in order not to get into conflict
+ * with callers
+ */
+.mx__grid-apply-gutter(
+  @apply-gutter-direction,
+  @apply-gutter-property-or-ruleset,
+  @apply-gutter-multiplier: 1) {
+
+  @gutter-values-list: if(
+    @apply-gutter-direction = vertical,
+    @ui--grid-responsive-vertical-gutters,
+    @ui--grid-responsive-horizontal-gutters
+  );
+
+  @ruleset: if(
+    isruleset(@apply-gutter-property-or-ruleset),
+    {
+      @gutter-value: @responsive-group-value * @apply-gutter-multiplier;
+      @apply-gutter-property-or-ruleset();
+    },
+    {
+      @{apply-gutter-property-or-ruleset}: @responsive-group-value * @apply-gutter-multiplier;
+    }
+  );
+
+  .mx__responsive-group-property(@ruleset, {
+    lg-xl: extract(@gutter-values-list, 1);
+    md: extract(@gutter-values-list, 2);
+    xs-sm: extract(@gutter-values-list, 3);
+  });
+}

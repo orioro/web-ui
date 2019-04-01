@@ -14,42 +14,58 @@
 
 .mx__list-n-column-rules(@column-count) {
   @gutter-count: @column-count - 1;
-  @gutter-total: @gutter-count * @ui--grid-horizontal-gutter;
-
-  @percentage-part: floor(@ui-private--floor-multiplier * 100% / @column-count) / @ui-private--floor-multiplier;
-  @px-part: floor(@ui-private--floor-multiplier * @gutter-total / @column-count) / @ui-private--floor-multiplier;
 
   > * {
-    // width: calc((100% - @gutter-total) / @column-count);
-    /**
-     * EDGE rounds the pixels upwards causing lists to break in incorrect places.
-     * Example case: 3 columns, gutter-width 40px
-     * `(100% - 80px) / 3` becomes
-     * `33.333333% - 26.666667px` in EDGE
-     *
-     * Thus we need to pre-calculate and correctly round
-     * numbers using floor.
-     */
-    width: calc(@percentage-part - @px-part);
-    margin-right: @ui--grid-horizontal-gutter;
-    margin-top: @ui--grid-horizontal-gutter;
+    //
+    // Values that vary according to the horizontal gutter width
+    // @type {[type]}
+    //
+    .mx__grid-apply-gutter(horizontal, {
+      // @gutter-value is exposed by .mx__grid-apply-gutter
+      @gutter-total: @gutter-count * @gutter-value;
 
-    /**
-     * Neutralize margin right for all items located
-     * on the right edge of the container.
-     * Example:
-     * If column count is 3, ensure any item
-     * that is multiple of 3 has no margin right.
-     */
+      @percentage-part: floor(@ui-private--floor-multiplier * 100% / @column-count) / @ui-private--floor-multiplier;
+      @px-part: floor(@ui-private--floor-multiplier * @gutter-total / @column-count) / @ui-private--floor-multiplier;
+
+      //
+      // EDGE rounds the pixels upwards causing lists to break in incorrect places.
+      // Example case: 3 columns, gutter-width 40px
+      // `(100% - 80px) / 3` becomes
+      // `33.333333% - 26.666667px` in EDGE
+      //
+      // Thus we need to pre-calculate and correctly round
+      // numbers using floor.
+      //
+      width: calc(@percentage-part - @px-part);
+      margin-right: @gutter-value;
+    });
+
+    //
+    // Values that vary according to the vertical gutter
+    //
+    .mx__grid-apply-gutter(vertical, {
+      // @gutter-value is exposed by .mx__grid-apply-gutter
+      margin-top: @gutter-value;
+    });
+
+    //
+    // Styles that do not depend on gutter width or heights
+    //
+    // Neutralize margin right for all items located
+    // on the right edge of the container.
+    // Example:
+    // If column count is 3, ensure any item
+    // that is multiple of 3 has no margin right.
+    //
     &:nth-child(@{column-count}n),
     &:last-child {
       margin-right: 0;
     }
-
     &:nth-child(-n+@{column-count}) {
       margin-top: 0;
     }
   }
+
 }
 
 .mx-private__list-column-variants() {
@@ -62,7 +78,8 @@
         > * {
           width: 100%;
           margin-right: 0;
-          margin-bottom: @ui--grid-vertical-gutter;
+          // Apply the 3rd gutter value, which is the smallest
+          margin-bottom: extract(@ui--grid-responsive-vertical-gutters, 3);
 
           &:last-child {
             margin-bottom: 0;

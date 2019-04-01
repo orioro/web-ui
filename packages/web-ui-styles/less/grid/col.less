@@ -8,9 +8,12 @@
    * ANY column in ANY media size
    */
   .mx-private__grid-apply-rules-to-columns-with-prefix(all, {
-    padding-left: @ui--grid-horizontal-gutter / 2;
-    padding-right: @ui--grid-horizontal-gutter / 2;
     width: 100%;
+
+    .mx__grid-apply-gutter(horizontal, {
+      padding-left: @gutter-value / 2;
+      padding-right: @gutter-value / 2;
+    });
   });
 
   /**
@@ -55,8 +58,10 @@
 
     @smaller-than-breakpoint: {
       .mx-private__grid-apply-rules-to-columns-with-prefix(@col-prefix, {
-        padding-top: @ui--grid-vertical-gutter / 2;
-        padding-bottom: @ui--grid-vertical-gutter / 2;
+        .mx__grid-apply-gutter(vertical, {
+          padding-top: @gutter-value / 2;
+          padding-bottom: @gutter-value / 2;
+        });
 
         // Remove gutter padding from edges
         &:first-child {

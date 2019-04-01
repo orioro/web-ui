@@ -10,45 +10,40 @@
  * └────────┴───┴───┴──────────────────────────────┴───┴───┴──────────────────────┴───┘
  *          │g/2 g/2│<--------- 100% ------------->│g/2│g/2│<-------- x% -------->│g/2│
  *                         of OFFSET_PARENT                    of OFFSET_PARENT
- * 
- * 
+ *
+ *
  * @target-proportion    x(% of OP) + g
  * ────────────────── = ────────────────
  * @parent-proportion   100(% of OP) + g
- * 
+ *
  *               @target-proportion
  * @proportion = ──────────────────
  *               @parent-proportion
- * 
+ *
  * x = @proportion * 100(% of OP) + @proportion * g - g
- * 
+ *
  * OBS: % of OP is a "magical" unit
  * because it is always proportional to the offset parent
  */
-.mx__grid-outer-calc-property(
-	@property,
+.mx__grid-escape(
+	@grid-escape-property-or-ruleset,
 	@options,
 	@multiplier: 1,
-	@offset: 0px,
-	@gutter: @ui--grid-horizontal-gutter
+	@offset: 0px
 ) {
+	@grid-escape-apply-ruleset: if(
+		isruleset(@grid-escape-property-or-ruleset),
+		@grid-escape-property-or-ruleset,
+		{
+			@{grid-escape-property-or-ruleset}: @grid-escape-value;
+		}
+	);
 	@proportion: @options[target] / @options[parent];
-	@offset-gutters-value: @multiplier * @options[offset-gutters] * @gutter;
 
-	@{property}: calc(@multiplier * (@proportion * 100% + @proportion * @gutter - @gutter) + @offset-gutters-value + @offset);
-}
-
-.mx__grid-outer-calc-translate-x(
-	@options,
-	@multiplier: 1,
-	@offset: 0px,
-	@gutter: @ui--grid-horizontal-gutter
-) {
-	transform: translateX(.mx__grid-outer-calc-property(
-		any-text-is-valid-here,
-		@options,
-		@multiplier,
-		@offset,
-		@gutter
-	)[]);
+	.mx__grid-apply-gutter(horizontal, {
+		// @gutter-value is exposed by .mx__grid-apply-gutter
+		@offset-gutters-value: @multiplier * @options[offset-gutters] * @gutter-value;
+		@grid-escape-value: calc(@multiplier * (@proportion * 100% + @proportion * @gutter-value - @gutter-value) + @offset-gutters-value + @offset);
+		@grid-escape-apply-ruleset();
+	});
 }
