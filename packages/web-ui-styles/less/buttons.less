@@ -2,26 +2,18 @@
 @import './spacing.less';
 @import './colors.less';
 
-@ui--btn-units: {
-  font-size: 4;
-  vertical-padding: 8;
-  horizontal-padding: 7;
-  icon-distance: 9;
-};
-
-@ui--btn-sm-units: {
-  font-size: 5;
-  vertical-padding: 10;
-  horizontal-padding: 6;
-  icon-distance: 10;
-};
-
-@ui--btn-lg-units: {
-  font-size: 2;
-  vertical-padding: 7;
-  horizontal-padding: 6;
-  icon-distance: 8;
-};
+//
+// [font-size-max][min]
+// [vertical-padding-max][min]
+// [horizontal-padding-max][min]
+// [icon-distance-max][min]
+// [custom-ruleset]
+// [variant-name]
+//
+@ui--btn-specs:
+  1rem    1rem     14px 14px   30px 15px    10px 10px,
+  .875rem .75rem   8px  8px    30px 15px    10px 10px   @ui--util-noop   sm,
+  1.3rem  1.1rem   18px 16px   40px 15px    10px 10px   @ui--util-noop   lg;
 
 @ui--btn-border-width: 1px;
 @ui--btn-border-radius: 0;
@@ -30,59 +22,92 @@
 @ui--btn-transition-timing-function: ease;
 @ui--btn-text-transform: uppercase;
 
-/**
- * Size variants
- */
-.mx-private__buttons-size-variants() {
-  &.btn--sm {
-    .mx__typography-text-size(@ui--btn-sm-units[font-size]);
-    .mx__spacing-p-vertical(@ui--btn-sm-units[vertical-padding]);
-    .mx__spacing-p-horizontal(@ui--btn-sm-units[horizontal-padding]);
+.mx-private__buttons-apply-responsive-style(@spec, @property-or-ruleset, @start-position) {
+  & when (length(@spec) >= @start-position) {
+    .mx__responsive-viewport-indexed-property(@property-or-ruleset, {
+      min-value: if(
+        length(@spec) > @start-position,
+        extract(@spec, @start-position + 1),
+        extract(@spec, @start-position)
+      );
+      max-value: extract(@spec, @start-position);
+    });
   }
+}
 
-  &.btn--lg {
-    .mx__typography-text-size(@ui--btn-lg-units[font-size]);
-    .mx__spacing-p-vertical(@ui--btn-lg-units[vertical-padding]);
-    .mx__spacing-p-horizontal(@ui--btn-lg-units[horizontal-padding]);
+.mx-private__button-setup-styles-from-spec(@spec) {
+  //
+  // Font-size
+  //
+  .mx-private__buttons-apply-responsive-style(@spec, font-size, 1);
+
+  //
+  // Vertical padding
+  //
+  .mx-private__buttons-apply-responsive-style(@spec, {
+    padding-top: @responsive-viewport-indexed-value;
+    padding-bottom: @responsive-viewport-indexed-value;
+    &.btn--icon-only {
+      padding: @responsive-viewport-indexed-value;
+    }
+  }, 3);
+
+  //
+  // Horizontal padding
+  //
+  .mx-private__buttons-apply-responsive-style(@spec, {
+    padding-left: @responsive-viewport-indexed-value;
+    padding-right: @responsive-viewport-indexed-value;
+  }, 5);
+
+  //
+  // Icon distance
+  //
+  .mx-private__buttons-apply-responsive-style(@spec, {
+    &.btn--icon-left > svg {
+      margin-right: @responsive-viewport-indexed-value;
+    }
+    &.btn--icon-right > svg {
+      margin-left: @responsive-viewport-indexed-value;
+    }
+  }, 7);
+
+  //
+  // Custom ruleset
+  //
+  & when (length(@spec) >= 9) {
+    @button-variant-custom-ruleset: extract(@spec, 9);
+    @button-variant-custom-ruleset();
   }
+}
+
+.mx-private__buttons-btn-variants() {
+  each(@ui--btn-specs, .(@spec, @key, @index) {
+    //
+    // Ignore default (index = 1)
+    //
+
+    & when (@index > 1) {
+      //
+      // Variants
+      //
+      @button-variant-name: if(
+        length(@spec) = 10,
+        extract(@spec, 10),
+        @index
+      );
+
+      &.btn--@{button-variant-name} {
+        .mx-private__button-setup-styles-from-spec(@spec);
+      }
+    }
+  });
 }
 
 /**
  * Icon-related styles
  */
 .mx-private__buttons-icon-variants() {
-  &.btn--icon-only {
-    .mx__spacing-p(@ui--btn-units[vertical-padding]);
-  }
-
-  &.btn--icon-right {
-    > svg {
-      .mx__spacing-m-left(@ui--btn-units[icon-distance]);
-    }
-
-    &.btn--sm > svg {
-      .mx__spacing-m-left(@ui--btn-sm-units[icon-distance]);
-    }
-
-    &.btn--lg > svg {
-      .mx__spacing-m-left(@ui--btn-lg-units[icon-distance]);
-    }
-  }
-
-  &.btn--icon-left {
-    > svg {
-      .mx__spacing-m-right(@ui--btn-units[icon-distance]);
-    }
-
-    &.btn--sm > svg {
-      .mx__spacing-m-right(@ui--btn-sm-units[icon-distance]);
-    }
-
-    &.btn--lg > svg {
-      .mx__spacing-m-right(@ui--btn-lg-units[icon-distance]);
-    }
-  }
-
   &.btn--icon-xs {
     > svg {
       height: .5em;
@@ -112,49 +137,51 @@
   }
 }
 
+.mx__buttons-btn-styles() {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  text-transform: @ui--btn-text-transform;
+
+  box-sizing: border-box;
+  text-decoration: none;
+  border-width: @ui--btn-border-width;
+  border-style: solid;
+  border-radius: @ui--btn-border-radius;
+  font-family: sans-serif;
+  cursor: pointer;
+
+  transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
+              color @ui--btn-transition-duration @ui--btn-transition-timing-function,
+              border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;
+
+  .mx-private__button-setup-styles-from-spec(extract(@ui--btn-specs, 1));
+
+  > svg {
+    height: 1em;
+    width: 1em;
+    color: currentColor;
+  }
+
+  &.btn--no-border,
+  &.btn--no-border:hover {
+    border-color: transparent !important;
+  }
+
+  &.btn--no-padding {
+    padding: 0 !important;
+  }
+
+  .mx-private__buttons-icon-variants();
+  .mx-private__buttons-btn-variants();
+}
+
 /**
  * Button rulesets
  */
 .mx__buttons() {
   .btn {
-    .mx__typography-text-size(@ui--btn-units[font-size]);
-    .mx__spacing-p-vertical(@ui--btn-units[vertical-padding]);
-    .mx__spacing-p-horizontal(@ui--btn-units[horizontal-padding]);
-
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    text-transform: @ui--btn-text-transform;
-
-    box-sizing: border-box;
-    text-decoration: none;
-    border-width: @ui--btn-border-width;
-    border-style: solid;
-    border-radius: @ui--btn-border-radius;
-    font-family: sans-serif;
-    cursor: pointer;
-
-    transition: background-color @ui--btn-transition-duration @ui--btn-transition-timing-function,
-                color @ui--btn-transition-duration @ui--btn-transition-timing-function,
-                border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;
-
-    > svg {
-      height: 1em;
-      width: 1em;
-      color: currentColor;
-    }
-
-    &.btn--no-border,
-    &.btn--no-border:hover {
-      border-color: transparent !important;
-    }
-
-    &.btn--no-padding {
-      padding: 0 !important;
-    }
-
-    .mx-private__buttons-icon-variants();
-    .mx-private__buttons-size-variants();
+    .mx__buttons-btn-styles();
   }
 
   button.btn {
