@@ -187,8 +187,10 @@
   button.btn {
     background-color: transparent;
 
-    .mx__color-bg-classes();
-    .mx__color-hover-bg-classes();
-    .mx__color-hover-fg-classes();
+    /**
+     * Append color classes to button
+     * so that the color system overrides button
+     */
+    .mx__color-classes();
   }
 }
