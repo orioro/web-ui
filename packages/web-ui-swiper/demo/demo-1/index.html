@@ -9,7 +9,7 @@
 
 			background-color: lightyellow;
 		}
-		
+
 		.demo-slider {
 	    width: 400px;
 	    height: 300px;
@@ -28,6 +28,9 @@
 
 		.demo-slide {
 			background-color: lightgreen;
+
+      background-position: center center;
+      background-size: cover;
 		}
 
 		.previous,
@@ -67,10 +70,21 @@
 	</style>
 </head>
 <body>
-	<div data-component="swiper" class="demo-slider">
+	<div
+    data-component="swiper"
+    class="demo-slider"
+    data-swiper-lazy="true">
     <div class="swiper-wrapper">
-      <div class="swiper-slide demo-slide">Slide 1</div>
-      <div class="swiper-slide demo-slide">Slide 2</div>
+      <div
+        class="swiper-slide demo-slide swiper-lazy"
+        data-background="resources/bg-img-1.jpg">
+        Slide 1
+      </div>
+      <div
+        class="swiper-slide demo-slide swiper-lazy"
+        data-background="resources/bg-img-2.jpg">
+        Slide 2
+      </div>
       <div class="swiper-slide demo-slide">Slide 3</div>
     </div>
 
