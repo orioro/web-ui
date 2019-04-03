@@ -12,34 +12,42 @@
 @ui--website-side-padding-sm: @ui--website-side-padding-md;
 @ui--website-side-padding-xs: @ui--website-side-padding-sm;
 
+.mx__website-containers-apply-website-max-width() {
+	margin-left: auto;
+	margin-right: auto;
+
+	.mx__responsive-property(max-width, {
+		xl: @ui--website-max-width-xl;
+		lg: @ui--website-max-width-lg;
+		md: @ui--website-max-width-md;
+		sm: @ui--website-max-width-sm;
+		xs: @ui--website-max-width-xs;
+	});
+}
+
+.mx__website-containers-apply-website-side-padding() {
+	.mx__responsive-property(padding-left, {
+		xl: @ui--website-side-padding-xl;
+		lg: @ui--website-side-padding-lg;
+		md: @ui--website-side-padding-md;
+		sm: @ui--website-side-padding-sm;
+		xs: @ui--website-side-padding-xs;
+	});
+	.mx__responsive-property(padding-right, {
+		xl: @ui--website-side-padding-xl;
+		lg: @ui--website-side-padding-lg;
+		md: @ui--website-side-padding-md;
+		sm: @ui--website-side-padding-sm;
+		xs: @ui--website-side-padding-xs;
+	});
+}
+
 .mx__website-containers() {
 	.website-max-width {
-		margin-left: auto;
-		margin-right: auto;
-
-		.mx__responsive-property(max-width, {
-			xl: @ui--website-max-width-xl;
-			lg: @ui--website-max-width-lg;
-			md: @ui--website-max-width-md;
-			sm: @ui--website-max-width-sm;
-			xs: @ui--website-max-width-xs;
-		});
+		.mx__website-containers-apply-website-max-width();
 	}
 
 	.website-side-padding {
-		.mx__responsive-property(padding-left, {
-			xl: @ui--website-side-padding-xl;
-			lg: @ui--website-side-padding-lg;
-			md: @ui--website-side-padding-md;
-			sm: @ui--website-side-padding-sm;
-			xs: @ui--website-side-padding-xs;
-		});
-		.mx__responsive-property(padding-right, {
-			xl: @ui--website-side-padding-xl;
-			lg: @ui--website-side-padding-lg;
-			md: @ui--website-side-padding-md;
-			sm: @ui--website-side-padding-sm;
-			xs: @ui--website-side-padding-xs;
-		});
+		.mx__website-containers-apply-website-side-padding();
 	}
 }
