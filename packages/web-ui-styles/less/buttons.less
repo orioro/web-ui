@@ -35,7 +35,7 @@
   }
 }
 
-.mx-private__button-setup-styles-from-spec(@spec) {
+.mx__buttons-btn-styles-from-spec(@spec) {
   //
   // Font-size
   //
@@ -81,7 +81,7 @@
   }
 }
 
-.mx-private__buttons-btn-variants() {
+.mx-private__buttons-btn-variant-classes() {
   each(@ui--btn-specs, .(@spec, @key, @index) {
     //
     // Ignore default (index = 1)
@@ -98,7 +98,7 @@
       );
 
       &.btn--@{button-variant-name} {
-        .mx-private__button-setup-styles-from-spec(@spec);
+        .mx__buttons-btn-styles-from-spec(@spec);
       }
     }
   });
@@ -107,7 +107,7 @@
 /**
  * Icon-related styles
  */
-.mx-private__buttons-icon-variants() {
+.mx-private__buttons-icon-variant-classes() {
   &.btn--icon-xs {
     > svg {
       height: .5em;
@@ -137,7 +137,7 @@
   }
 }
 
-.mx__buttons-btn-styles() {
+.mx__buttons-btn-styles(@spec-number: 1) {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -155,7 +155,7 @@
               color @ui--btn-transition-duration @ui--btn-transition-timing-function,
               border-color @ui--btn-transition-duration @ui--btn-transition-timing-function;
 
-  .mx-private__button-setup-styles-from-spec(extract(@ui--btn-specs, 1));
+  .mx__buttons-btn-styles-from-spec(extract(@ui--btn-specs, @spec-number));
 
   > svg {
     height: 1em;
@@ -172,8 +172,8 @@
     padding: 0 !important;
   }
 
-  .mx-private__buttons-icon-variants();
-  .mx-private__buttons-btn-variants();
+  .mx-private__buttons-icon-variant-classes();
+  .mx-private__buttons-btn-variant-classes();
 }
 
 /**
@@ -181,7 +181,7 @@
  */
 .mx__buttons() {
   .btn {
-    .mx__buttons-btn-styles();
+    .mx__buttons-btn-styles(1);
   }
 
   button.btn {
