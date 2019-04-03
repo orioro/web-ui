@@ -118,8 +118,6 @@
 }
 
 .mx__util-apply-property-or-ruleset(@property-or-ruleset, @value) {
-    color: red;
-    --isruleset: isruleset(@property-or-ruleset);
   & when (isruleset(@property-or-ruleset)) {
     @property-or-ruleset();
   }
