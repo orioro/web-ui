@@ -20,7 +20,7 @@
 
 		each(@ui--section-bg-colors, {
 			@color-name: extract(@value, 1);
-			&.bg-@{color-name} + &.bg-@{color-name} {
+			&.bg-@{color-name} + .bg-@{color-name} {
 				padding-top: 0;
 			}
 		});
