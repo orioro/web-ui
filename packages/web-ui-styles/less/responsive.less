@@ -19,22 +19,22 @@
 //
 // Breakpoint mixins
 //
-.mx__media-breakpoint(@media-property, @value, @before-styles, @after-styles) when (@media-property = width) {
-  @media (max-width: @value - 1px) {
+.mx__media-breakpoint(@media-property, @breakpoint-value, @before-styles, @after-styles) when (@media-property = width) {
+  @media (max-width: @breakpoint-value - 1px) {
     @before-styles();
   }
 
-  @media (min-width: @value) {
+  @media (min-width: @breakpoint-value) {
     @after-styles();
   }
 }
 
-.mx__media-breakpoint(@media-property, @value, @before-styles, @after-styles) when (@media-property = height) {
-  @media (max-height: @value - 1px) {
+.mx__media-breakpoint(@media-property, @breakpoint-value, @before-styles, @after-styles) when (@media-property = height) {
+  @media (max-height: @breakpoint-value - 1px) {
     @before-styles();
   }
 
-  @media (min-height: @value) {
+  @media (min-height: @breakpoint-value) {
     @after-styles();
   }
 }
