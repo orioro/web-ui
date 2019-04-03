@@ -14,6 +14,8 @@ const createInstance = (system, componentRoot, {
 	const swiperInstance = new Swiper(componentRoot, {
     direction: 'horizontal',
     loop: true,
+    lazy: true,
+    autoplay: true,
 	})
 
 	const ELEMENTS = {
