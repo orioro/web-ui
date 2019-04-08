@@ -29,14 +29,17 @@
   10px,
   8px;
 
-.mx-private__spacing-apply-unit(@property, @unit-spec-list, @size) {
+/**
+ * Applies a unit to the given property or ruleset
+ */
+.mx__spacing-apply-unit(@ruleset-or-property, @size) {
   @unit-spec: if(
-    length(@unit-spec-list) >= @size,
-    extract(@unit-spec-list, @size),
-    extract(@unit-spec-list, length(@unit-spec-list))
+    length(@ui--spacing-units) >= @size,
+    extract(@ui--spacing-units, @size),
+    extract(@ui--spacing-units, length(@ui--spacing-units))
   );
 
-  .mx__responsive-viewport-indexed-property(@property, {
+  .mx__responsive-viewport-indexed-property(@ruleset-or-property, {
     min-value: if(
       length(@unit-spec) > 1,
       extract(@unit-spec, 2),
@@ -134,11 +137,10 @@
       @size
     );
 
-    .mx-private__spacing-apply-unit(
+    .mx__spacing-apply-unit(
       {
         .mx-private__spacing-classes-single-unit(@size, @responsive-viewport-indexed-value);
       },
-      @ui--spacing-units,
       @size
     );
   });

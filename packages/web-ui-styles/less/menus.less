@@ -1,0 +1,35 @@
+@import './util.less';
+@import './lists.less';
+
+@ui--menu-horizontal-space-between: 40px;
+
+.mx__menu-elements-styles() {
+	a {
+    text-decoration: none;
+    display: block;
+	}
+}
+
+.mx__menu-horizontal(@options) {
+	display: flex;
+
+	> * {
+		.mx__util-distance-between-items(horizontal, @options[space-between]);
+	}
+}
+
+.mx__menus() {
+	.menu {
+		.mx__menu-elements-styles();
+
+		&.menu--horizontal {
+			.mx__menu-horizontal({
+				space-between: @ui--menu-horizontal-space-between
+			});
+		}
+	}
+
+	ul.menu {
+		.mx__list-reset();
+	}
+}
