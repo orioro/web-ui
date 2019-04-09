@@ -8,13 +8,13 @@ import {
 const TABS_COMPONENT_NAME = 'tabs'
 
 const createInstance = (system, componentRoot, {
-	tabContainerSelector = '[data-tab-container]',
+	tabSelector = '[data-tab]',
 	tabContainerActiveClass = 'active',
 
 	tabTriggerSelector = 'a[href^="#"],[data-trigger-component="tabs"]',
 	tabTriggerActiveClass = 'active',
 }) => {
-	const tabContainers = getElementsArray(tabContainerSelector, componentRoot)
+	const tabContainers = getElementsArray(tabSelector, componentRoot)
 	const tabTriggers = getElementsArray(tabTriggerSelector, componentRoot)
 
 	const activateTab = (tabId) => {
