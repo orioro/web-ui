@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    body {
+      font-family: 'Helvetica', sans-serif;
+    }
+
+    .dialog {
+      display: none;
+
+      padding: 100px;
+      background-color: magenta;
+    }
+
+    .dialog.active {
+      display: block;
+    }
+
+    .dialog__contents {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div
+    id="sample-dialog"
+    data-component="dialog"
+    data-dialog-active-class="active"
+    data-dialog-interaction-target="[data-component='inner-form-control']"
+    data-dialog-on-open-action="activate"
+    data-dialog-on-close-action="deactivate"
+    class="dialog">
+
+    <div data-component="inner-form-control">
+
+
+      <div class="dialog__contents">
+        Sample dialog contents
+      </div>
+    </div>
+
+    <button
+      data-component="trigger"
+      data-trigger-component-name="dialog"
+      data-trigger-action="dismiss">
+      Dismiss
+    </button>
+
+    <button
+      data-component="trigger"
+      data-trigger-component-name="dialog"
+      data-trigger-action="someOtherAction">
+      someOtherAction
+    </button>
+
+
+    <div id="value-1" value="value-1">
+      value-1
+    </div>
+    <div id="value-2" value="value-2">
+      value-2
+    </div>
+    <div id="value-3" value="value-3">
+      value-3
+    </div>
+    <div id="value-4" value="value-4">
+      value-4
+    </div>
+    <div id="value-5" value="value-5">
+      value-5
+    </div>
+  </div>
+
+  <a href="#value-1">href = #value-1</a>
+  <a href="#value-2">href = #value-2</a>
+  <a href="#value-3">href = #value-3</a>
+  <a href="#value-4">href = #value-4</a>
+  <a href="#value-5">href = #value-5</a>
+
+
+  <script type="text/javascript" src="index.bundle.js"></script>
+
+</body>
+</html>
