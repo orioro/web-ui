@@ -69,22 +69,33 @@
 }
 
 .mx-private__list-column-variants() {
+
+  &.list--1 {
+    > * {
+      width: 100%;
+      margin-right: 0;
+
+      //
+      // Values that vary according to the vertical gutter
+      //
+      .mx__grid-apply-gutter(vertical, {
+        // @gutter-value is exposed by .mx__grid-apply-gutter
+        margin-top: @gutter-value;
+      });
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
   each(@ui--list-column-variants, {
 
     &.list--@{value} {
       .mx__media-min-md(.mx__list-n-column-rules(@value));
       .mx__media-only-sm(.mx__list-n-column-rules(min(@value, @ui--list-sm-max-columns)));
       .mx__media-only-xs({
-        > * {
-          width: 100%;
-          margin-right: 0;
-          // Apply the 3rd gutter value, which is the smallest
-          margin-bottom: extract(@ui--grid-responsive-vertical-gutters, 3);
-
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
+        .list--1();
       });
     }
   });
