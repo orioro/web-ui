@@ -17,8 +17,56 @@
 body {
   background-color: lightgray;
 }
+
+/**
+ * Attempts to find a matching spec
+ */
+.mx__util-apply-matching-spec(@spec-list, @target-spec-name, @custom-ruleset: false) {
+  //
+  // Loop through the spec list
+  //
+  each(@spec-list, .(@spec) {
+    & when (@target-spec-name = extract(@spec, 1)) and (isruleset(@custom-ruleset)) {
+      // Apply custom ruleset expopsing the @spec variable
+      @custom-ruleset();
+    }
+
+    & when (@target-spec-name = extract(@spec, 1)) and not (isruleset(@custom-ruleset)) {
+      // Assume the first item in the @spec-list
+      // is a list of properties of the spec
+      //
+      // Must skip the first item in each spec,
+      // as it is simply the name of the spec.
+      each(extract(@spec-list, 1), .(@spec-property, @spec-property-index) {
+        & when (@spec-property-index > 1) {
+          @{spec-property}: extract(@spec, @spec-property-index);
+        }
+      });
+    }
+  });
+}
+
 #content {
   max-width: 600px;
   margin: 0 auto;
   background-color: white;
+
+  @test-list:
+    name color background-color,
+    h1   red   blue,
+    h2   green yellow;
+
+  > h1 {
+    font-style: italic;
+
+    .mx__util-apply-matching-spec(@test-list, h1);
+  }
+
+  > p {
+    .mx__util-apply-matching-spec(@test-list, h2, {
+      color: extract(@spec, 2);
+      background-color: extract(@spec, 3);
+    });
+  }
 }
+

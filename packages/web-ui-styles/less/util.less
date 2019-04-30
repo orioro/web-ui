@@ -8,38 +8,38 @@
 
 /**
  * Helps setup immediate sibling relationships by
- * establishing situations between a reference selector and a list of
- * others
+ * establishing situations between:
+ * - reference-after-itself
+ * - reference-after-other
+ * - other-after-reference
  */
-.mx__util-immediate-sibling-relationships(@options) {
-  @reference: @options[reference];
-  @others: @options[others];
+// .mx__util-immediate-sibling-relationships(
+//   @reference-selector,
+//   @reference-after-itself,
+//   @reference-after-other,
+//   @other-after-reference) {
 
-  @reference-after-itself: @options[reference-after-itself];
-  @reference-after-other: @options[reference-after-other];
-  @other-after-reference: @options[other-after-reference];
+//   /**
+//    * Reference after another occurrence of Reference
+//    */
+//   > @{reference-selector} + @{reference-selector} {
+//     @reference-after-itself();
+//   }
 
-  /**
-   * Relationship when the target has an immediate identical sibling
-   */
-  @{reference} + @{reference} {
-    @reference-after-itself();
-  }
+//   /**
+//    * Reference after Other
+//    */
+//   > *:not(@{reference-selector}) + @{reference-selector} {
+//     @reference-after-other();
+//   }
 
-  /**
-   * Relationship when the target has an immediate sibling
-   * that corresponds to any of the other selectors
-   */
-  each(@others, {
-    @{value} + @{reference} {
-      @reference-after-other();
-    }
-
-    @{reference} + @{value} {
-      @other-after-reference();
-    }
-  });
-}
+//   /**
+//    * Other after Reference
+//    */
+//   > @{reference-selector} + *:not(@{reference-selector}) {
+//     @other-after-reference();
+//   }
+// }
 
 /**
  * Applies the @ruleset to the element when it is a descendant

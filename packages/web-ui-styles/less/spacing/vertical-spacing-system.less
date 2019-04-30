@@ -1,0 +1,60 @@
+.__vss-apply-distance(@__vss-distance) {
+  & when (get-unit(@__vss-distance) = '') {
+    .mx__spacing-m-top(@__vss-distance);
+  }
+
+  & when not (get-unit(@__vss-distance) = '') {
+    margin-top: @__vss-distance;
+  }
+}
+
+.mx__vertical-spacing-system(
+  @vertical-spacing-system-default-distance,
+  @vertical-spacing-system-distances) {
+
+  > * {
+    //
+    // The system uses only top margins for controlling spacing,
+    // thus bottom margins are annullated
+    //
+    margin-bottom: 0;
+  }
+
+  > * + * {
+    .__vss-apply-distance(@vertical-spacing-system-default-distance);
+  }
+
+  each(@vertical-spacing-system-distances, {
+    .mx__vertical-spacing-system-item(extract(@value, 1), {
+      from-other: extract(@value, 2);
+      to-other: extract(@value, 3);
+      from-itself: extract(@value, 4);
+    });
+  });
+}
+
+/**
+ * Given a reference selector, establish spacing relationships
+ */
+.mx__vertical-spacing-system-item(@reference-selector, @vertical-spacing-system-item-distances) {
+  /**
+   * Reference after Other
+   */
+  > *:not(@{reference-selector}) + @{reference-selector} {
+    .__vss-apply-distance(@vertical-spacing-system-item-distances[from-other]);
+  }
+
+  /**
+   * Other after Reference
+   */
+  > @{reference-selector} + *:not(@{reference-selector}) {
+    .__vss-apply-distance(@vertical-spacing-system-item-distances[to-other]);
+  }
+
+  /**
+   * Reference after another occurrence of Reference
+   */
+  > @{reference-selector} + @{reference-selector} {
+    .__vss-apply-distance(@vertical-spacing-system-item-distances[from-itself]);
+  }
+}

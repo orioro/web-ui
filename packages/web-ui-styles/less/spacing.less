@@ -3,6 +3,7 @@
 
 @import './spacing/mixins-margin.less';
 @import './spacing/mixins-padding.less';
+@import './spacing/vertical-spacing-system.less';
 
 /**
  * Pairs of [spacing-unit] [class-name]
@@ -23,6 +24,7 @@
   60px  40px,
   40px  30px,
   30px  15px,
+  24px  24px,
   20px  20px,
   14px  14px,
   14px  9px,
@@ -33,20 +35,26 @@
  * Applies a unit to the given property or ruleset
  */
 .mx__spacing-apply-unit(@ruleset-or-property, @size) {
-  @unit-spec: if(
-    length(@ui--spacing-units) >= @size,
-    extract(@ui--spacing-units, @size),
-    extract(@ui--spacing-units, length(@ui--spacing-units))
-  );
-
-  .mx__responsive-viewport-indexed-property(@ruleset-or-property, {
-    min-value: if(
-      length(@unit-spec) > 1,
-      extract(@unit-spec, 2),
-      extract(@unit-spec, 1)
+  & when not (isruleset(@size)) and (get-unit(@size) = '') {
+    @unit-spec: if(
+      length(@ui--spacing-units) >= @size,
+      extract(@ui--spacing-units, @size),
+      extract(@ui--spacing-units, length(@ui--spacing-units))
     );
-    max-value: extract(@unit-spec, 1);
-  });
+
+    .mx__responsive-viewport-indexed-property(@ruleset-or-property, {
+      min-value: if(
+        length(@unit-spec) > 1,
+        extract(@unit-spec, 2),
+        extract(@unit-spec, 1)
+      );
+      max-value: extract(@unit-spec, 1);
+    });
+  }
+
+  & when (isruleset(@size)) {
+    .mx__responsive-viewport-indexed-property(@ruleset-or-property, @size);
+  }
 }
 
 .mx-private__spacing-classes-single-unit(@name, @value) {

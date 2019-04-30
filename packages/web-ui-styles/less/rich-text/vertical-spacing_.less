@@ -1,0 +1,77 @@
+@import '../util.less';
+
+/**
+ * Applies special content distancing
+ */
+.mx__rich-text-vertical-spacing-special-content-styles() {
+  margin-top: @ui--rich-text-vertical-spacing-special-distance;
+  margin-bottom: @ui--rich-text-vertical-spacing-special-distance;
+}
+
+/**
+ * Establishes a vertical spacing system between
+ * rich-text elements
+ */
+.mx__rich-text-vertical-spacing-rulesets() {
+  > * {
+    /**
+     * Ensure all first level elements have display block
+     * so that their margins are applied.
+     *
+     * May get into conflict with elements that require `display: flex`
+     * but those cases should be dealt with by the custom component.
+     */
+    display: block;
+
+    margin-top: @ui--rich-text-vertical-spacing-default-distance;
+    margin-bottom: @ui--rich-text-vertical-spacing-default-distance;
+
+    .mx__util-reset-when-first-or-last(margin, vertical);
+
+    > * {
+      /**
+       * Reset margins of nested elements, so that they do
+       * not interfere with the vertical spacing system
+       */
+      .mx__util-reset-when-first-or-last(margin, vertical);
+    }
+  }
+
+  /**
+   * Headings
+   */
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6 {
+    margin-top: @ui--rich-text-heading-margin-top;
+    margin-bottom: @ui--rich-text-heading-margin-bottom;
+
+    .mx__util-reset-when-first-or-last(margin, vertical);
+
+    & + p {
+      margin-top: 0;
+    }
+  }
+
+  /**
+   * Heading 6 has a special use, as it removes any distance
+   * between itself and its immediate sibling, whatever it is.
+   */
+  > h6 {
+    margin-bottom: 0;
+
+    & + * {
+      margin-top: 0;
+    }
+  }
+
+  > img,
+  > figure,
+  > iframe,
+  > blockquote {
+    .mx__rich-text-vertical-spacing-special-content-styles();
+  }
+}

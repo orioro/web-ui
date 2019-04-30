@@ -1,0 +1,34 @@
+@import './colors.less';
+@import './spacing.less';
+@import './util.less';
+
+.mx__page-sections(@section-distance-spacing-unit: 1) {
+	/**
+	 * Distance between two transparent sections
+	 */
+	> .page-section-transparent + .page-section-transparent {
+		.mx__spacing-m-top(@section-distance-spacing-unit);
+	}
+
+	/**
+	 * Distance between a transparent section and a section with background
+	 */
+	> .page-section-transparent + .page-section-with-bg,
+	> .page-section-with-bg + .page-section-transparent {
+		.mx__spacing-m-top(@section-distance-spacing-unit);
+	}
+
+	> .page-section-with-bg {
+		.mx__spacing-p-vertical(@section-distance-spacing-unit);
+
+		/**
+		 * Anulate matching color sections top paddings
+		 */
+		each(@ui--colors, {
+			@color-name: extract(@value, 1);
+			&.bg-@{color-name} + .page-section-with-bg.bg-@{color-name} {
+				padding-top: 0;
+			}
+		});
+	}
+}
