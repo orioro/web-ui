@@ -1,13 +1,5 @@
-// @import '../util.less';
+@import '../util.less';
 @import '../spacing.less';
-
-/**
- * Applies special content distancing
- */
-.mx__rich-text-vertical-spacing-special-content-styles() {
-  margin-top: @ui--rich-text-vertical-spacing-special-distance;
-  margin-bottom: @ui--rich-text-vertical-spacing-special-distance;
-}
 
 /**
  * Establishes a vertical spacing system between
@@ -33,59 +25,8 @@
     }
   }
 
-  @rich-text-distances:
-    h1 @ui--rich-text-heading-margin-top @ui--rich-text-heading-margin-bottom @ui--rich-text-heading-margin-bottom,
-    h2 @ui--rich-text-heading-margin-top @ui--rich-text-heading-margin-bottom @ui--rich-text-heading-margin-bottom,
-    h3 @ui--rich-text-heading-margin-top @ui--rich-text-heading-margin-bottom @ui--rich-text-heading-margin-bottom,
-    h4 @ui--rich-text-heading-margin-top @ui--rich-text-heading-margin-bottom @ui--rich-text-heading-margin-bottom,
-    h5 @ui--rich-text-heading-margin-top @ui--rich-text-heading-margin-bottom @ui--rich-text-heading-margin-bottom,
-    h6 @ui--rich-text-heading-margin-top 0 @ui--rich-text-heading-margin-bottom,
-    img @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance,
-    figure @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance,
-    iframe @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance,
-    blockquote @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance @ui--rich-text-vertical-spacing-special-distance;
-
-
   .mx__vertical-spacing-system(
     @ui--rich-text-vertical-spacing-default-distance,
-    @rich-text-distances
+    @ui--rich-text-vertical-spacing-specs
   );
-
-  // /**
-  //  * Headings
-  //  */
-  // > h1,
-  // > h2,
-  // > h3,
-  // > h4,
-  // > h5,
-  // > h6 {
-  //   margin-top: @ui--rich-text-heading-margin-top;
-  //   margin-bottom: @ui--rich-text-heading-margin-bottom;
-
-  //   .mx__util-reset-when-first-or-last(margin, vertical);
-
-  //   & + p {
-  //     margin-top: 0;
-  //   }
-  // }
-
-  // /**
-  //  * Heading 6 has a special use, as it removes any distance
-  //  * between itself and its immediate sibling, whatever it is.
-  //  */
-  // > h6 {
-  //   margin-bottom: 0;
-
-  //   & + * {
-  //     margin-top: 0;
-  //   }
-  // }
-
-  // > img,
-  // > figure,
-  // > iframe,
-  // > blockquote {
-  //   .mx__rich-text-vertical-spacing-special-content-styles();
-  // }
 }

@@ -35,7 +35,7 @@
  * Applies a unit to the given property or ruleset
  */
 .mx__spacing-apply-unit(@ruleset-or-property, @size) {
-  & when not (isruleset(@size)) and (get-unit(@size) = '') {
+  & when not (isruleset(@size)) and (@size > 0) {
     @unit-spec: if(
       length(@ui--spacing-units) >= @size,
       extract(@ui--spacing-units, @size),
@@ -50,6 +50,10 @@
       );
       max-value: extract(@unit-spec, 1);
     });
+  }
+
+  & when not (isruleset(@size)) and (@size = 0) {
+    @{ruleset-or-property}: 0;
   }
 
   & when (isruleset(@size)) {
