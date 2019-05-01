@@ -1,3 +1,5 @@
+@import '../dev/mixins-noop.less';
+
 //
 // Mixins for generating property values that respond pixel-by-pixel
 // resizing of the viewport.
@@ -140,6 +142,7 @@
 .mx__responsive-viewport-indexed-property(
   @ruleset-generator-or-property,
   @options,
+  @important: false,
   @breakpoint-min: @ui--responsive-viewport-indexed-default-breakpoint-min,
   @breakpoint-max: @ui--responsive-viewport-indexed-default-breakpoint-max,
   @rem-value: @ui--responsive-viewport-indexed-default-rem-value,
@@ -207,7 +210,11 @@
       unit(@values[min], px),
       unit(@values[min] / @rem-value-unitless, rem)
     );
-    @responsive-viewport-indexed-value: @responsive-viewport-indexed-value-raw;
+    @responsive-viewport-indexed-value: if(
+      @important,
+      @responsive-viewport-indexed-value-raw ~' !important',
+      @responsive-viewport-indexed-value-raw
+    );
 
     @ruleset-generator();
   }
@@ -219,7 +226,11 @@
         unit(@values[min], px),
         unit(@values[min] / @rem-value-unitless, rem)
       );
-      @responsive-viewport-indexed-value: @responsive-viewport-indexed-value-raw;
+      @responsive-viewport-indexed-value: if(
+        @important,
+        @responsive-viewport-indexed-value-raw ~' !important',
+        @responsive-viewport-indexed-value-raw
+      );
 
       @ruleset-generator();
     }
@@ -235,7 +246,11 @@
         unit(@indexed-value, @viewport-dimension) ~'+' unit(@fixed-value, px),
         unit(@indexed-value, @viewport-dimension) ~'+' unit(@fixed-value / @rem-value-unitless, rem)
       );
-      @responsive-viewport-indexed-value: calc(@responsive-viewport-indexed-value-raw);
+      @responsive-viewport-indexed-value: if(
+        @important,
+        calc(@responsive-viewport-indexed-value-raw) ~' !important',
+        calc(@responsive-viewport-indexed-value-raw)
+      );
 
       @ruleset-generator();
 
@@ -252,7 +267,11 @@
         unit(@values[max], px),
         unit(@values[max] / @rem-value-unitless, rem)
       );
-      @responsive-viewport-indexed-value: @responsive-viewport-indexed-value-raw;
+      @responsive-viewport-indexed-value: if(
+        @important,
+        @responsive-viewport-indexed-value-raw ~' !important',
+        @responsive-viewport-indexed-value-raw
+      );
 
       @ruleset-generator();
     }

@@ -1,0 +1,25 @@
+@import '../../../less/dev.less';
+@import '../../../less/base.less';
+@import '../../../less/spacing.less';
+
+main {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+
+  > * {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  @default-vertical-spacing: 1.5rem;
+  @vertical-spacing-specs:
+    h1 1 4 6,
+    h2,
+    h3 6 10px 6,
+    h4,
+    h5,
+    h6;
+
+  .mx__vertical-spacing-system(@vertical-spacing-specs, @default-vertical-spacing);
+}

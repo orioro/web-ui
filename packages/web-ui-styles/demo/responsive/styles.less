@@ -34,7 +34,7 @@ main {
 	.mx__responsive-viewport-indexed-property(font-size, {
 		min-value: unit(24 / 16, rem);
 		max-value: unit(32 / 16, rem);
-	}, 240px * 3, 320px * 3);
+	}, false, 240px * 3, 320px * 3);
 }
 
 #values-in-px---breakpoints-in-rem {
@@ -51,7 +51,7 @@ main {
 	}, {
 		min-value: unit(24 / 16, rem);
 		max-value: unit(32 / 16, rem);
-	}, unit(400/16, rem), unit(1200/16, rem));
+	}, true, unit(400/16, rem), unit(1200/16, rem));
 }
 
 #responsive-spacing---padding-large-difference {

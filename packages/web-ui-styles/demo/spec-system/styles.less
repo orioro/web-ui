@@ -1,0 +1,36 @@
+@import '../../less/dev.less';
+@import '../../less/base.less';
+@import '../../less/spec-system.less';
+
+body {
+  background-color: lightgrey;
+}
+
+main {
+  background-color: white;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding: 50px;
+
+  @color-system-specs:
+    name     color    background-color,
+    h1       darkred  skyblue,
+    h3,
+    h6,
+    h2       yellow   darkgrey,
+    h4,
+    h5,
+    p        darkred  white;
+
+  .mx__spec-system-rulesets(@color-system-specs, ~'>');
+
+  ul {
+    .mx__spec-system-apply(@color-system-specs, h2);
+  }
+
+  ol {
+    .mx__spec-system-apply(@color-system-specs, h1);
+  }
+}

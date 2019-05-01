@@ -1,7 +1,15 @@
-.__vertical-spacing-system-apply-distance(@__distance) {
+@import '../spec-system.less';
+
+.__vertical-spacing-system-apply-distance(@__distance, @important: false) {
   //
   // Attention: isunit(@variable, '');
   // is the only way that this comparison has worked.
+  // The fallback for this would be to check for
+  // each of the individual units:
+  //
+  // & when (isunit(@variable, px)), (isunit(@variable, rem)), (isunit(@variable, em)) {
+  //   [styles here]
+  // }
   //
   // https://github.com/less/less.js/pull/2323
   //
@@ -11,17 +19,19 @@
   // - get-unit(@__distance) = ''
   //
   & when not (isunit(@__distance, '')) {
-    margin-top: @__distance;
+    @__important-suffix: if(@important, ~' !important', ~'');
+    margin-top: @__distance @__important-suffix;
   }
 
   & when (isunit(@__distance, '')) {
-    .mx__spacing-m-top(@__distance);
+    .mx__spacing-m-top(@__distance, @important);
   }
 }
 
 .mx__vertical-spacing-system(
-  @__default-distance,
-  @__distances) {
+  @__vertical-spacing-specs,
+  @__default-vertical-spacing: false
+) {
 
   > * {
     //
@@ -31,41 +41,43 @@
     margin-bottom: 0;
   }
 
-  > * + * {
-    .__vertical-spacing-system-apply-distance(@__default-distance);
+  & when not (@__default-vertical-spacing = false) {
+    > * + * {
+      .__vertical-spacing-system-apply-distance(@__default-vertical-spacing);
+    }
   }
 
-  each(@__distances, {
-    .mx__vertical-spacing-system-item(extract(@value, 1), {
-      from-other: extract(@value, 2);
-      to-other: extract(@value, 3);
-      from-itself: extract(@value, 4);
-    });
+  .mx__spec-system-rulesets(@__vertical-spacing-specs, false, {
+    .mx__vertical-spacing-system-item(@spec-name, {
+      from-other: extract(@spec, 2);
+      to-other: extract(@spec, 3);
+      from-itself: extract(@spec, 4);
+    }, boolean(extract(@spec, 5) = ~'!important'));
   });
 }
 
 //
 // Given a reference selector, establish spacing relationships
 //
-.mx__vertical-spacing-system-item(@__reference-selector, @__item-distances) {
+.mx__vertical-spacing-system-item(@__reference-selector, @__item-distances, @important: false) {
   /**
    * Reference after Other
    */
   > *:not(@{__reference-selector}) + @{__reference-selector} {
-    .__vertical-spacing-system-apply-distance(@__item-distances[from-other]);
+    .__vertical-spacing-system-apply-distance(@__item-distances[from-other], @important);
   }
 
   /**
    * Other after Reference
    */
   > @{__reference-selector} + *:not(@{__reference-selector}) {
-    .__vertical-spacing-system-apply-distance(@__item-distances[to-other]);
+    .__vertical-spacing-system-apply-distance(@__item-distances[to-other], @important);
   }
 
   /**
    * Reference after another occurrence of Reference
    */
   > @{__reference-selector} + @{__reference-selector} {
-    .__vertical-spacing-system-apply-distance(@__item-distances[from-itself]);
+    .__vertical-spacing-system-apply-distance(@__item-distances[from-itself], @important);
   }
 }

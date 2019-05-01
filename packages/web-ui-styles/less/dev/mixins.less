@@ -1,0 +1,37 @@
+//
+// This file defines the working versions
+// of the development mixins.
+//
+// They override the mixins defined at dev/mixins-noop.less
+//
+
+//
+// Emulats message logging by using css variables syntax
+//
+.mx__dev-log(@message, @message-scope: 'LOG') {
+  --ui--dev-log+: '@{message}';
+
+  .dev-show-debugging & {
+    &::after {
+      position: absolute;
+      // right: 0;
+      display: block;
+      padding: 3px 5px;
+      color: white;
+      background-color: fade(@ui--dev-overlay-color, 40%);
+      border: 1px solid fade(@ui--dev-overlay-color, 40%);
+
+      // transform: translateY(calc(-100% + 1px));
+
+      @ui--dev-shared-styles();
+
+      content: '@{message-scope}: @{message}';
+    }
+
+    &:hover::after {
+      background-color: @ui--dev-overlay-color;
+      border: 1px dashed black;
+      z-index: 2;
+    }
+  }
+}
