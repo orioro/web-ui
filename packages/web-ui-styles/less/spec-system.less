@@ -1,7 +1,22 @@
+@import './dev/mixins-noop.less';
+
 .__spec-system-apply-properties(@__spec-properties, @__spec-applied-values, @__spec-properties-skip: 0) {
+  @important: boolean(
+    (length(@__spec-applied-values) > length(@__spec-properties)) and
+    (extract(@__spec-applied-values, length(@__spec-properties) + 1) = ~'!important')
+  );
+
   each(@__spec-properties, .(@spec-property, @spec-property-index) {
-    & when (@spec-property-index > @__spec-properties-skip) {
-      @{spec-property}: extract(@__spec-applied-values, @spec-property-index);
+    & when (@spec-property-index > @__spec-properties-skip)
+      and (length(@__spec-applied-values) >= @spec-property-index)
+      and not (extract(@__spec-applied-values, @spec-property-index) = null) {
+      .mx__dev-log(iskeyword @spec-property iskeyword(@spec-property));
+      @__spec-applied-value: if(
+        @important,
+        extract(@__spec-applied-values, @spec-property-index) ~' !important',
+        extract(@__spec-applied-values, @spec-property-index)
+      );
+      @{spec-property}: @__spec-applied-value;
     }
   });
 }
@@ -26,6 +41,7 @@
       // Must skip the first item in each spec,
       // as it is simply the name of the spec.
       .__spec-system-apply-properties(extract(@__spec-list, 1), @spec, 1);
+      .mx__dev-log(@spec, ~'SPEC - applied');
     }
   });
 }
@@ -45,7 +61,9 @@
   );
 
   //
-  // Expose @spec-name and @spec to the spec-ruleset generator
+  // Expose variables to the spec-ruleset generator
+  // - @spec-name
+  // - @spec
   //
   @spec-name: extract(@__current-spec, 1);
   @spec: extract(@__spec-list, @__current-applied-spec-index);
@@ -91,6 +109,7 @@
 
         @{__spec-selector} {
           .__spec-system-apply-properties(@__spec-properties, @spec, 1);
+          .mx__dev-log(@spec-name ~' -> '@spec, ~'SPEC - native');
         }
       },
       2,

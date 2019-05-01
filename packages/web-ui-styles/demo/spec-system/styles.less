@@ -14,23 +14,25 @@ main {
 
   padding: 50px;
 
-  @color-system-specs:
-    name     color    background-color,
-    h1       darkred  skyblue,
-    h3,
+  @font-family-monospace: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+
+  @specs:
+    name     color    background-color font-family,
+    h1       darkred  skyblue          @font-family-monospace ~'!important',
+    h3       null     green,
     h6,
     h2       yellow   darkgrey,
     h4,
-    h5,
+    h5       navy     null             ~'serif !important',
     p        darkred  white;
 
-  .mx__spec-system-rulesets(@color-system-specs, ~'>');
+  .mx__spec-system-rulesets(@specs, ~'>');
 
   ul {
-    .mx__spec-system-apply(@color-system-specs, h2);
+    .mx__spec-system-apply(@specs, h2);
   }
 
   ol {
-    .mx__spec-system-apply(@color-system-specs, h1);
+    .mx__spec-system-apply(@specs, h1);
   }
 }

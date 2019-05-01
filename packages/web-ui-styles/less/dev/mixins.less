@@ -9,27 +9,35 @@
 // Emulats message logging by using css variables syntax
 //
 .mx__dev-log(@message, @message-scope: 'LOG') {
-  --ui--dev-log+: '@{message}';
+  --ui--dev-log+: '@{message-scope}: @{message}';
 
   .dev-show-debugging & {
     &::after {
+      content: '';
       position: absolute;
-      // right: 0;
       display: block;
-      padding: 3px 5px;
-      color: white;
-      background-color: fade(@ui--dev-overlay-color, 40%);
-      border: 1px solid fade(@ui--dev-overlay-color, 40%);
+      overflow: hidden;
 
-      // transform: translateY(calc(-100% + 1px));
+      transform: translateY(-100%);
+      color: fade(@ui--dev-overlay-color, 40%);
+      background-color: currentColor;
+      border: 1px solid currentColor;
+      width: 10px;
+      height: 10px;
 
-      @ui--dev-shared-styles();
-
-      content: '@{message-scope}: @{message}';
     }
 
     &:hover::after {
+      @ui--dev-shared-styles();
+      content: '@{message-scope}: @{message}';
+      padding: 3px 5px;
+
+      transform: translateY(0);
+      width: auto;
+      height: auto;
+      border-radius: 0;
       background-color: @ui--dev-overlay-color;
+      color: white;
       border: 1px dashed black;
       z-index: 2;
     }
