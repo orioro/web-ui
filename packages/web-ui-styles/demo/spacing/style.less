@@ -1,15 +1,21 @@
 @import '../../less/dev.less';
 @import '../../less/spacing.less';
 
-.mx__spacing();
+@ui--spacing-units:
+  outer-1 300px 200px,
+  1       120px 80px,
+  2       100px 70px,
+  3       80px  60px,
+  4       70px  50px,
+  5       60px  40px,
+  6       40px  30px;
 
-.test-element {
-}
+.mx__spacing();
 
 #element-1 {
 	background-color: skyblue;
 
-	.mx__spacing-m-top(1);
+	.mx__spacing-m-top(outer-1);
 	.mx__spacing-p(2);
 }
 

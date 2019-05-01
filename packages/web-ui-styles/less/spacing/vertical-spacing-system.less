@@ -1,3 +1,4 @@
+@import '../dev/mixins-noop.less';
 @import '../spec-system.less';
 
 .__vertical-spacing-system-apply-distance(@__distance, @important: false) {
@@ -19,12 +20,15 @@
   // - get-unit(@__distance) = ''
   //
   & when not (isunit(@__distance, '')) {
-    @__important-suffix: if(@important, ~' !important', ~'');
-    margin-top: @__distance @__important-suffix;
+    margin-top: if(@important, @__distance ~' !important', @__distance);
   }
 
-  & when (isunit(@__distance, '')) {
+  & when (isunit(@__distance, '')) and not (@__distance = 0) {
     .mx__spacing-m-top(@__distance, @important);
+  }
+
+  & when (isunit(@__distance, '')) and (@__distance = 0) {
+    margin-top: if(@important, ~'0 !important', 0);
   }
 }
 

@@ -1,90 +1,104 @@
 @import './dev/mixins-noop.less';
 @import './responsive.less';
-@import './util.less';
+@import './spec-system.less';
 
 @import './spacing/margin-mixins.less';
 @import './spacing/padding-mixins.less';
 @import './spacing/vertical-spacing-system.less';
 
-/**
- * Pairs of [spacing-unit] [class-name]
- */
-@ui--spacing-standalone-classes:
-  1,
-  2,
-  3,
-  4,
-  5,
-  6;
-
 @ui--spacing-units:
-  120px 80px,
-  100px 70px,
-  80px  60px,
-  70px  50px,
-  60px  40px,
-  40px  30px,
-  30px  15px,
-  24px  24px,
-  20px  20px,
-  14px  14px,
-  14px  9px,
-  10px,
-  8px;
+  1   120px 80px,
+  2   100px 70px,
+  3   80px  60px,
+  4   70px  50px,
+  5   60px  40px,
+  6   40px  30px,
+  7   30px  15px,
+  8   24px  24px,
+  9   20px  20px,
+  10  14px  14px,
+  11  14px  9px,
+  12  10px,
+  13  8px;
 
 /**
  * Applies a unit to the given property or ruleset
+ * We cannot use spec-system helper mixins due to recursion - variables
+ * end up overriden by recursive mixin calling.
+ *
+ * As an example: the vertical spacing system uses the spacing system
+ *
+ * TODO: investigate further and improve documentation
  */
-.mx__spacing-apply-unit(@ruleset-or-property, @size, @important: false) {
-  & when not (isruleset(@size)) and (@size > 0) {
-    @unit-spec: if(
-      length(@ui--spacing-units) >= @size,
-      extract(@ui--spacing-units, @size),
-      extract(@ui--spacing-units, length(@ui--spacing-units))
-    );
+.mx__spacing-apply-unit(
+  @__spacing-ruleset-or-property,
+  @__spacing-unit-name,
+  @important: false) {
 
-    .mx__responsive-viewport-indexed-property({
-      .mx__dev-log(@ruleset-or-property @size, SPACING);
-      @{ruleset-or-property}: @responsive-viewport-indexed-value;
-    }, {
-      min-value: if(
-        length(@unit-spec) > 1,
-        extract(@unit-spec, 2),
-        extract(@unit-spec, 1)
-      );
-      max-value: extract(@unit-spec, 1);
-    }, @important);
-  }
+  //
+  // Loop through the spec list and attempt to match
+  // the target spacing unit name
+  //
+  each(@ui--spacing-units, .(@__spacing-unit-spec) {
 
-  & when not (isruleset(@size)) and (@size = 0) {
-    @{ruleset-or-property}: 0;
-    .mx__dev-log(@ruleset-or-property @size, SPACING);
-  }
+    //
+    // Additional complexity (checking whether is ruleset or not)
+    // was added in order to introduce debugging mechanism.
+    //
+    // This complexity may be removed in the future.
+    //
+    & when (extract(@__spacing-unit-spec, 1) = @__spacing-unit-name)
+       and (isruleset(@__spacing-ruleset-or-property)) {
+      .mx__responsive-viewport-indexed-property(@__spacing-ruleset-or-property, {
+        min-value: if(
+          length(@__spacing-unit-spec) > 2,
+          extract(@__spacing-unit-spec, 3),
+          extract(@__spacing-unit-spec, 2)
+        );
+        max-value: extract(@__spacing-unit-spec, 2);
+      }, @important);
+    }
 
-  & when (isruleset(@size)) {
-    .mx__responsive-viewport-indexed-property(@ruleset-or-property, @size, @important);
-  }
+    & when (extract(@__spacing-unit-spec, 1) = @__spacing-unit-name)
+      and not (isruleset(@__spacing-ruleset-or-property)) {
+      .mx__responsive-viewport-indexed-property({
+        @{__spacing-ruleset-or-property}: @responsive-viewport-indexed-value;
+        .mx__dev-log(
+          @__spacing-ruleset-or-property @__spacing-unit-name,
+          SPACING,
+          @important
+        );
+      }, {
+        min-value: if(
+          length(@__spacing-unit-spec) > 2,
+          extract(@__spacing-unit-spec, 3),
+          extract(@__spacing-unit-spec, 2)
+        );
+        max-value: extract(@__spacing-unit-spec, 2);
+      }, @important);
+    }
+  });
 }
 
-.mx-private__spacing-classes-single-unit(@name, @value) {
+.__spacing-classes-single-unit(@__spacing-unit-name, @value) {
   /**
    * All sides
    */
-  .m-@{name} {
+  .m-@{__spacing-unit-name} {
     margin: @value !important;
   }
-  .p-@{name} {
+  .p-@{__spacing-unit-name} {
     padding: @value !important;
   }
 
   /**
    * Vertical
    */
-  .m-vertical-@{name} {
+  .m-vertical-@{__spacing-unit-name} {
     margin-top: @value !important;
     margin-bottom: @value !important;
   }
-  .p-vertical-@{name} {
+  .p-vertical-@{__spacing-unit-name} {
     padding-top: @value !important;
     padding-bottom: @value !important;
   }
@@ -92,11 +106,11 @@
   /**
    * Horizontal
    */
-  .m-horizontal-@{name} {
+  .m-horizontal-@{__spacing-unit-name} {
     margin-left: @value !important;
     margin-right: @value !important;
   }
-  .p-horizontal-@{name} {
+  .p-horizontal-@{__spacing-unit-name} {
     padding-left: @value !important;
     padding-right: @value !important;
   }
@@ -104,40 +118,40 @@
   /**
    * Top
    */
-  .m-top-@{name} {
+  .m-top-@{__spacing-unit-name} {
     margin-top: @value !important;
   }
-  .p-top-@{name} {
+  .p-top-@{__spacing-unit-name} {
     padding-top: @value !important;
   }
 
   /**
    * Bottom
    */
-  .m-bottom-@{name} {
+  .m-bottom-@{__spacing-unit-name} {
     margin-bottom: @value !important;
   }
-  .p-bottom-@{name} {
+  .p-bottom-@{__spacing-unit-name} {
     padding-bottom: @value !important;
   }
 
   /**
    * Left
    */
-  .m-left-@{name} {
+  .m-left-@{__spacing-unit-name} {
     margin-left: @value !important;
   }
-  .p-left-@{name} {
+  .p-left-@{__spacing-unit-name} {
     padding-left: @value !important;
   }
 
   /**
    * Right
    */
-  .m-right-@{name} {
+  .m-right-@{__spacing-unit-name} {
     margin-right: @value !important;
   }
-  .p-right-@{name} {
+  .p-right-@{__spacing-unit-name} {
     padding-right: @value !important;
   }
 }
@@ -145,22 +159,19 @@
 //
 // Generates spacing rulesets
 //
-.mx__spacing() {
-  each(@ui--spacing-standalone-classes, {
-    @size: extract(@value, 1);
-    @name: if(
-      length(@value) > 1,
-      extract(@value, 2),
-      @size
-    );
+.mx__spacing(@spacing-standalone-class-count: 6) {
+  each(@ui--spacing-units, .(@__spacing-unit-spec, @__spacing-unit-spec-index) {
+    & when (@__spacing-unit-spec-index <= @spacing-standalone-class-count) {
+      @__spacing-unit-name: extract(@__spacing-unit-spec, 1);
 
-    .mx__spacing-apply-unit(
-      {
-        .mx-private__spacing-classes-single-unit(@size, @responsive-viewport-indexed-value);
-      },
-      @size
-    );
+      .mx__spacing-apply-unit(
+        {
+          .__spacing-classes-single-unit(@__spacing-unit-name, @responsive-viewport-indexed-value);
+        },
+        @__spacing-unit-name
+      );
+    }
   });
 
-  .mx-private__spacing-classes-single-unit(0, 0);
+  .__spacing-classes-single-unit(0, 0);
 }

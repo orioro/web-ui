@@ -17,12 +17,12 @@ main {
 		padding-right: 50px;
 	}
 
-  @default-vertical-spacing: 3;
+  @default-vertical-spacing: 2;
   @vertical-spacing-system-specs:
     h1                 1 4 6 ~'!important',
     h2,
     ~'.call-to-action' 4 1 6;
 
-  .mx__vertical-spacing-system(@vertical-spacing-system-specs, @default-vertical-spacing);
   .mx__color-sections(@default-vertical-spacing);
+  .mx__vertical-spacing-system(@vertical-spacing-system-specs, @default-vertical-spacing);
 }

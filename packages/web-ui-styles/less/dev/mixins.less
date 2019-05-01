@@ -8,38 +8,48 @@
 //
 // Emulats message logging by using css variables syntax
 //
-.mx__dev-log(@message, @message-scope: 'LOG') {
-  --ui--dev-log+: '@{message-scope}: @{message}';
+.mx__dev-log(@message, @message-scope: 'LOG', @important: false, @show-ui: true) {
+  --ui--dev-log+: if(
+    @important,
+    '@{message-scope}: @{message}' ~'!important',
+    '@{message-scope}: @{message}'
+  );
 
-  .dev-show-debugging & {
-    &::after {
-      content: '';
-      position: absolute;
-      display: block;
-      overflow: hidden;
+  & when (@show-ui) {
+    .dev-show-debugging & {
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        overflow: hidden;
 
-      transform: translateY(-100%);
-      color: fade(@ui--dev-overlay-color, 40%);
-      background-color: currentColor;
-      border: 1px solid currentColor;
-      width: 10px;
-      height: 10px;
+        transform: translateY(-100%);
+        color: fade(@ui--dev-overlay-color, 40%);
+        background-color: currentColor;
+        border: 1px solid currentColor;
+        width: 10px;
+        height: 10px;
 
-    }
+      }
 
-    &:hover::after {
-      @ui--dev-shared-styles();
-      content: '@{message-scope}: @{message}';
-      padding: 3px 5px;
+      &:hover::after {
+        @ui--dev-shared-styles();
+        content: if(
+          @important,
+          '@{message-scope}: @{message}' ~'!important',
+          '@{message-scope}: @{message}'
+        );
+        padding: 3px 5px;
 
-      transform: translateY(0);
-      width: auto;
-      height: auto;
-      border-radius: 0;
-      background-color: @ui--dev-overlay-color;
-      color: white;
-      border: 1px dashed black;
-      z-index: 2;
+        transform: translateY(0);
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        background-color: @ui--dev-overlay-color;
+        color: white;
+        border: 1px dashed black;
+        z-index: 2;
+      }
     }
   }
 }
