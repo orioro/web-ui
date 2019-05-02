@@ -1,24 +1,33 @@
 @import './util.less';
 @import './lists.less';
+@import './responsive.less';
 
-@ui--menu-horizontal-space-between: 40px;
+//
+// Ensure configurable:
+//
+// General level
+// - anchor styles
+// - anchor:hover styles
+//
+// Menu level
+// - menu classname
+// - menu-has-submenu classname
+// - menu-submenu-active classname
+// - menu styles
+// - menu-item styles
+// - menu-item:hover styles
+//
+// Sub menu level
+// - sub-menu classname
+// - sub-menu styles
+// - sub-menu-item sytles
+// - sub-menu-item:hover styles
+//
+// Responsive breakpoint
+//
+.mx__menu-horizontal() {
 
-.mx__menu-elements-styles() {
-	a {
-    text-decoration: none;
-    display: block;
-	}
-}
 
-.mx__menu-horizontal(@options) {
-	display: flex;
-
-	> * {
-		.mx__util-distance-between-items(horizontal, @options[space-between]);
-	}
-}
-
-.mx__menus() {
 	ul.menu {
 		width: 100%;
 		display: flex;
@@ -26,8 +35,6 @@
 		margin-top: 0;
 		margin-bottom: 0;
 		padding-left: 0;
-
-		justify-content: space-between;
 
 		a {
 			text-decoration: none;
@@ -226,5 +233,8 @@
 			}
 		}
 	}
+}
+
+.mx__menus() {
 
 }
