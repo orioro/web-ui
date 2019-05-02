@@ -5,14 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body class="dev-show-debugging dev-x-ray">
   <div id="content">
-    <h1 class="h1 m-bottom-1">teste 1</h1>
-    <h2 class="h2 m-bottom-2">teste 2</h2>
-    <h3 class="h3 m-top-1">teste h3</h3> 
-    <h4 class="h4 m-top-1">teste h4</h4>
-    <h5 class="h5">teste h5</h5>
-    <h6 class="h6">teste h6</h6>
+    <h1>tag h1</h1>
+    <h1 class="h2">tag h1</h1>
+    <h2>tag h2</h2>
+    <h2 class="h1">tag h2</h2>
+    <h3>tag h3</h3>
+    <h3 class="h1">tag h3</h3>
+    <h4>tag h4</h4>
+    <h4 class="some-random-class that annulates tag selector">tag h4</h4>
+    <h5>tag h5</h5>
+    <h6>tag h6</h6>
+
+    <div class="text-1">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent aliquam imperdiet justo, sit amet facilisis tellus condimentum quis.
+    </div>
+    <div class="text-2">
+      Donec eleifend sollicitudin leo blandit varius. Proin in arcu ut tortor varius egestas id vitae orci. Etiam pulvinar nibh vel lorem vulputate, et malesuada erat egestas.
+    </div>
+    <div class="text-3">
+      Nunc cursus semper porta. Morbi tempus porttitor dignissim. Duis sit amet luctus augue. Ut et lacinia augue. Donec id felis vulputate, iaculis enim ac, malesuada libero.
+    </div>
+    <div class="text-4">
+      Morbi tempus lorem et egestas luctus. Nunc tincidunt quam at diam consequat, eu ornare eros sodales.
+    </div>
+    <p>
+      <code>tag p</code> should behave like text-4
+      Morbi tempus lorem et egestas luctus. Nunc tincidunt quam at diam consequat, eu ornare eros sodales.
+    </p>
+    <div class="text-5">
+      Phasellus sed ornare enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eu nibh finibus, dignissim justo ac, venenatis arcu. Sed justo eros, rutrum ac fringilla et, fringilla in urna. Morbi eget placerat sem.
+    </div>
+    <div class="text-6">
+      Aliquam erat volutpat. Curabitur varius purus id placerat sodales. Aliquam lobortis lorem vel augue mollis, non dictum purus varius. In condimentum egestas egestas. Donec euismod, nibh et maximus posuere, libero elit tristique libero, quis dignissim metus odio vel ex. Praesent facilisis nunc et fermentum vehicula. In a felis id arcu finibus fermentum.
+    </div>
   </div>
 
 </body>

@@ -1,57 +1,75 @@
 @import './dev/mixins-noop.less';
 
-.__spec-system-apply-properties(@__spec-properties, @__spec-applied-values, @__spec-properties-skip: 0) {
-  @important: boolean(
-    (length(@__spec-applied-values) > length(@__spec-properties)) and
-    (extract(@__spec-applied-values, length(@__spec-properties) + 1) = ~'!important')
+//
+// Applies property - value pairs in a tabular format
+//
+// Skips the following columns:
+// - `_name`
+// - `_custom-property`
+//
+.__spec-system-apply-properties(@spec-properties, @__spec-applied-values) {
+  @__spec-important: boolean(
+    (length(@__spec-applied-values) > length(@spec-properties)) and
+    (extract(@__spec-applied-values, length(@spec-properties) + 1) = ~'!important')
   );
 
-  each(@__spec-properties, .(@spec-property, @spec-property-index) {
-    & when (@spec-property-index > @__spec-properties-skip)
-      and (length(@__spec-applied-values) >= @spec-property-index)
-      and not (extract(@__spec-applied-values, @spec-property-index) = null) {
-      .mx__dev-log(iskeyword @spec-property iskeyword(@spec-property));
-      @__spec-applied-value: if(
-        @important,
+  each(@spec-properties, .(@spec-property, @spec-property-index) {
+    & when not (@spec-property = _name)
+       and not (@spec-property = _)
+       and     (length(@__spec-applied-values) >= @spec-property-index)
+       and not (extract(@__spec-applied-values, @spec-property-index) = null) {
+
+      @{spec-property}: if(
+        @__spec-important,
         extract(@__spec-applied-values, @spec-property-index) ~' !important',
         extract(@__spec-applied-values, @spec-property-index)
       );
-      @{spec-property}: @__spec-applied-value;
     }
   });
 }
 
-/**
- * Attempts to find a matching spec and apply its rulesets
- */
-.mx__spec-system-apply(@__spec-list, @spec-name, @__spec-ruleset-generator: false) {
-  //
-  // Loop through the spec list
-  //
-  each(@__spec-list, .(@spec) {
-    & when (extract(@spec, 1) = @spec-name) and (isruleset(@__spec-ruleset-generator)) {
-      // Apply custom ruleset expopsing the @spec variable
-      @__spec-ruleset-generator();
-    }
+//
+// Attempts to find a matching spec and apply its rulesets
+//
+.mx__spec-system-apply(
+  @__spec-list,
+  @target-spec-name,
+  @__spec-ruleset-generator: false) {
 
-    & when (extract(@spec, 1) = @spec-name) and not (isruleset(@__spec-ruleset-generator)) {
-      // Assume the first item in the @__spec-list
-      // is a list of properties of the spec
-      //
-      // Must skip the first item in each spec,
-      // as it is simply the name of the spec.
-      .__spec-system-apply-properties(extract(@__spec-list, 1), @spec, 1);
-      .mx__dev-log(@spec, ~'SPEC - applied');
-    }
-  });
+  @spec-properties: extract(@__spec-list, 1);
+
+  & {
+    //
+    // Loop through the spec list
+    //
+    each(@__spec-list, .(@spec) {
+
+      & when (extract(@spec, 1) = @target-spec-name) {
+        .__spec-system-apply-properties(@spec-properties, @spec);
+        .mx__dev-log(@target-spec-name ~' -> '@spec, spec-applied);
+      }
+
+      & when (extract(@spec, 1) = @target-spec-name)
+         and (isruleset(@__spec-ruleset-generator)) {
+
+        @spec-name: @target-spec-name;
+        @spec-important: boolean(
+          (length(@spec) > length(@spec-properties)) and
+          (extract(@spec, length(@spec-properties) + 1) = ~'!important')
+        );
+
+        @__spec-ruleset-generator();
+      }
+    });
+  }
 }
 
 .__spec-system-walk-spec-list(
   @__spec-list,
-  @__spec-selector-prefix,
   @__spec-ruleset-generator,
   @__current-spec-index,
-  @__last-applied-spec-index
+  @__last-applied-spec-index,
+  @__spec-logging-namespace
 ) when (@__current-spec-index <= length(@__spec-list)) {
   @__current-spec: extract(@__spec-list, @__current-spec-index);
   @__current-applied-spec-index: if(
@@ -63,57 +81,62 @@
   //
   // Expose variables to the spec-ruleset generator
   // - @spec-name
+  //   Name of the ruleset, intended to be used for selector generation
+  // - @spec-properties
+  //   List of properties
   // - @spec
+  //   The full specfications
+  // - @spec-important
+  //   Boolean of whether the @important flas is on for the whole spec.
+  // - @spec-base-ruleset
+  //   A ruleset that contains the combination of header properties and the applied values
   //
   @spec-name: extract(@__current-spec, 1);
+  // Use the first row as a list
+  // of style properties.
+  // It works as a table header for all specs.
+  @spec-properties: extract(@__spec-list, 1);
   @spec: extract(@__spec-list, @__current-applied-spec-index);
+  @spec-important: boolean(
+    (length(@spec) > length(@spec-properties)) and
+    (extract(@spec, length(@spec-properties) + 1) = ~'!important')
+  );
+  @spec-base-ruleset: {
+    .__spec-system-apply-properties(@spec-properties, @spec);
+    .mx__dev-log(@spec-name ~' -> '@spec, @__spec-logging-namespace);
+  };
 
   @__spec-ruleset-generator();
 
   .__spec-system-walk-spec-list(
     @__spec-list,
-    @__spec-selector-prefix,
     @__spec-ruleset-generator,
     @__current-spec-index + 1,
-    @__current-applied-spec-index
+    @__current-applied-spec-index,
+    @__spec-logging-namespace
   );
 }
 
-.mx__spec-system-rulesets(@__spec-list, @__spec-selector-prefix: false, @__spec-ruleset-generator: false) {
-  & when (isruleset(@__spec-ruleset-generator)) {
-    // No spec header
+.mx__spec-system-rulesets(
+  @__spec-list,
+  @__spec-ruleset-generator,
+  @__spec-logging-namespace: spec) {
+
+  //
+  // Provide an isolate scope to prevent
+  // variables from leaking
+  //
+  // See some discussion at:
+  // https://github.com/less/less.js/issues/2767
+  // https://github.com/less/less-meta/issues/16
+  //
+  & {
     .__spec-system-walk-spec-list(
       @__spec-list,
-      @__spec-selector-prefix,
       @__spec-ruleset-generator,
-      1,
-      1
-    );
-  }
-
-  & when not (isruleset(@__spec-ruleset-generator)) {
-    // Has spec header
-    // Skip the first row, as it will be used
-    // as the spec header (list of properties)
-    @__spec-properties: extract(@__spec-list, 1);
-
-    .__spec-system-walk-spec-list(
-      @__spec-list,
-      @__spec-selector-prefix,
-      {
-        @__spec-selector: if(
-          @__spec-selector-prefix = false,
-          @spec-name,
-          @__spec-selector-prefix@spec-name
-        );
-
-        @{__spec-selector} {
-          .__spec-system-apply-properties(@__spec-properties, @spec, 1);
-          .mx__dev-log(@spec-name ~' -> '@spec, ~'SPEC - native');
-        }
-      },
       2,
-      2
+      2,
+      @__spec-logging-namespace
     );
   }
 }

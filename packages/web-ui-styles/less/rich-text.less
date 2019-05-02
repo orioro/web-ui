@@ -19,16 +19,17 @@
 // [2] distance-to-other
 // [3] distance-from-itself
 @ui--rich-text-vertical-spacing-specs:
-  h1         2em     1em     1em,
+  _name      _            _            _,
+  h1         2em          1em          1em,
   h2,
   h3,
-  h4         1       1       1,
+  h4,
   h5,
-  h6         2em     0       1em,
-  img        2.25rem 2.25rem 2.25rem,
-  figure     2.25rem 2.25rem 2.25rem,
-  iframe     2.25rem 2.25rem 2.25rem,
-  blockquote 2.25rem 2.25rem 2.25rem;
+  h6         2em          0            1em,
+  img        2.25rem      2.25rem      2.25rem,
+  figure     2.25rem      2.25rem      2.25rem,
+  iframe     2.25rem      2.25rem      2.25rem,
+  blockquote 2.25rem      2.25rem      2.25rem;
 
 //
 // Heading
@@ -66,6 +67,10 @@
 
 .mx__rich-text() {
   .rich-text {
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/word-break
+    // ATTENTION: break-word is not a standard, but works in Chrome
+    word-break: break-word;
+
     font-size: @ui--rich-text-font-size;
     line-height: @ui--rich-text-line-height;
     font-family: @ui--rich-text-font-family;

@@ -21,15 +21,15 @@
   12  10px,
   13  8px;
 
-/**
- * Applies a unit to the given property or ruleset
- * We cannot use spec-system helper mixins due to recursion - variables
- * end up overriden by recursive mixin calling.
- *
- * As an example: the vertical spacing system uses the spacing system
- *
- * TODO: investigate further and improve documentation
- */
+//
+// Applies a unit to the given property or ruleset
+// We cannot use spec-system helper mixins due to recursion - variables
+// end up overriden by recursive mixin calling.
+//
+// As an example: the vertical spacing system uses the spacing system
+//
+// TODO: investigate further and improve documentation
+//
 .mx__spacing-apply-unit(
   @__spacing-ruleset-or-property,
   @__spacing-unit-name,
@@ -65,7 +65,7 @@
         @{__spacing-ruleset-or-property}: @responsive-viewport-indexed-value;
         .mx__dev-log(
           @__spacing-ruleset-or-property @__spacing-unit-name,
-          SPACING,
+          spacing,
           @important
         );
       }, {
@@ -81,9 +81,9 @@
 }
 
 .__spacing-classes-single-unit(@__spacing-unit-name, @value) {
-  /**
-   * All sides
-   */
+  //
+  // All sides
+  //
   .m-@{__spacing-unit-name} {
     margin: @value !important;
   }
@@ -91,9 +91,9 @@
     padding: @value !important;
   }
 
-  /**
-   * Vertical
-   */
+  //
+  // Vertical
+  //
   .m-vertical-@{__spacing-unit-name} {
     margin-top: @value !important;
     margin-bottom: @value !important;
@@ -103,9 +103,9 @@
     padding-bottom: @value !important;
   }
 
-  /**
-   * Horizontal
-   */
+  //
+  // Horizontal
+  //
   .m-horizontal-@{__spacing-unit-name} {
     margin-left: @value !important;
     margin-right: @value !important;
@@ -115,9 +115,9 @@
     padding-right: @value !important;
   }
 
-  /**
-   * Top
-   */
+  //
+  // Top
+  //
   .m-top-@{__spacing-unit-name} {
     margin-top: @value !important;
   }
@@ -125,9 +125,9 @@
     padding-top: @value !important;
   }
 
-  /**
-   * Bottom
-   */
+  //
+  // Bottom
+  //
   .m-bottom-@{__spacing-unit-name} {
     margin-bottom: @value !important;
   }
@@ -135,9 +135,9 @@
     padding-bottom: @value !important;
   }
 
-  /**
-   * Left
-   */
+  //
+  // Left
+  //
   .m-left-@{__spacing-unit-name} {
     margin-left: @value !important;
   }
@@ -145,9 +145,9 @@
     padding-left: @value !important;
   }
 
-  /**
-   * Right
-   */
+  //
+  // Right
+  //
   .m-right-@{__spacing-unit-name} {
     margin-right: @value !important;
   }

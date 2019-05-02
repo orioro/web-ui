@@ -1,50 +1,50 @@
-/**
- * Padding top
- */
+//
+// Padding top
+//
 .mx__spacing-p-top(@size, @important: false) {
   .mx__spacing-apply-unit(padding-top, @size, @important);
 }
 
-/**
- * Padding bottom
- */
+//
+// Padding bottom
+//
 .mx__spacing-p-bottom(@size, @important: false) {
   .mx__spacing-apply-unit(padding-bottom, @size, @important);
 }
 
-/**
- * Padding left
- */
+//
+// Padding left
+//
 .mx__spacing-p-left(@size, @important: false) {
   .mx__spacing-apply-unit(padding-left, @size, @important);
 }
 
-/**
- * Padding right
- */
+//
+// Padding right
+//
 .mx__spacing-p-right(@size, @important: false) {
   .mx__spacing-apply-unit(padding-right, @size, @important);
 }
 
-/**
- * Padding horizontal
- */
+//
+// Padding horizontal
+//
 .mx__spacing-p-horizontal(@size, @important: false) {
   .mx__spacing-p-left(@size, @important);
   .mx__spacing-p-right(@size, @important);
 }
 
-/**
- * Padding vertical
- */
+//
+// Padding vertical
+//
 .mx__spacing-p-vertical(@size, @important: false) {
   .mx__spacing-p-top(@size, @important);
   .mx__spacing-p-bottom(@size, @important);
 }
 
-/**
- * Padding
- */
+//
+// Padding
+//
 .mx__spacing-p(@size, @important: false) {
   .mx__spacing-p-vertical(@size, @important);
   .mx__spacing-p-horizontal(@size, @important);

@@ -6,16 +6,19 @@
 //
 
 //
-// Emulats message logging by using css variables syntax
+// Emulates message logging by using css variables syntax
+// Optionally show ui
 //
-.mx__dev-log(@message, @message-scope: 'LOG', @important: false, @show-ui: true) {
-  --ui--dev-log+: if(
-    @important,
-    '@{message-scope}: @{message}' ~'!important',
-    '@{message-scope}: @{message}'
-  );
+.mx__dev-log(@message, @message-scope: log, @important: false) {
+  & when not (@ui--dev-logging = false) {
+    --ui--dev-@{message-scope}+: if(
+      @important,
+      e('@{message}') ~'!important',
+      e('@{message}')
+    );
+  }
 
-  & when (@show-ui) {
+  & when (@ui--dev-logging = show-ui) {
     .dev-show-debugging & {
       &::after {
         content: '';

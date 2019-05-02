@@ -1,9 +1,9 @@
 @import './vertical-spacing.less';
 
 .mx__rich-text-elements-styles-rulesets() {
-  /**
-   * Anchor tags
-   */
+  //
+  // Anchor tags
+  //
   a:not([class]) {
     &:link {
       color: @ui--rich-text-anchor-color;
@@ -25,38 +25,18 @@
     }
   }
 
-  /**
-   * Headings
-   */
-  > h1,
-  > h2,
-  > h3,
-  > h4,
-  > h5,
-  > h6 {
-    font-weight: @ui--rich-text-heading-font-weight;
-    font-family: @ui--rich-text-heading-font-family;
-    line-height: @ui--rich-text-heading-line-height;
-  }
-
-  each(@ui--rich-text-headings-font-sizes, {
-    h@{key} {
-      font-size: @value;
-    }
-  });
-
-  /**
-   * Image
-   */
+  //
+  // Image
+  //
   img {
     max-width: 100%;
     height: auto;
     display: block;
   }
 
-  /**
-   * Blockquote
-   */
+  //
+  // Blockquote
+  //
   blockquote {
     margin-left: @ui--rich-text-indented-content-side-margin;
     margin-right: @ui--rich-text-indented-content-side-margin;
@@ -115,7 +95,7 @@
     th {
       font-weight: bold;
     }
-    
+
     th, td {
       border: 1px solid currentColor;
       padding: 4px;

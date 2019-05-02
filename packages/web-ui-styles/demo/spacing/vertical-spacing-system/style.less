@@ -2,6 +2,8 @@
 @import '../../../less/base.less';
 @import '../../../less/spacing.less';
 
+@ui--dev-logging: show-ui;
+
 main {
   max-width: 1000px;
   margin-left: auto;
@@ -14,12 +16,16 @@ main {
 
   @default-vertical-spacing: 1.5rem;
   @vertical-spacing-specs:
-    h1 1 4 6,
+    _name _    _    _,
+    h1    1    4    6,
     h2,
-    h3 6 17px 6,
+    h3    6    17px 6,
     h4,
-    h5 4 0 4 ~'!important',
+    h5    4    0    4        ~'!important',
     h6;
 
-  .mx__vertical-spacing-system(@vertical-spacing-specs, @default-vertical-spacing);
+  .mx__vertical-spacing-system(
+    @default-vertical-spacing,
+    @vertical-spacing-specs
+  );
 }

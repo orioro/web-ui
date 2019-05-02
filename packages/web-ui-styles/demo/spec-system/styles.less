@@ -1,6 +1,10 @@
 @import '../../less/dev.less';
 @import '../../less/base.less';
+@import '../../less/responsive.less';
 @import '../../less/spec-system.less';
+
+// @ui--dev-logging:
+@ui--dev-logging: show-ui;;
 
 body {
   background-color: lightgrey;
@@ -14,25 +18,47 @@ main {
 
   padding: 50px;
 
-  @font-family-monospace: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  @font-family-monospace: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 
   @specs:
-    name     color    background-color font-family,
-    h1       darkred  skyblue          @font-family-monospace ~'!important',
-    h3       null     green,
+    _name                 _       _       color    background-color font-family,
+    h1                    30px    24px    darkred  skyblue          @font-family-monospace ~'!important',
+    ~'ol',
+    h3                    26px    22px    null     green,
+    ~'.custom-component',
     h6,
-    h2       yellow   darkgrey,
+    h2                    24px    18px    yellow   darkgrey,
     h4,
-    h5       navy     null             ~'serif !important',
-    p        darkred  white;
+    h5                    14px    12px    navy     null             ~'serif !important',
+    p                     1rem    .8rem   darkred  white;
 
-  .mx__spec-system-rulesets(@specs, ~'>');
+  .mx__spec-system-rulesets(@specs, {
+    @selector: if(isstring(@spec-name), @spec-name, ~'> @{spec-name}');
+
+    @{selector} {
+      @spec-base-ruleset();
+
+      .mx__responsive-viewport-indexed-property(font-size, {
+        min-value: if(
+          length(@spec) < 3,
+          extract(@spec, 2),
+          extract(@spec, 3)
+        );
+        max-value: extract(@spec, 2);
+      });
+    }
+  }, test-spec);
 
   ul {
-    .mx__spec-system-apply(@specs, h2);
-  }
-
-  ol {
-    .mx__spec-system-apply(@specs, h1);
+    .mx__spec-system-apply(@specs, h2, {
+      .mx__responsive-viewport-indexed-property(font-size, {
+        min-value: if(
+          length(@spec) < 3,
+          extract(@spec, 2),
+          extract(@spec, 3)
+        );
+        max-value: extract(@spec, 2);
+      });
+    });
   }
 }

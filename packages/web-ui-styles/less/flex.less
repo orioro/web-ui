@@ -1,8 +1,8 @@
 @import 'responsive.less';
 
-/**
- * Flex direction-values
- */
+//
+// Flex direction-values
+//
 .mx-private__flex-property-classes(@class-prefix, @ruleset-generator, @possible-values) {
 	.mx-private__util-rulesets-from-list(~'.@{class-prefix}-', @ruleset-generator, @possible-values);
 	.mx__media-min-sm(.mx-private__util-rulesets-from-list(~'.@{class-prefix}-sm-', @ruleset-generator, @possible-values));
@@ -12,9 +12,9 @@
 }
 
 .mx__flex() {
-	/**
-	 * Direction classes
-	 */
+	//
+	// Direction classes
+	//
 	.mx-private__flex-property-classes(flex, { flex-direction: @value }, {
 		row: row;
 		row-reverse: row-reverse;
@@ -22,9 +22,9 @@
 		column-reverse: column-reverse;
 	});
 
-	/**
-	 * Justify-content classes
-	 */
+	//
+	// Justify-content classes
+	//
 	.mx-private__flex-property-classes(justify-content, { justify-content: @value }, {
 		start: flex-start;
 		end: flex-end;
@@ -33,9 +33,9 @@
 		around: space-around;
 	});
 
-	/**
-	 * Align-items and align-self classes
-	 */
+	//
+	// Align-items and align-self classes
+	//
 	@ui-private--align-items-values: {
 		start: flex-start;
 		end: flex-end;
@@ -46,9 +46,9 @@
 	.mx-private__flex-property-classes(align-items, { align-items: @value }, @ui-private--align-items-values);
 	.mx-private__flex-property-classes(align-self, { align-self: @value }, @ui-private--align-items-values);
 
-	/**
-	 * Align-content classses
-	 */
+	//
+	// Align-content classses
+	//
 	.mx-private__flex-property-classes(align-content, { align-content: @value }, {
 		start: flex-start;
 		end: flex-end;
@@ -57,9 +57,9 @@
 		stretch: stretch;
 	});
 
-	/**
-	 * Flex wrap classes
-	 */
+	//
+	// Flex wrap classes
+	//
 	.mx-private__flex-property-classes(flex-wrap, { flex-wrap: @value }, {
 		nowrap: nowrap;
 		wrap: wrap;

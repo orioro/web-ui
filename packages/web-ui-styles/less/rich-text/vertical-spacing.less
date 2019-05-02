@@ -1,32 +1,32 @@
 @import '../util.less';
 @import '../spacing.less';
 
-/**
- * Establishes a vertical spacing system between
- * rich-text elements
- */
+//
+// Establishes a vertical spacing system between
+// rich-text elements
+//
 .mx__rich-text-vertical-spacing-rulesets() {
   > * {
-    /**
-     * Ensure all first level elements have display block
-     * so that their margins are applied.
-     *
-     * May get into conflict with elements that require `display: flex`
-     * but those cases should be dealt with by the custom component.
-     */
+    //
+    // Ensure all first level elements have display block
+    // so that their margins are applied.
+    //
+    // May get into conflict with elements that require `display: flex`
+    // but those cases should be dealt with by the custom component.
+    //
     display: block;
 
     > * {
-      /**
-       * Reset margins of nested elements, so that they do
-       * not interfere with the vertical spacing system
-       */
+      //
+      // Reset margins of nested elements, so that they do
+      // not interfere with the vertical spacing system
+      //
       .mx__util-reset-when-first-or-last(margin, vertical);
     }
   }
 
   .mx__vertical-spacing-system(
-    @ui--rich-text-vertical-spacing-specs,
-    @ui--rich-text-default-vertical-spacing
+    @ui--rich-text-default-vertical-spacing,
+    @ui--rich-text-vertical-spacing-specs
   );
 }

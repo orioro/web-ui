@@ -1,0 +1,29 @@
+@import '../../less/dev.less';
+@import '../../less/base.less';
+@import '../../less/colors.less';
+@import '../../less/page-sections.less';
+@import '../../less/spacing.less';
+
+@ui--dev-logging: show-ui;
+@ui--colors: navy, darkred, skyblue, yellow;
+.mx__colors();
+
+main {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+
+	> * {
+		padding-left: 50px;
+		padding-right: 50px;
+	}
+
+  @____default-vertical-spacing: 2;
+  @____vertical-spacing-system-specs:
+    _name              _ _ _,
+    ~'.call-to-action' 4 1 6,
+    h1                 1 4 10px ~'!important',
+    h2;
+
+  .mx__page-sections(2, @____vertical-spacing-system-specs);
+}

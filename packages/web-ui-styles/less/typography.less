@@ -1,68 +1,132 @@
+@import './dev/mixins-noop.less';
 @import './responsive.less';
+@import './spec-system.less';
 @import './typography/utilities.less';
-@import './typography/profile-system.less';
+// @import './typography/profile-system.less';
 
-/**
- * Font-families
- * [name-and-family]
- * [name] [family]
- */
+//
+// Font-families
+// [name-and-family]
+// [name] [family]
+//
 @ui--typography-font-families:
   serif ~'Georgia, "Times New Roman", Times, serif',
   sans-serif ~'-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol',
   monospace ~'SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace';
 
-/**
-* Font-weights
-* [name-and-weight]
-* [name] [weight]
-*/
+//
+// Font-weights
+// [name-and-weight]
+// [name] [weight]
+//
 @ui--typography-font-weights:
   lighter,
   normal,
   bold;
 
-/**
- * Headings
- * [max-font-size] [min-font-size] [font-family] [font-weight] [custom-ruleset] [custom-class-suffix]
- */
-@ui--typography-headings:
-  2.5rem   1.875rem  sans-serif bold,
-  2rem     1.5rem    sans-serif bold,
-  1.875rem 1.375rem,
-  1.75rem  1.3125rem,
-  1.375rem 1.0625rem,
-  1.125rem 1rem;
+//
+// REMOVE:
+// Headings
+// [max-font-size] [min-font-size] [font-family] [font-weight] [custom-ruleset] [custom-class-suffix]
+//
+// @ui--typography-headings:
+//   2.5rem   1.875rem  sans-serif bold,
+//   2rem     1.5rem    sans-serif bold,
+//   1.875rem 1.375rem,
+//   1.75rem  1.3125rem,
+//   1.375rem 1.0625rem,
+//   1.125rem 1rem;
 
-/**
- * Text
- * [max-font-size] [min-font-size] [font-family] [font-weight] [custom-ruleset] [custom-class-suffix]
- */
-@ui--typography-text-profiles:
-  1.875rem 1.375rem,
-  1.5rem   1.125rem,
-  1.125rem 1rem,
-  1rem     1rem,
-  0.875rem,
-  0.75rem;
+//
+// REMOVE:
+// Text
+// [max-font-size] [min-font-size] [font-family] [font-weight] [custom-ruleset] [custom-class-suffix]
+//
+// @ui--typography-text-profiles:
+//   1.875rem 1.375rem,
+//   1.5rem   1.125rem,
+//   1.125rem 1rem,
+//   1rem     1rem,
+//   0.875rem,
+//   0.75rem;
 
-/**
- * Generates typography rulesets
- */
+@ui--typography-specs:
+  _name   _         _               font-family font-weight,
+  h1      2.5rem    1.875rem        sans-serif  bold,
+  h2      2rem      1.5rem          sans-serif  bold,
+  h3      1.875rem  1.375rem        sans-serif  bold,
+  h4      1.75rem   1.3125rem       sans-serif  bold,
+  h5      1.375rem  1.0625rem       sans-serif  bold,
+  h6      1.125rem  1rem            sans-serif  bold,
+  text-1  1.875rem  1.375rem,
+  text-2  1.5rem    1.125rem,
+  text-3  1.125rem  1rem,
+  text-4  1rem,
+  p,
+  text-5  0.875rem,
+  text-6  0.75rem;
+
+//
+// Generates typography rulesets
+//
 .mx__typography() {
-  /**
-   * Responsive .h1 - .h*
-   */
-  .mx__typography-generate-profile-classes(heading, @ui--typography-headings, true, ~'.h');
+  .mx__spec-system-rulesets(@ui--typography-specs, {
+    .@{spec-name} {
+      @spec-base-ruleset();
 
-  /**
-   * Responsive .text-1 - .text-*
-   */
-  .mx__typography-generate-profile-classes(text, @ui--typography-text-profiles, true);
+      .mx__responsive-viewport-indexed-property(font-size, {
+        min-value: if(
+          length(@spec) < 3,
+          extract(@spec, 2),
+          extract(@spec, 3)
+        );
+        max-value: extract(@spec, 2);
+      });
+    }
 
-  /**
-   * .font-family-*
-   */
+    //
+    // Generate the rulesets for the default system tags
+    // WITH NO CLASS defined.
+    //
+    // Assume that once the element has a class defined,
+    // it is accessible through programming and could be customized
+    // manually (by applying .h1 class for example).
+    //
+    // ATTENTION: This assumption may well be proved wrong.
+    //
+    // TODO:
+    // Possibly there are better solutions
+    // for this
+    //
+    & when (@spec-name = h1),
+           (@spec-name = h2),
+           (@spec-name = h3),
+           (@spec-name = h4),
+           (@spec-name = h5),
+           (@spec-name = h6),
+           (@spec-name = p),
+           (@spec-name = figcation),
+           (@spec-name = blockquote),
+           (@spec-name = table),
+           (@spec-name = th),
+           (@spec-name = td) {
+      @{spec-name}:not([class]) {
+        @spec-base-ruleset();
+        .mx__responsive-viewport-indexed-property(font-size, {
+          min-value: if(
+            length(@spec) < 3,
+            extract(@spec, 2),
+            extract(@spec, 3)
+          );
+          max-value: extract(@spec, 2);
+        });
+      }
+    }
+  });
+
+  //
+  // .font-family-*
+  //
   each(@ui--typography-font-families, {
     @font-family-name: extract(@value, 1);
 
@@ -77,9 +141,9 @@
     }
   });
 
-  /**
-   * .font-weight-*
-   */
+  //
+  // .font-weight-*
+  //
   each(@ui--typography-font-weights, {
     @font-weight-name: extract(@value, 1);
 

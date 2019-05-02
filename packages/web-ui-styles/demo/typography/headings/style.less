@@ -1,7 +1,25 @@
-@import '../../../less/spacing.less';
+@import '../../../less/dev.less';
+@import '../../../less/base.less';
 @import '../../../less/typography.less';
 
-.mx__spacing();
+@ui--dev-logging: show-ui;
+
+@ui--typography-specs:
+  _name   _         _               font-family font-weight color,
+  h1      2.5rem    1.875rem        sans-serif  bold        red,
+  h2      2rem      1.5rem          sans-serif  bold        green,
+  h3      1.875rem  1.375rem        sans-serif  bold,
+  h4      1.75rem   1.3125rem       sans-serif  bold        blue,
+  h5      1.375rem  1.0625rem       sans-serif  bold,
+  h6      1.125rem  1rem            sans-serif  bold,
+  text-1  1.875rem  1.375rem,
+  text-2  1.5rem    1.125rem,
+  text-3  1.125rem  1rem,
+  text-4  1rem,
+  p,
+  text-5  0.875rem,
+  text-6  0.75rem;
+
 .mx__typography();
 
 body {
@@ -11,5 +29,9 @@ body {
 #content {
   max-width: 600px;
   background-color: white;
-  margin: 0 auto;
+  margin: 50px auto;
+
+  > * + * {
+    margin-top: 25px;
+  }
 }

@@ -33,8 +33,8 @@
 }
 
 .mx__vertical-spacing-system(
-  @__vertical-spacing-specs,
-  @__default-vertical-spacing: false
+  @__default-vertical-spacing: false,
+  @__vertical-spacing-specs
 ) {
 
   > * {
@@ -46,41 +46,56 @@
   }
 
   & when not (@__default-vertical-spacing = false) {
-    > * + * {
+    //
+    // Attempt to apply the vertical spacing to all
+    // elements except those that have explicitly requested
+    // to be left out of the system
+    //
+    > * + *:not(.vertical-spacing-exception) {
       .__vertical-spacing-system-apply-distance(@__default-vertical-spacing);
     }
   }
 
-  .mx__spec-system-rulesets(@__vertical-spacing-specs, false, {
-    .mx__vertical-spacing-system-item(@spec-name, {
-      from-other: extract(@spec, 2);
-      to-other: extract(@spec, 3);
-      from-itself: extract(@spec, 4);
-    }, boolean(extract(@spec, 5) = ~'!important'));
-  });
+  .mx__spec-system-rulesets(
+    @__vertical-spacing-specs,
+    {
+      // Explicitly do not apply the @spec-base-ruleset here,
+      // to prevent logging in the wrong position
+      // @spec-base-ruleset();
+      .mx__vertical-spacing-system-item(@spec-name, {
+        from-other: extract(@spec, 2);
+        to-other: extract(@spec, 3);
+        from-itself: extract(@spec, 4);
+      }, boolean(extract(@spec, 5) = ~'!important'));
+    }
+  );
 }
 
 //
 // Given a reference selector, establish spacing relationships
 //
 .mx__vertical-spacing-system-item(@__reference-selector, @__item-distances, @important: false) {
-  /**
-   * Reference after Other
-   */
+  //
+  // Reference after Other
+  //
   > *:not(@{__reference-selector}) + @{__reference-selector} {
     .__vertical-spacing-system-apply-distance(@__item-distances[from-other], @important);
   }
 
-  /**
-   * Other after Reference
-   */
-  > @{__reference-selector} + *:not(@{__reference-selector}) {
+  //
+  // Other after Reference
+  // TODO: test the chaining of :not() selector.
+  // If working on all browsers, remove the first line, wich is just a
+  // "defensive one"
+  //
+  > @{__reference-selector} + *:not(@{__reference-selector}),
+  > @{__reference-selector} + *:not(@{__reference-selector}):not(.vertical-spacing-exception) {
     .__vertical-spacing-system-apply-distance(@__item-distances[to-other], @important);
   }
 
-  /**
-   * Reference after another occurrence of Reference
-   */
+  //
+  // Reference after another occurrence of Reference
+  //
   > @{__reference-selector} + @{__reference-selector} {
     .__vertical-spacing-system-apply-distance(@__item-distances[from-itself], @important);
   }

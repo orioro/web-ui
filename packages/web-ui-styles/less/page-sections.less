@@ -1,0 +1,49 @@
+@import './colors.less';
+@import './spacing.less';
+
+.mx__page-sections(
+	@__page-sections-vertical-spacing: 1,
+	@__page-sections-custom-spacing-spec: false,
+	@__page-sections-transparent-selector: ~'.page-section--transparent',
+	@__page-sections-bg-selector: ~'.page-section--bg',
+	@__page-sections-colors: @ui--colors) {
+
+	//
+	// Due to "variable unlocking" functionality built into less mixins,
+	// we must isolate the calls to .mx__vertical-spacing-system
+	//
+	// See some discussion at:
+	// https://github.com/less/less.js/issues/2767
+	// https://github.com/less/less-meta/issues/16
+	//
+	@__page-sections-vertical-spacing-specs:
+		_name                                 _                                 _                                 _,
+		@__page-sections-transparent-selector @__page-sections-vertical-spacing @__page-sections-vertical-spacing @__page-sections-vertical-spacing,
+		@__page-sections-bg-selector          @__page-sections-vertical-spacing @__page-sections-vertical-spacing 0;
+
+	//
+	// Do not set a default vertical spacing
+	//
+	.mx__vertical-spacing-system(
+		@__page-sections-vertical-spacing,
+		@__page-sections-vertical-spacing-specs
+	);
+
+	> @{__page-sections-bg-selector} {
+		.mx__spacing-p-vertical(@__page-sections-vertical-spacing);
+
+		//
+		// Annulate matching color sections top paddings
+		//
+		each(@__page-sections-colors, {
+			@color-name: extract(@value, 1);
+			&.bg-@{color-name} + @{__page-sections-bg-selector}.bg-@{color-name} {
+				padding-top: 0;
+			}
+		});
+	}
+
+	// & when not (@__page-sections-custom-spacing-spec = false) {
+		.mx__vertical-spacing-system(false, @__page-sections-custom-spacing-spec);
+	// }
+}

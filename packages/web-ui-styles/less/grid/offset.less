@@ -1,13 +1,13 @@
 @import '../responsive.less';
 @import '../util.less';
 
-/**
- * Offset
- */
+//
+// Offset
+//
 .mx-private__grid-offset-rulesets() {
-	/**
-	 * @current is exposed by `.mx-private__util-rulesets-from-countdown` mixin
-	 */
+	//
+	// @current is exposed by `.mx-private__util-rulesets-from-countdown` mixin
+	//
 	@offset-ruleset-generator: {
 		margin-left: (100% / @ui--grid-column-count) * @current;
 	};

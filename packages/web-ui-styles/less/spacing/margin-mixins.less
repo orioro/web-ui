@@ -1,50 +1,50 @@
-/**
- * Margin top
- */
+//
+// Margin top
+//
 .mx__spacing-m-top(@size, @important: false) {
   .mx__spacing-apply-unit(margin-top, @size, @important);
 }
 
-/**
- * Margin bottom
- */
+//
+// Margin bottom
+//
 .mx__spacing-m-bottom(@size, @important: false) {
   .mx__spacing-apply-unit(margin-bottom, @size, @important);
 }
 
-/**
- * Margin left
- */
+//
+// Margin left
+//
 .mx__spacing-m-left(@size, @important: false) {
   .mx__spacing-apply-unit(margin-left, @size, @important);
 }
 
-/**
- * Margin right
- */
+//
+// Margin right
+//
 .mx__spacing-m-right(@size, @important: false) {
   .mx__spacing-apply-unit(margin-right, @size, @important);
 }
 
-/**
- * Margin horizontal
- */
+//
+// Margin horizontal
+//
 .mx__spacing-m-horizontal(@size, @important: false) {
   .mx__spacing-m-left(@size, @important);
   .mx__spacing-m-right(@size, @important);
 }
 
-/**
- * Margin vertical
- */
+//
+// Margin vertical
+//
 .mx__spacing-m-vertical(@size, @important: false) {
   .mx__spacing-m-top(@size, @important);
   .mx__spacing-m-bottom(@size, @important);
 }
 
-/**
- * Margin
- */
+//
+// Margin
+//
 .mx__spacing-m(@size, @important: false) {
   .mx__spacing-m-vertical(@size, @important);
   .mx__spacing-m-horizontal(@size, @important);

@@ -1,9 +1,9 @@
-/**
- * Sets a property according to the given theme
- *
- * Themes are conditions matched upwards in the DOM tree
- * that affect the current element.
- */
+//
+// Sets a property according to the given theme
+//
+// Themes are conditions matched upwards in the DOM tree
+// that affect the current element.
+//
 .mx__themable-property(@theme-selector-prefix, @property, @values-by-theme) {
 	each(@values-by-theme, {
 		@{theme-selector-prefix}@{key} & {

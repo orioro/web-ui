@@ -3,10 +3,10 @@
 @import '../util.less';
 
 .mx-private__grid-col-rulesets() {
-  /**
-   * Rules that apply to:
-   * ANY column in ANY media size
-   */
+  //
+  // Rules that apply to:
+  // ANY column in ANY media size
+  //
   .mx-private__grid-apply-rules-to-columns-with-prefix(all, {
     width: 100%;
 
@@ -16,12 +16,12 @@
     });
   });
 
-  /**
-   * col-{N}
-   *
-   * This set of columns stacks,
-   * thus its columns NEVER have vertical gutter
-   */
+  //
+  // col-{N}
+  //
+  // This set of columns stacks,
+  // thus its columns NEVER have vertical gutter
+  //
   .row > .col {
     flex-basis: 0;
     flex-grow: 1;
@@ -39,15 +39,15 @@
     @ui--grid-column-count
   );
 
-  /**
-   * col-sm-{N}
-   * col-md-{N}
-   * col-lg-{N}
-   * col-xl-{N}
-   *
-   * These columns stack at each other at certain breakpoints.
-   * When they are stacked, they get a vertical gutter.
-   */
+  //
+  // col-sm-{N}
+  // col-md-{N}
+  // col-lg-{N}
+  // col-xl-{N}
+  //
+  // These columns stack at each other at certain breakpoints.
+  // When they are stacked, they get a vertical gutter.
+  //
   each({
     col-sm: @ui--responsive-breakpoints[sm-min];
     col-md: @ui--responsive-breakpoints[md-min];

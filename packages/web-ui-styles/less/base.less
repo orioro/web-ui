@@ -3,10 +3,9 @@
 @ui--base-font-family: sans-serif;
 @ui--base-line-height: 1.5;
 
-/**
- * Generates base rulesets
- * @return {[type]} [description]
- */
+//
+// Generates base rulesets
+//
 .mx__base() {
 	@import (less) '../vendor/normalize.css';
 
@@ -25,9 +24,6 @@
 	}
 
 	body {
-		// https://developer.mozilla.org/en-US/docs/Web/CSS/word-break
-		// ATTENTION: break-word is not a standard, but works in Chrome
-		word-break: break-word;
 		font-family: @ui--base-font-family;
 		line-height: @ui--base-line-height;
 
@@ -38,9 +34,9 @@
 		color: inherit;
 	}
 
-	/**
-	 * Inherig box sizing
-	 */
+	//
+	// Inherig box sizing
+	//
 	*,
 	*::before,
 	*::after {
@@ -48,9 +44,9 @@
 	}
 }
 
-/**
- * Base should be the only component that automatically
- * applies rulesets, as it should be the starting point
- * for all other components.
- */
+//
+// Base should be the only component that automatically
+// applies rulesets, as it should be the starting point
+// for all other components.
+//
 .mx__base();

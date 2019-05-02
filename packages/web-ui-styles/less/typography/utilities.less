@@ -1,41 +1,41 @@
 .mx__typography-utilities() {
-  /**
-   * .text-transform-uppercase
-   * .text-transform-lowercase
-   */
+  //
+  // .text-transform-uppercase
+  // .text-transform-lowercase
+  //
   each(uppercase lowercase, {
     .text-transform-@{value} {
       text-transform: @value !important;
     }
   });
 
-  /**
-   * .font-style-normal
-   * .font-style-italic
-   */
+  //
+  // .font-style-normal
+  // .font-style-italic
+  //
   each(normal italic, {
     .font-style-@{value} {
       font-style: @value !important;
     }
   });
 
-  /**
-   * .text-decoration-underline
-   * .text-decoration-dotted
-   * .text-decoration-wavy
-   * .text-decoration-overline
-   */
+  //
+  // .text-decoration-underline
+  // .text-decoration-dotted
+  // .text-decoration-wavy
+  // .text-decoration-overline
+  //
   each(underline dotted wavy overline, {
     .text-decoration-@{value} {
       text-decoration: @value !important;
     }
   });
 
-  /**
-   * .text-align-left
-   * .text-align-center
-   * .text-align-right
-   */
+  //
+  // .text-align-left
+  // .text-align-center
+  // .text-align-right
+  //
   each(left center right, {
     .text-align-@{value} {
       text-align: @value !important;
