@@ -19,7 +19,8 @@
   }
 
   & when (@ui--dev-logging = show-ui) {
-    .dev-show-debugging & {
+    .dev-show-debugging &,
+    .dev-show-logs & {
       &::after {
         content: '';
         position: absolute;
@@ -32,7 +33,7 @@
         border: 1px solid currentColor;
         width: 10px;
         height: 10px;
-
+        pointer-events: none;
       }
 
       &:hover::after {

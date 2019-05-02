@@ -18,7 +18,12 @@
 	}
 }
 
-.dev-show-debugging {
+//
+// Show debugging shows logs as well.
+// Show attributes shows classes and ids only (has no effect over logs).
+//
+.dev-show-debugging,
+.dev-show-attributes {
 	[class],
 	[id] {
 		&::before {

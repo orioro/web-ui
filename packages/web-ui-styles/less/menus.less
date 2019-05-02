@@ -2,239 +2,315 @@
 @import './lists.less';
 @import './responsive.less';
 
-//
-// Ensure configurable:
-//
-// General level
-// - anchor styles
-// - anchor:hover styles
-//
-// Menu level
-// - menu classname
-// - menu-has-submenu classname
-// - menu-submenu-active classname
-// - menu styles
-// - menu-item styles
-// - menu-item:hover styles
-//
-// Sub menu level
-// - sub-menu classname
-// - sub-menu styles
-// - sub-menu-item sytles
-// - sub-menu-item:hover styles
-//
-// Responsive breakpoint
-//
-.mx__menu-horizontal() {
+.__menu-shape-arrow(
+	@arrow-direction,
+	@arrow-dimensions: {
+		base: 8px;
+		height: 4px;
+	}) {
 
+	content: '';
+	display: block;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-color: transparent;
+	border-width: 0;
 
-	ul.menu {
-		width: 100%;
-		display: flex;
-		list-style: none;
-		margin-top: 0;
-		margin-bottom: 0;
-		padding-left: 0;
+	& when (@arrow-direction = right) {
+		border-top-width: @arrow-dimensions[base] / 2;
+		border-bottom-width: @arrow-dimensions[base] / 2;
 
-		a {
-			text-decoration: none;
-			display: block;
-		}
-
-		ul.sub-menu {
-			list-style: none;
-			margin-top: 0;
-			margin-bottom: 0;
-			padding-left: 0;
-
-			padding-top: 10px;
-			padding-bottom: 10px;
-
-			background-color: white;
-			box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.2);
-		}
-
-		> li {
-			position: relative;
-			white-space: nowrap;
-			padding-left: 15px;
-			padding-right: 15px;
-
-			/**
-			 * 2nd level
-			 */
-			> ul.sub-menu {
-				display: none;
-
-				position: absolute;
-				top: 100%;
-		    left: -6px;
-				z-index: 50;
-
-				flex-direction: column;
-
-				li {
-					white-space: nowrap;
-					text-transform: none;
-
-					position: relative;
-
-					padding-left: 20px;
-					padding-right: 20px;
-					padding-top: 8px;
-					padding-bottom: 8px;
-
-					/**
-					 * 3rd level forwards
-					 */
-					ul.sub-menu {
-						display: none;
-
-						// display: flex;
-						flex-direction: column;
-
-						position: absolute;
-						left: 100%;
-						top: -10px;
-					}
-
-					&:hover {
-						background-color: red;
-
-						ul.sub-menu {
-							display: flex;
-						}
-					}
-
-					&.menu-item-has-children {
-						&::before {
-							content: '';
-							width: 0;
-				      height: 0;
-				      border-top: 5px solid transparent;
-				      border-left: 5px solid blue;
-				      border-bottom: 5px solid transparent;
-
-				      position: absolute;
-				      right: 10px;
-				      top: 50%;
-				      transform: translateY(-50%);
-						}
-					}
-				}
-			}
-
-			&:hover {
-				> ul.sub-menu {
-					display: flex;
-				}
-			}
-
-			&:last-child {
-				padding-right: 0;
-
-				> a {
-					padding-right: 0;
-				}
-			}
-		}
-
-		.mx__media-max-sm({
-			flex-direction: column;
-
-	    li.menu-item.menu-item-has-children {
-	      &:hover {
-	        > ul.sub-menu {
-	          display: none;
-	        }
-	      }
-
-	      &.menu-item--sub-menu-active {
-	        > ul.sub-menu {
-	          display: flex;
-	        }
-	      }
-	    }
-
-			> li {
-				padding-left: 0;
-				padding-right: 0;
-
-				a {
-					padding-left: 0;
-					padding-right: 0;
-					margin-top: 10px;
-					margin-bottom: 10px;
-				}
-
-				> ul.sub-menu {
-					// display: flex;
-					flex-direction: column;
-					position: static;
-
-					padding-left: 30px;
-
-					padding-top: 0;
-					padding-bottom: 0;
-					background-color: transparent;
-					box-shadow: none;
-
-					li {
-						background-color: inherit;
-						font-size: .9em;
-
-						/**
-						 * 3rd level forwards: on mobile hide those menus
-						 */
-						ul.sub-menu {
-							display: none;
-							position: static;
-							box-shadow: none;
-						}
-
-						&:hover {
-							background-color: inherit;
-
-							ul.sub-menu {
-								display: none;
-							}
-						}
-
-						&.menu-item-has-children {
-							&::before {
-								display: none;
-							}
-						}
-					}
-				}
-			}
-		});
-
-		.mx__media-min-md({
-			li {
-				display: flex;
-				align-items: center;
-			}
-		});
+		border-left-width: @arrow-dimensions[height];
+		border-left-color: currentColor;
 	}
 
-	ul#main-menu {
-		> li {
+	& when (@arrow-direction = left) {
+		border-top-width: @arrow-dimensions[base] / 2;
+		border-bottom-width: @arrow-dimensions[base] / 2;
 
-			> a {
-				border-bottom: 2px solid transparent;
-			}
+		border-right-width: @arrow-dimensions[height];
+		border-right-color: currentColor;
+	}
 
-			&.active,
-			&:hover {
-				> a {
-					border-bottom: 2px solid green;
-				}
-			}
-		}
+	& when (@arrow-direction = top) {
+		border-left-width: @arrow-dimensions[base] / 2;
+		border-right-width: @arrow-dimensions[base] / 2;
+
+		border-bottom-width: @arrow-dimensions[height];
+		border-bottom-color: currentColor;
+	}
+
+	& when (@arrow-direction = bottom) {
+		border-left-width: @arrow-dimensions[base] / 2;
+		border-right-width: @arrow-dimensions[base] / 2;
+
+		border-top-width: @arrow-dimensions[height];
+		border-top-color: currentColor;
 	}
 }
 
-.mx__menus() {
+//
+// Applies styles to menu-item
+// according to menu levels:
+// - all
+// - first
+// - second-and-deeper
+//
+.__menu-horizontal-menu-item-styles(
+	@__menu-horizontal-options,
+	@__menu-item-has-children-class,
+	@__menu-item-sub-menu-active-class,
+	@__sub-menu-class,
+	@__menu-item-styles-generator,
+	@menu-level) {
+	.mx__dev-log(@menu-level, sub-menu-level);
 
+	//
+	// Shared styles for all sub-menu-items
+	//
+	& when (@menu-level = all) {
+
+		&.@{__menu-item-has-children-class} {
+			//
+			// Arrow
+			//
+			> a {
+				&::after {
+					.__menu-shape-arrow(bottom);
+			    margin-left: 10px;
+				}
+			}
+
+			> .@{__sub-menu-class} {
+				.mx__list-reset();
+				display: none;
+				// will become `display: flex;` on activation
+				flex-direction: column;
+
+				padding-top: @__menu-horizontal-options[sub-menu-vertical-padding];
+				padding-bottom: @__menu-horizontal-options[sub-menu-vertical-padding];
+			}
+
+			&.@{__menu-item-sub-menu-active-class} {
+				> a::after {
+					transform: rotate(180deg);
+				}
+
+				> .@{__sub-menu-class} {
+					display: flex;
+				}
+			}
+		}
+
+		.mx__media-breakpoint(width, @__menu-horizontal-options[breakpoint], {
+			padding: @__menu-horizontal-options[menu-item-vertical-padding] @__menu-horizontal-options[menu-item-horizontal-padding];
+		}, {
+
+			&.@{__menu-item-has-children-class} {
+				position: relative;
+
+				> .@{__sub-menu-class} {
+					position: absolute;
+				}
+			}
+
+			//
+			// Hover activation system should be only
+			// for the desktop version, as it is non closeable
+			// on mobile devices.
+			//
+			& when (@__menu-horizontal-options[activate-submenu-on-hover]) {
+				&:hover {
+					> .@{__sub-menu-class} {
+						display: flex;
+					}
+
+					> a::after {
+						transform: rotate(180deg);
+					}
+				}
+			}
+		});
+	}
+
+	//
+	// Fist level menu-items
+	//
+	& when (@menu-level = first) {
+		.mx__media-breakpoint(width, @__menu-horizontal-options[breakpoint], {
+			&.@{__menu-item-has-children-class} {
+				> .@{__sub-menu-class} {
+					padding-left: 10px;
+				}
+			}
+
+		}, {
+			&.@{__menu-item-has-children-class} {
+				//
+				// First level sub-menus
+				//
+				> .@{__sub-menu-class} {
+					top: 100%;
+				}
+			}
+		});
+	}
+
+	//
+	// Second level onwards menu items
+	//
+	& when (@menu-level = second-and-deeper) {
+		.mx__media-breakpoint(width, @__menu-horizontal-options[breakpoint], {
+			&.@{__menu-item-has-children-class} {
+				> .@{__sub-menu-class} {
+					padding-left: 10px;
+				}
+			}
+		}, {
+			&.@{__menu-item-has-children-class} {
+				> a::after {
+					// Modify arrow direction
+					transform: rotate(-90deg);
+				}
+
+				> .@{__sub-menu-class} {
+					top: -1 * @__menu-horizontal-options[sub-menu-vertical-padding];
+					left: 100%;
+				}
+
+				&.@{__menu-item-sub-menu-active-class} {
+					> a::after {
+						transform: rotate(90deg);
+					}
+				}
+
+				//
+				// Hover activation handle arrow
+				//
+				& when (@__menu-horizontal-options[activate-submenu-on-hover]) {
+					&:hover {
+						> a::after {
+							transform: rotate(90deg);
+						}
+					}
+				}
+			}
+		});
+	}
+
+	//
+	// Expose @menu-level to rulesets
+	//
+	@__menu-item-styles-generator();
+}
+
+.mx__menu-horizontal(
+	@__menu-styles: {},
+	@__menu-item-styles-generator: {},
+	@__menu-horizontal-options: {
+		breakpoint: @ui--responsive-breakpoints[md-min];
+		menu-item-horizontal-padding: 10px;
+		menu-item-vertical-padding: 5px;
+		sub-menu-vertical-padding: 10px;
+		sub-menu-horizontal-padding: 10px;
+		activate-submenu-on-hover: false;
+	},
+	@__menu-horizontal-classes: {
+		menu: menu;
+		sub-menu: sub-menu;
+		menu-item: menu-item;
+		menu-item-has-children: menu-item-has-children;
+		menu-item-sub-menu-active: menu-item--sub-menu-active;
+	}) {
+
+	@__menu-class: @__menu-horizontal-classes[menu];
+	@__sub-menu-class: @__menu-horizontal-classes[sub-menu];
+	@__menu-item-class: @__menu-horizontal-classes[menu-item];
+	@__menu-item-has-children-class: @__menu-horizontal-classes[menu-item-has-children];
+
+	.@{__menu-class} {
+		.mx__list-reset();
+		display: flex;
+		@__menu-styles();
+
+		//
+		// Shared styles for all anchor tags inside the menu
+		//
+		a {
+			display: inline-flex;
+			align-items: center;
+
+			// Separates arrow from text
+			justify-content: space-between;
+				width: 100%;
+
+			.mx__media-breakpoint(width, @__menu-horizontal-options[breakpoint], {
+
+			}, {
+				//
+				// Menu item padding is defined on the anchor tag
+				// in large devices and in the surrounding element
+				// in mobile ones to allow for finger precision
+				//
+				padding: @__menu-horizontal-options[menu-item-vertical-padding] @__menu-horizontal-options[menu-item-horizontal-padding];
+			});
+		}
+
+		//
+		// Shared styles for all menu-items
+		//
+		.@{__menu-item-class} {
+			.__menu-horizontal-menu-item-styles(
+				@__menu-horizontal-options,
+				@__menu-item-has-children-class,
+				@__menu-horizontal-classes[menu-item-sub-menu-active],
+				@__sub-menu-class,
+				@__menu-item-styles-generator,
+				all
+			);
+		}
+
+		//
+		// First level menu item
+		//
+		> .@{__menu-item-class} {
+			.__menu-horizontal-menu-item-styles(
+				@__menu-horizontal-options,
+				@__menu-item-has-children-class,
+				@__menu-horizontal-classes[menu-item-sub-menu-active],
+				@__sub-menu-class,
+				@__menu-item-styles-generator,
+				first
+			);
+
+			//
+			// This selector intentionally does not require a
+			// parent-child relationship, as we intend to select
+			// from second-level onwards
+			//
+			.@{__sub-menu-class} {
+
+				//
+				// Second level and deeper
+				//
+				> .@{__menu-item-class} {
+					.__menu-horizontal-menu-item-styles(
+						@__menu-horizontal-options,
+						@__menu-item-has-children-class,
+						@__menu-horizontal-classes[menu-item-sub-menu-active],
+						@__sub-menu-class,
+						@__menu-item-styles-generator,
+						second-and-deeper
+					);
+				}
+			}
+		}
+
+		.mx__media-breakpoint(width, @__menu-horizontal-options[breakpoint], {
+			flex-direction: column;
+		}, {
+			flex-direction: row;
+		});
+	}
 }

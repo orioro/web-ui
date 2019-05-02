@@ -1,5 +1,39 @@
 .mx__typography-utilities() {
   //
+  // .font-family-*
+  //
+  each(@ui--typography-font-families, {
+    @font-family-name: extract(@value, 1);
+
+    @font-family-value: if(
+      length(@value) > 1,
+      extract(@value, 2),
+      extract(@value, 1)
+    );
+
+    .font-family-@{font-family-name} {
+      font-family: @font-family-value !important;
+    }
+  });
+
+  //
+  // .font-weight-*
+  //
+  each(@ui--typography-font-weights, {
+    @font-weight-name: extract(@value, 1);
+
+    @font-weight-value: if(
+      length(@value) > 1,
+      extract(@value, 2),
+      extract(@value, 1)
+    );
+
+    .font-weight-@{font-weight-name} {
+      font-weight: @font-weight-value !important;
+    }
+  });
+
+  //
   // .text-transform-uppercase
   // .text-transform-lowercase
   //

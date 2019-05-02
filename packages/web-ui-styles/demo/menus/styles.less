@@ -1,7 +1,86 @@
 @import '../../less/base.less';
 @import '../../less/dev.less';
 @import '../../less/menus.less';
+@import '../../less/responsive.less';
+@import '../../less/website-containers.less';
 
-.mx__menus();
+@ui--dev-logging: true;
 
-.mx__menu-horizontal();
+.mx__website-containers();
+
+#main-nav {
+  .mx__menu-horizontal({
+    background-color: lightgreen;
+  }, {
+    .mx__dev-log(sub-menu-level-outside @menu-level, menu);
+
+    & when (@menu-level = all) {
+      cursor: pointer;
+
+      &:hover {
+        background-color: lighten(magenta, 40%);
+      }
+
+      &.menu-item--sub-menu-active {
+        background-color: magenta;
+      }
+
+      .mx__media-breakpoint-sm({
+
+      }, {
+        > .sub-menu {
+          background-color: white;
+          box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.2);
+        }
+      });
+    }
+
+    & when (@menu-level = first) {
+      > a::after {
+        color: red;
+      }
+
+      .mx__media-breakpoint-sm({
+
+      }, {
+        // Apply special spacing for first level menu items
+        margin: 0 20px;
+      });
+
+      > .sub-menu {
+        background-color: skyblue;
+      }
+    }
+
+    & when (@menu-level = second-and-deeper) {
+      > a::after {
+        color: green;
+      }
+
+      > .sub-menu {
+        background-color: skyblue;
+      }
+    }
+
+  }, {
+    breakpoint: @ui--responsive-breakpoints[sm-min];
+    menu-item-horizontal-padding: 20px;
+    menu-item-vertical-padding: 20px;
+    sub-menu-vertical-padding: 10px;
+    sub-menu-horizontal-padding: 10px;
+    activate-submenu-on-hover: false;
+  });
+}
+
+#secondary-nav {
+  .mx__menu-horizontal({
+    background-color: lightblue;
+  }, {}, {
+    breakpoint: @ui--responsive-breakpoints[lg-min];
+    menu-item-horizontal-padding: 0;
+    menu-item-vertical-padding: 0;
+    sub-menu-vertical-padding: 0;
+    sub-menu-horizontal-padding: 0;
+    activate-submenu-on-hover: true;
+  });
+}
