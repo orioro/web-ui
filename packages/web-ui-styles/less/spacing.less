@@ -159,18 +159,16 @@
 //
 // Generates spacing rulesets
 //
-.mx__spacing(@spacing-standalone-class-count: 6) {
+.mx__spacing() {
   each(@ui--spacing-units, .(@__spacing-unit-spec, @__spacing-unit-spec-index) {
-    & when (@__spacing-unit-spec-index <= @spacing-standalone-class-count) {
-      @__spacing-unit-name: extract(@__spacing-unit-spec, 1);
+    @__spacing-unit-name: extract(@__spacing-unit-spec, 1);
 
-      .mx__spacing-apply-unit(
-        {
-          .__spacing-classes-single-unit(@__spacing-unit-name, @responsive-viewport-indexed-value);
-        },
-        @__spacing-unit-name
-      );
-    }
+    .mx__spacing-apply-unit(
+      {
+        .__spacing-classes-single-unit(@__spacing-unit-name, @responsive-viewport-indexed-value);
+      },
+      @__spacing-unit-name
+    );
   });
 
   .__spacing-classes-single-unit(0, 0);
