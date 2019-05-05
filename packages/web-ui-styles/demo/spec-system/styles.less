@@ -39,12 +39,12 @@ main {
       @spec-base-ruleset();
 
       .mx__responsive-viewport-indexed-property(font-size, {
-        min-value: if(
+        min: if(
           length(@spec) < 3,
           extract(@spec, 2),
           extract(@spec, 3)
         );
-        max-value: extract(@spec, 2);
+        max: extract(@spec, 2);
       });
     }
   }, test-spec);
@@ -52,12 +52,12 @@ main {
   ul {
     .mx__spec-system-apply(@specs, h2, {
       .mx__responsive-viewport-indexed-property(font-size, {
-        min-value: if(
+        min: if(
           length(@spec) < 3,
           extract(@spec, 2),
           extract(@spec, 3)
         );
-        max-value: extract(@spec, 2);
+        max: extract(@spec, 2);
       });
     });
   }

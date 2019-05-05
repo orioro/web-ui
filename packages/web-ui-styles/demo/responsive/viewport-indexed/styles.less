@@ -1,6 +1,6 @@
-@import '../../less/base.less';
-@import '../../less/dev.less';
-@import '../../less/responsive.less';
+@import '../../../less/base.less';
+@import '../../../less/dev.less';
+@import '../../../less/responsive.less';
 
 body {
 	background-color: #efefef;
@@ -25,22 +25,30 @@ main {
 
 #values-in-px---breakpoints-in-px {
 	.mx__responsive-viewport-indexed-property(font-size, {
-		min-value: 24px;
-		max-value: 32px;
+		min: 24px;
+		max: 32px;
+	});
+
+	.mx__responsive-viewport-indexed-property(padding, {
+		min: 40px;
+		max: 50px;
 	});
 }
 
 #values-in-rem---breakpoints-in-px {
 	.mx__responsive-viewport-indexed-property(font-size, {
-		min-value: unit(24 / 16, rem);
-		max-value: unit(32 / 16, rem);
-	}, false, 240px * 3, 320px * 3);
+		min: unit(24 / 16, rem);
+		max: unit(32 / 16, rem);
+	}, false, {
+		min: 240px * 3;
+		max: 320px * 3;
+	});
 }
 
 #values-in-px---breakpoints-in-rem {
 	.mx__responsive-viewport-indexed-property(font-size, {
-		min-value: 24px;
-		max-value: 32px;
+		min: 24px;
+		max: 32px;
 	});
 }
 
@@ -49,9 +57,12 @@ main {
 		font-size: @responsive-viewport-indexed-value;
 		border: solid red @responsive-viewport-indexed-value;
 	}, {
-		min-value: unit(24 / 16, rem);
-		max-value: unit(32 / 16, rem);
-	}, true, unit(400/16, rem), unit(1200/16, rem));
+		min: unit(24 / 16, rem);
+		max: unit(32 / 16, rem);
+	}, true, {
+		min: unit(400/16, rem);
+		max: unit(1200/16, rem);
+	});
 }
 
 #responsive-spacing---padding-large-difference {
@@ -59,8 +70,8 @@ main {
 		padding-left: @responsive-viewport-indexed-value;
 		padding-right: @responsive-viewport-indexed-value;
 	}, {
-		min-value: 100px;
-		max-value: 200px;
+		min: 100px;
+		max: 200px;
 	});
 }
 
@@ -69,7 +80,25 @@ main {
 		padding-left: @responsive-viewport-indexed-value;
 		padding-right: @responsive-viewport-indexed-value;
 	}, {
-		min-value: 100px;
-		max-value: 150px;
+		min: 100px;
+		max: 150px;
+	});
+}
+
+#responsive-spacing---custom-ruleset-usage {
+	.mx__responsive-viewport-indexed-property({
+		padding-left: @responsive-viewport-indexed-value;
+		padding-right: @responsive-viewport-indexed-value;
+	}, {
+		min: 40px;
+		max: 50px;
+	});
+
+	.mx__responsive-viewport-indexed-property({
+		padding-top: @responsive-viewport-indexed-value;
+		padding-bottom: @responsive-viewport-indexed-value;
+	}, {
+		min: 70px;
+		max: 100px;
 	});
 }

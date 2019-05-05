@@ -50,12 +50,12 @@
     & when (extract(@__spacing-unit-spec, 1) = @__spacing-unit-name)
        and (isruleset(@__spacing-ruleset-or-property)) {
       .mx__responsive-viewport-indexed-property(@__spacing-ruleset-or-property, {
-        min-value: if(
+        min: if(
           length(@__spacing-unit-spec) > 2,
           extract(@__spacing-unit-spec, 3),
           extract(@__spacing-unit-spec, 2)
         );
-        max-value: extract(@__spacing-unit-spec, 2);
+        max: extract(@__spacing-unit-spec, 2);
       }, @important);
     }
 
@@ -69,12 +69,12 @@
           @important
         );
       }, {
-        min-value: if(
+        min: if(
           length(@__spacing-unit-spec) > 2,
           extract(@__spacing-unit-spec, 3),
           extract(@__spacing-unit-spec, 2)
         );
-        max-value: extract(@__spacing-unit-spec, 2);
+        max: extract(@__spacing-unit-spec, 2);
       }, @important);
     }
   });

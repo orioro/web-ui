@@ -24,12 +24,12 @@
 .mx-private__buttons-apply-responsive-style(@spec, @property-or-ruleset, @start-position) {
   & when (length(@spec) >= @start-position) {
     .mx__responsive-viewport-indexed-property(@property-or-ruleset, {
-      min-value: if(
+      min: if(
         length(@spec) > @start-position,
         extract(@spec, @start-position + 1),
         extract(@spec, @start-position)
       );
-      max-value: extract(@spec, @start-position);
+      max: extract(@spec, @start-position);
     });
   }
 }

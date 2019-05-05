@@ -9,19 +9,17 @@
 //
 
 //
-// Detailed math:
-//
 // (@current-width - @breakpoint-min)
-// ─────────────────────────────────── * (@max-value - @min-value) + @min-value
+// ─────────────────────────────────── * (@max - @min) + @min
 // (@breakpoint-max - @breakpoint-min)
 //
-//       (@max-value - @min-value)
-// ───────────────────────────────── * (current-width - @breakpoint-min) + @min-value
+//       (@max - @min)
+// ───────────────────────────────── * (current-width - @breakpoint-min) + @min
 // (@breakpoint-max - @breakpoint-min)
 //
 //
-// @max-value,
-// @min-value,
+// @max,
+// @min,
 // @breakpoint-max and
 // @breakpoint-min MUST be expressed in the same unit, as they become multipliers
 //
@@ -29,8 +27,8 @@
 // E.G:
 // breakpoint-min: 400px
 // breakpoint-max: 1200px
-// min-value: 38px
-// max-value: 50px
+// min: 38px
+// max: 50px
 //
 // 12 / 800 * (100vw - 400px) + 38px
 // 1.5vw - 6px + 38px
@@ -52,19 +50,19 @@
 //
 // In the equations above, the fixed part becomes:
 //
-//                @min-value * @breakpoint-max - @max-value * @breakpoint-min
-// @fixed-value = ───────────────────────────────────────────────────────────
+//                @min * @breakpoint-max - @max * @breakpoint-min
+// @__fixed-value = ───────────────────────────────────────────────────────────
 //                             @breakpoint-max - @breakpoint-min
 //
-// Probably @min-value and @max-value variables are more flexible to change.
+// Probably @min and @max variables are more flexible to change.
 // Thus these are their equations:
 //
-//              @target-min-fixed-value * (@breakpoint-max - @breakpoint-min) + @max-value * @breakpoint-min
-// @min-value = ───────────────────────────────────────────────────────────────────────────────────────────
+//              @__target-min-fixed-value * (@breakpoint-max - @breakpoint-min) + @max * @breakpoint-min
+// @min = ───────────────────────────────────────────────────────────────────────────────────────────
 //                                             @breakpoint-max
 //
-//              @min-value * @breakpoint-max - @target-min-fixed-value * (@breakpoint-max - @breakpoint-min)
-// @max-value = ───────────────────────────────────────────────────────────────────────────────────────────
+//              @min * @breakpoint-max - @__target-min-fixed-value * (@breakpoint-max - @breakpoint-min)
+// @max = ───────────────────────────────────────────────────────────────────────────────────────────
 //                                             @breakpoint-min
 //
 
@@ -83,7 +81,7 @@
     @with-units: if(
       @suggestion-output-unit = px,
       unit(@suggested, px),
-      unit(@suggested / @rem-value-unitless, rem)
+      unit(@suggested / @__rem-value-unitless, rem)
     );
 
     --suggested-@{suggestion-name}: if(
@@ -95,38 +93,38 @@
 
   --web-ui-error: ~'".mx__responsive-viewport-indexed-property computed value resulted in a smaller than ideal fixed value. This might cause issues when the zoom level is higher than 100%"';
   --current-fixed-value: if(
-    @value-unit = px,
-    unit(@fixed-value, px),
-    unit(@fixed-value / @rem-value-unitless, rem)
+    @__value-unit = px,
+    unit(@__fixed-value, px),
+    unit(@__fixed-value / @__rem-value-unitless, rem)
   );
   --target-min-fixed-value: if(
-    @value-unit = px,
-    unit(@target-min-fixed-value, px),
-    unit(@target-min-fixed-value / @rem-value-unitless, rem)
+    @__value-unit = px,
+    unit(@__target-min-fixed-value, px),
+    unit(@__target-min-fixed-value / @__rem-value-unitless, rem)
   );
   .suggested-value-message(
-    min-value,
-    @value-unit,
-    @values[min],
-    (@target-min-fixed-value * (@breakpoints[max] - @breakpoints[min]) + @values[max] * @breakpoints[min]) / @breakpoints[max]
+    min,
+    @__value-unit,
+    @__values-px-unitless[min],
+    (@__target-min-fixed-value * (@__breakpoints-px-unitless[max] - @__breakpoints-px-unitless[min]) + @__values-px-unitless[max] * @__breakpoints-px-unitless[min]) / @__breakpoints-px-unitless[max]
   );
   .suggested-value-message(
-    max-value,
-    @value-unit,
-    @values[max],
-    (@values[min] * @breakpoints[max] - @target-min-fixed-value * (@breakpoints[max] - @breakpoints[min])) / @breakpoints[min]
+    max,
+    @__value-unit,
+    @__values-px-unitless[max],
+    (@__values-px-unitless[min] * @__breakpoints-px-unitless[max] - @__target-min-fixed-value * (@__breakpoints-px-unitless[max] - @__breakpoints-px-unitless[min])) / @__breakpoints-px-unitless[min]
   );
   .suggested-value-message(
     min-breakpoint,
-    @breakpoint-unit,
-    @breakpoints[min],
-    @breakpoints[max] * (@values[min] - @target-min-fixed-value) / (@values[max] - @target-min-fixed-value)
+    @__breakpoint-unit,
+    @__breakpoints-px-unitless[min],
+    @__breakpoints-px-unitless[max] * (@__values-px-unitless[min] - @__target-min-fixed-value) / (@__values-px-unitless[max] - @__target-min-fixed-value)
   );
   .suggested-value-message(
     max-breakpoint,
-    @breakpoint-unit,
-    @breakpoints[max],
-    @breakpoints[min] * (@values[max] - @target-min-fixed-value) / (@values[min] - @target-min-fixed-value)
+    @__breakpoint-unit,
+    @__breakpoints-px-unitless[max],
+    @__breakpoints-px-unitless[min] * (@__values-px-unitless[max] - @__target-min-fixed-value) / (@__values-px-unitless[min] - @__target-min-fixed-value)
   );
 }
 
@@ -137,135 +135,86 @@
 // Acceps either a ruleset-generator or a property
 // as the first argument.
 //
-// Exposes `@responsive-viewport-indexed-value` variable to the @ruleset-generator
+// Exposes `@responsive-viewport-indexed-value` variable to the @__ruleset-generator
 //
 .mx__responsive-viewport-indexed-property(
-  @ruleset-generator-or-property,
-  @options,
+  @__ruleset-generator-or-property,
+  @__values,
   @important: false,
-  @breakpoint-min: @ui--responsive-viewport-indexed-default-breakpoint-min,
-  @breakpoint-max: @ui--responsive-viewport-indexed-default-breakpoint-max,
-  @rem-value: @ui--responsive-viewport-indexed-default-rem-value,
-  @viewport-dimension: vw) {
+  @__breakpoints: @ui--responsive-viewport-indexed-default-breakpoints,
+  @__rem-value: @ui--responsive-viewport-indexed-default-rem-value,
+  @__viewport-dimension: vw) {
 
   //
-  // @value-unit and @breakpoint-unit come
-  // from the first value in their corresponding pairs
+  // Provide isolate scope for variable
+  // calculation
   //
-  @value-unit: get-unit(@options[min-value]);
-  @breakpoint-unit: get-unit(@breakpoint-min);
-
-  // Ensure @rem-value has no units attached
-  @rem-value-unitless: unit(@rem-value);
-
+  // See some discussion at:
+  // https://github.com/less/less.js/issues/2767
+  // https://github.com/less/less-meta/issues/16
   //
-  // Ensure all values are expressed
-  // in unitless px
-  //
-  @values: if(
-    @value-unit = px,
-    {
-      min: unit(@options[min-value]);
-      max: unit(@options[max-value]);
-    },
-    {
-      min: unit(@options[min-value] * @rem-value-unitless);
-      max: unit(@options[max-value] * @rem-value-unitless);
-    }
-  );
-
-  @breakpoints: if(
-    @breakpoint-unit = px,
-    {
-      min: unit(@breakpoint-min);
-      max: unit(@breakpoint-max);
-    },
-    {
-      min: unit(@breakpoint-min * @rem-value-unitless);
-      max: unit(@breakpoint-max * @rem-value-unitless);
-    }
-  );
-
-  //
-  // Make the mixin compatible with either setting a
-  // single property or passing in a ruleset-generator
-  // that has acces to @responsive-viewport-indexed-value
-  // variable that contains the value calculated
-  // relative to the viewport dimension.
-  //
-  @ruleset-generator: if(
-    isruleset(@ruleset-generator-or-property),
-    @ruleset-generator-or-property,
-    {
-      @{ruleset-generator-or-property}: @responsive-viewport-indexed-value;
-    }
-  );
-
-  & when (@values[min] = @values[max]) {
+  & {
     //
-    // min-value and max-value are the same
+    // @__value-unit and @__breakpoint-unit come
+    // from the first value in their corresponding pairs
     //
-    @responsive-viewport-indexed-value-raw: if(
-      @value-unit = px,
-      unit(@values[min], px),
-      unit(@values[min] / @rem-value-unitless, rem)
-    );
-    @responsive-viewport-indexed-value: if(
-      @important,
-      @responsive-viewport-indexed-value-raw ~' !important',
-      @responsive-viewport-indexed-value-raw
-    );
+    @__value-unit: get-unit(@__values[min]);
+    @__breakpoint-unit: get-unit(@__breakpoints[min]);
 
-    @ruleset-generator();
-  }
+    // Ensure @__rem-value has no units attached
+    @__rem-value-unitless: unit(@__rem-value);
 
-  & when not (@values[min] = @values[max]) {
-    @media (max-width: unit(@breakpoints[min], px)) {
-      @responsive-viewport-indexed-value-raw: if(
-        @value-unit = px,
-        unit(@values[min], px),
-        unit(@values[min] / @rem-value-unitless, rem)
-      );
-      @responsive-viewport-indexed-value: if(
-        @important,
-        @responsive-viewport-indexed-value-raw ~' !important',
-        @responsive-viewport-indexed-value-raw
-      );
-
-      @ruleset-generator();
-    }
-
-    @media (min-width: unit(@breakpoints[min] + 1, px)) and
-           (max-width: unit(@breakpoints[max] - 1, px)) {
-      @multiplier: (@values[max] - @values[min]) / (@breakpoints[max] - @breakpoints[min]);
-      @indexed-value: 100 * @multiplier;
-      @fixed-value: (-1 * @multiplier * @breakpoints[min] + @values[min]);
-
-      @responsive-viewport-indexed-value-raw: if(
-        @value-unit = px,
-        unit(@indexed-value, @viewport-dimension) ~'+' unit(@fixed-value, px),
-        unit(@indexed-value, @viewport-dimension) ~'+' unit(@fixed-value / @rem-value-unitless, rem)
-      );
-      @responsive-viewport-indexed-value: if(
-        @important,
-        calc(@responsive-viewport-indexed-value-raw) ~' !important',
-        calc(@responsive-viewport-indexed-value-raw)
-      );
-
-      @ruleset-generator();
-
-      @target-min-fixed-value: @rem-value-unitless * .5;
-
-      & when (@fixed-value < @target-min-fixed-value) {
-        .mx-private__responsive-viewport-indexed-property-warning();
+    //
+    // Ensure all values are expressed
+    // in unitless px
+    //
+    @__values-px-unitless: if(
+      @__value-unit = px,
+      {
+        min: unit(@__values[min]);
+        max: unit(@__values[max]);
+      },
+      {
+        min: unit(@__values[min] * @__rem-value-unitless);
+        max: unit(@__values[max] * @__rem-value-unitless);
       }
-    }
+    );
 
-    @media (min-width: unit(@breakpoints[max], px)) {
+    @__breakpoints-px-unitless: if(
+      @__breakpoint-unit = px,
+      {
+        min: unit(@__breakpoints[min]);
+        max: unit(@__breakpoints[max]);
+      },
+      {
+        min: unit(@__breakpoints[min] * @__rem-value-unitless);
+        max: unit(@__breakpoints[max] * @__rem-value-unitless);
+      }
+    );
+
+    //
+    // Make the mixin compatible with either setting a
+    // single property or passing in a ruleset-generator
+    // that has acces to @responsive-viewport-indexed-value
+    // variable that contains the value calculated
+    // relative to the viewport dimension.
+    //
+    @__ruleset-generator: if(
+      isruleset(@__ruleset-generator-or-property),
+      @__ruleset-generator-or-property,
+      {
+        @{__ruleset-generator-or-property}: @responsive-viewport-indexed-value;
+      }
+    );
+
+    & when (@__values-px-unitless[min] = @__values-px-unitless[max]) {
+      //
+      // min and max are the same
+      //
       @responsive-viewport-indexed-value-raw: if(
-        @value-unit = px,
-        unit(@values[max], px),
-        unit(@values[max] / @rem-value-unitless, rem)
+        @__value-unit = px,
+        unit(@__values-px-unitless[min], px),
+        unit(@__values-px-unitless[min] / @__rem-value-unitless, rem)
       );
       @responsive-viewport-indexed-value: if(
         @important,
@@ -273,7 +222,65 @@
         @responsive-viewport-indexed-value-raw
       );
 
-      @ruleset-generator();
+      @__ruleset-generator();
+    }
+
+    & when not (@__values-px-unitless[min] = @__values-px-unitless[max]) {
+      @media (max-width: unit(@__breakpoints-px-unitless[min], px)) {
+        @responsive-viewport-indexed-value-raw: if(
+          @__value-unit = px,
+          unit(@__values-px-unitless[min], px),
+          unit(@__values-px-unitless[min] / @__rem-value-unitless, rem)
+        );
+        @responsive-viewport-indexed-value: if(
+          @important,
+          @responsive-viewport-indexed-value-raw ~' !important',
+          @responsive-viewport-indexed-value-raw
+        );
+
+        @__ruleset-generator();
+      }
+
+      @media (min-width: unit(@__breakpoints-px-unitless[min] + 1, px)) and
+             (max-width: unit(@__breakpoints-px-unitless[max] - 1, px)) {
+        @__multiplier: (@__values-px-unitless[max] - @__values-px-unitless[min]) / (@__breakpoints-px-unitless[max] - @__breakpoints-px-unitless[min]);
+        @__indexed-value: 100 * @__multiplier;
+        @__fixed-value: (-1 * @__multiplier * @__breakpoints-px-unitless[min] + @__values-px-unitless[min]);
+
+        @responsive-viewport-indexed-value-raw: if(
+          @__value-unit = px,
+          unit(@__indexed-value, @__viewport-dimension) ~'+' unit(@__fixed-value, px),
+          unit(@__indexed-value, @__viewport-dimension) ~'+' unit(@__fixed-value / @__rem-value-unitless, rem)
+        );
+        @responsive-viewport-indexed-value: if(
+          @important,
+          calc(@responsive-viewport-indexed-value-raw) ~' !important',
+          calc(@responsive-viewport-indexed-value-raw)
+        );
+
+        @__ruleset-generator();
+
+        @__target-min-fixed-value: @__rem-value-unitless * .5;
+
+        & when (@__fixed-value < @__target-min-fixed-value) {
+          .mx-private__responsive-viewport-indexed-property-warning();
+        }
+      }
+
+      @media (min-width: unit(@__breakpoints-px-unitless[max], px)) {
+        @responsive-viewport-indexed-value-raw: if(
+          @__value-unit = px,
+          unit(@__values-px-unitless[max], px),
+          unit(@__values-px-unitless[max] / @__rem-value-unitless, rem)
+        );
+        @responsive-viewport-indexed-value: if(
+          @important,
+          @responsive-viewport-indexed-value-raw ~' !important',
+          @responsive-viewport-indexed-value-raw
+        );
+
+        @__ruleset-generator();
+      }
     }
   }
 }
