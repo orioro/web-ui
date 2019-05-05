@@ -36,8 +36,9 @@
   //
   // .text-transform-uppercase
   // .text-transform-lowercase
+  // .text-transform-none
   //
-  each(uppercase lowercase, {
+  each(uppercase lowercase none, {
     .text-transform-@{value} {
       text-transform: @value !important;
     }
@@ -58,8 +59,9 @@
   // .text-decoration-dotted
   // .text-decoration-wavy
   // .text-decoration-overline
+  // .text-decoration-none
   //
-  each(underline dotted wavy overline, {
+  each(underline dotted wavy overline none, {
     .text-decoration-@{value} {
       text-decoration: @value !important;
     }
