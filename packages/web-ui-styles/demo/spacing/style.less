@@ -2,6 +2,7 @@
 @import '../../less/spacing.less';
 
 @ui--spacing-units:
+  _name   _     _,
   outer-1 300px 200px,
   1       120px 80px,
   2       100px 70px,
@@ -17,6 +18,18 @@
 
 	.mx__spacing-m-top(outer-1);
 	.mx__spacing-p(2);
+
+  position: relative;
+
+  .mx__spacing-apply-unit({
+    margin-left: calc(5 * (@spacing-value-raw));
+    margin-right: calc(2 * (@spacing-value-raw));
+  }, 5);
+
+  .mx__spacing-apply-unit({
+    top: @spacing-value;
+    left: @spacing-value;
+  }, 6);
 }
 
 #element-2 {

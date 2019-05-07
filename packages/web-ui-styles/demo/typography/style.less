@@ -1,58 +1,35 @@
+@import '../../less/dev.less';
 @import '../../less/base.less';
 @import '../../less/typography.less';
 @import '../../less/spacing.less';
 @import '../../less/responsive.less';
 
+@ui--dev-logging: show-ui;
+
 body {
   background-color: turquoise;
 }
 
-@h1-custom-ruleset: {
-  color: magenta;
-  display: flex;
-  align-items: stretch;
-  line-height: 2.5;
-
-  &::before {
-    content: '';
-    display: block;
-    width: 10px;
-    flex-shrink: 0;
-    margin-right: 10px;
-
-    .mx__responsive-property(background-color, {
-      xs: red;
-      sm: spin(red, 90);
-      md: spin(green, 80);
-      lg: spin(blue, 40);
-      xl: spin(navy, 240);
-    });
-  }
-
-  .mx__responsive-property(color, {
-    xs: false;
-    sm: red;
-    md: green;
-    lg: blue;
-    xl: navy;
-  })
-}
-
 @font-family-custom: Georgia;
 
-@ui--typography-headings:
-  2.5rem   1.875rem  @font-family-custom bold    @h1-custom-ruleset,
-  2rem     1.5rem    sans-serif          lighter,
-  1.875rem 1.375rem  monospace           bold,
-  1.75rem  1.75rem   @font-family-custom bold,
-  1.75rem  1.3125rem,
-  1.375rem 1.0625rem,
-  1.125rem 1rem      @font-family-custom,
-  1.125rem 1rem      sans-serif          bold,
-  1rem 1rem;
+@ui--typography-specs:
+  _name   _         _               font-family         font-weight color,
+  h1      2.5rem    1.875rem        @font-family-custom bold,
+  h2      2rem      1.5rem          sans-serif          lighter     green,
+  h3      1.875rem  1.375rem        monospace           bold,
+  h4      1.75rem   1.75rem         @font-family-custom bold        blue,
+  h5      1.75rem   1.3125rem       sans-serif          bold,
+  h6      1.375rem  1.0625rem       sans-serif          bold,
+  text-1  1.875rem  1.375rem,
+  text-2  1.5rem    1.125rem,
+  text-3  1.125rem  1rem            @font-family-custom,
+  text-4  1rem,
+  p,
+  text-5  0.875rem,
+  text-6  0.75rem;
 
 .mx__spacing();
-// .mx__typography();
+.mx__typography();
 
 #content {
   max-width: 800px;
@@ -61,17 +38,17 @@ body {
 }
 
 .demo-component {
-	// display: flex;
+	display: flex;
 
-	// > .demo-component__title {
-	// 	.mx__typography-heading(1);
-	// }
+	> .demo-component__title {
+    .mx__typography-apply(h1);
+	}
 
-	// > div {
-	// 	.mx__typography-text(3);
-	// }
+	> div > div {
+    .mx__typography-apply(h3);
+	}
 
-	// > textarea {
-	// 	.mx__typography-text(9);
-	// }
+	> textarea {
+    .mx__typography-apply(text-3);
+	}
 }

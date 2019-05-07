@@ -39,63 +39,71 @@
   text-5  0.875rem,
   text-6  0.75rem;
 
+@__typography-system-custom-styles: {
+  @spec-base-styles();
+  // Styles generator
+  .mx__responsive-viewport-indexed-property(font-size, {
+    min: if(
+      length(@spec-values) < 3,
+      extract(@spec-values, 2),
+      extract(@spec-values, 3)
+    );
+    max: extract(@spec-values, 2);
+  });
+};
+
 //
 // Generates typography rulesets
 //
 .mx__typography() {
-  .mx__spec-system-rulesets(@ui--typography-specs, {
-    .@{spec-name} {
-      @spec-base-ruleset();
-
-      .mx__responsive-viewport-indexed-property(font-size, {
-        min: if(
-          length(@spec) < 3,
-          extract(@spec, 2),
-          extract(@spec, 3)
-        );
-        max: extract(@spec, 2);
-      });
-    }
-
-    //
-    // Generate the rulesets for the default system tags
-    // WITH NO CLASS defined.
-    //
-    // Assume that once the element has a class defined,
-    // it is accessible through programming and could be customized
-    // manually (by applying .h1 class for example).
-    //
-    // ATTENTION: This assumption may well be proved wrong.
-    //
-    // TODO:
-    // Possibly there are better solutions
-    // for this
-    //
-    & when (@spec-name = h1),
-           (@spec-name = h2),
-           (@spec-name = h3),
-           (@spec-name = h4),
-           (@spec-name = h5),
-           (@spec-name = h6),
-           (@spec-name = p),
-           (@spec-name = figcation),
-           (@spec-name = blockquote),
-           (@spec-name = table),
-           (@spec-name = th),
-           (@spec-name = td) {
-      @{spec-name}:not([class]) {
-        @spec-base-ruleset();
-        .mx__responsive-viewport-indexed-property(font-size, {
-          min: if(
-            length(@spec) < 3,
-            extract(@spec, 2),
-            extract(@spec, 3)
-          );
-          max: extract(@spec, 2);
-        });
+  .mx__spec-system-rulesets(
+    @ui--typography-specs,
+    @__typography-system-custom-styles,
+    {
+      // Selector generator
+      .@{spec-name} {
+        @spec-styles();
       }
-    }
-  });
+
+      //
+      // Generate the rulesets for the default system tags
+      // WITH NO CLASS defined.
+      //
+      // Assume that once the element has a class defined,
+      // it is accessible through programming and could be customized
+      // manually (by applying .h1 class for example).
+      //
+      // ATTENTION: This assumption may well be proved wrong.
+      //
+      // TODO:
+      // Possibly there are better solutions
+      // for this
+      //
+      & when (@spec-name = h1),
+             (@spec-name = h2),
+             (@spec-name = h3),
+             (@spec-name = h4),
+             (@spec-name = h5),
+             (@spec-name = h6),
+             (@spec-name = p),
+             (@spec-name = figcation),
+             (@spec-name = blockquote),
+             (@spec-name = table),
+             (@spec-name = th),
+             (@spec-name = td) {
+        @{spec-name}:not([class]) {
+          @spec-styles();
+        }
+      }
+    });
 
   .mx__typography-utilities();
+}
+
+.mx__typography-apply(@typography-spec-name) {
+  .mx__spec-system-apply(
+    @ui--typography-specs,
+    @typography-spec-name,
+    @__typography-system-custom-styles
+  );
 }

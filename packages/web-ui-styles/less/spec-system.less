@@ -7,25 +7,64 @@
 // - `_name`
 // - `_custom-property`
 //
-.__spec-system-apply-properties(@spec-properties, @__spec-applied-values) {
-  @__spec-important: boolean(
-    (length(@__spec-applied-values) > length(@spec-properties)) and
-    (extract(@__spec-applied-values, length(@spec-properties) + 1) = ~'!important')
+.__spec-system-apply-base(
+  @spec-properties,
+  @spec-values) {
+
+  @spec-important: boolean(
+    (length(@spec-values) > length(@spec-properties)) and
+    (extract(@spec-values, length(@spec-properties) + 1) = ~'!important')
   );
 
-  each(@spec-properties, .(@spec-property, @spec-property-index) {
-    & when not (@spec-property = _name)
-       and not (@spec-property = _)
-       and     (length(@__spec-applied-values) >= @spec-property-index)
-       and not (extract(@__spec-applied-values, @spec-property-index) = null) {
+  each(@spec-properties, .(@__spec-property-or-ruleset, @spec-property-index) {
+    & when    (length(@spec-values) >= @spec-property-index)
+      and not (extract(@spec-values, @spec-property-index) = null) {
 
-      @{spec-property}: if(
-        @__spec-important,
-        extract(@__spec-applied-values, @spec-property-index) ~' !important',
-        extract(@__spec-applied-values, @spec-property-index)
-      );
+      @spec-property-value: extract(@spec-values, @spec-property-index);
+
+      //
+      // Tests the @spec-property to check if it starts with _
+      //
+      & when (iskeyword(@__spec-property-or-ruleset)) {
+        & when not (boolean(replace(@__spec-property-or-ruleset, '^_.*$', 'starts-with-underscore') = starts-with-underscore)) {
+          @{__spec-property-or-ruleset}: if(
+            @spec-important,
+            @spec-property-value ~' !important',
+            @spec-property-value
+          );
+        }
+      }
+
+      //
+      // Exposes:
+      // - @spec-properties     - List of all properties of the spec
+      // - @spec-values         - List of all values of the applied spec
+      // - @spec-important      - Whether the spec has the important flag set
+      // - @spec-property-index - Index of the currently applied property
+      // - @spec-property-value - Value of the currently applied property
+      //
+      & when (isruleset(@__spec-property-or-ruleset)) {
+        @__spec-property-or-ruleset();
+      }
     }
   });
+}
+
+.__spec-system-apply(
+  @spec-properties,
+  @spec-values,
+  @__spec-custom-styles: false) {
+
+  & when (isruleset(@__spec-custom-styles)) {
+    @spec-base-styles: {
+      .__spec-system-apply-base(@spec-properties, @spec-values);
+    };
+    @__spec-custom-styles();
+  }
+
+  & when not (isruleset(@__spec-custom-styles)) {
+    .__spec-system-apply-base(@spec-properties, @spec-values);
+  }
 }
 
 //
@@ -33,7 +72,8 @@
 //
 .mx__spec-system-apply(
   @__spec-list,
-  @target-spec-name,
+  @__target-spec-name,
+  @__spec-custom-styles: false,
   @__spec-ruleset-generator: false) {
 
   @spec-properties: extract(@__spec-list, 1);
@@ -42,23 +82,29 @@
     //
     // Loop through the spec list
     //
-    each(@__spec-list, .(@spec) {
+    each(@__spec-list, .(@spec-values) {
 
-      & when (extract(@spec, 1) = @target-spec-name) {
-        .__spec-system-apply-properties(@spec-properties, @spec);
-        .mx__dev-log(@target-spec-name ~' -> '@spec, spec-applied);
-      }
+      & when (extract(@spec-values, 1) = @__target-spec-name) {
+        @spec-name: @__target-spec-name;
+        @spec-styles: {
+          .__spec-system-apply(@spec-properties, @spec-values, @__spec-custom-styles);
+          .mx__dev-log(@__target-spec-name ~' -> '@spec-values, spec-applied);
+        }
 
-      & when (extract(@spec, 1) = @target-spec-name)
-         and (isruleset(@__spec-ruleset-generator)) {
+        & when (@__spec-ruleset-generator = false) {
+          @spec-styles();
+        }
 
-        @spec-name: @target-spec-name;
-        @spec-important: boolean(
-          (length(@spec) > length(@spec-properties)) and
-          (extract(@spec, length(@spec-properties) + 1) = ~'!important')
-        );
-
-        @__spec-ruleset-generator();
+        & when (isruleset(@__spec-ruleset-generator)) {
+          //
+          // Exposes:
+          // - @spec-name
+          // - @spec-properties
+          // - ;
+          //
+          //
+          @__spec-ruleset-generator();
+        }
       }
     });
   }
@@ -66,6 +112,7 @@
 
 .__spec-system-walk-spec-list(
   @__spec-list,
+  @__spec-custom-styles,
   @__spec-ruleset-generator,
   @__current-spec-index,
   @__last-applied-spec-index,
@@ -78,38 +125,30 @@
     @__current-spec-index
   );
 
-  //
-  // Expose variables to the spec-ruleset generator
-  // - @spec-name
-  //   Name of the ruleset, intended to be used for selector generation
-  // - @spec-properties
-  //   List of properties
-  // - @spec
-  //   The full specfications
-  // - @spec-important
-  //   Boolean of whether the @important flas is on for the whole spec.
-  // - @spec-base-ruleset
-  //   A ruleset that contains the combination of header properties and the applied values
-  //
   @spec-name: extract(@__current-spec, 1);
   // Use the first row as a list
   // of style properties.
   // It works as a table header for all specs.
   @spec-properties: extract(@__spec-list, 1);
-  @spec: extract(@__spec-list, @__current-applied-spec-index);
-  @spec-important: boolean(
-    (length(@spec) > length(@spec-properties)) and
-    (extract(@spec, length(@spec-properties) + 1) = ~'!important')
-  );
-  @spec-base-ruleset: {
-    .__spec-system-apply-properties(@spec-properties, @spec);
-    .mx__dev-log(@spec-name ~' -> '@spec, @__spec-logging-namespace);
+  @spec-values: extract(@__spec-list, @__current-applied-spec-index);
+  @spec-styles: {
+    .__spec-system-apply(@spec-properties, @spec-values, @__spec-custom-styles);
+    .mx__dev-log(@spec-name ~' -> '@spec-values, @__spec-logging-namespace);
   };
 
+  //
+  // Expose variables to the spec-ruleset generator
+  // - @spec-name         - Name of the ruleset, intended to be used for selector generation
+  // - @spec-properties   - List of properties
+  // - @spec-values       - The values of the current spec
+  // - @spec-important    - Boolean of whether the @important flas is on for the whole spec.
+  // - @spec-styles       - A ruleset that contains the combination of header properties and the applied values
+  //
   @__spec-ruleset-generator();
 
   .__spec-system-walk-spec-list(
     @__spec-list,
+    @__spec-custom-styles,
     @__spec-ruleset-generator,
     @__current-spec-index + 1,
     @__current-applied-spec-index,
@@ -119,7 +158,12 @@
 
 .mx__spec-system-rulesets(
   @__spec-list,
-  @__spec-ruleset-generator,
+  @__spec-custom-styles: false,
+  @__spec-ruleset-generator: {
+    @{spec-name} {
+      @spec-styles();
+    }
+  },
   @__spec-logging-namespace: spec) {
 
   //
@@ -133,6 +177,7 @@
   & {
     .__spec-system-walk-spec-list(
       @__spec-list,
+      @__spec-custom-styles,
       @__spec-ruleset-generator,
       2,
       2,

@@ -7,19 +7,39 @@
 @import './spacing/vertical-spacing-system.less';
 
 @ui--spacing-units:
-  1   120px 80px,
-  2   100px 70px,
-  3   80px  60px,
-  4   70px  50px,
-  5   60px  40px,
-  6   40px  30px,
-  7   30px  15px,
-  8   24px  24px,
-  9   20px  20px,
-  10  14px  14px,
-  11  14px  9px,
-  12  10px,
-  13  8px;
+  _name _     _,
+  1     120px 80px,
+  2     100px 70px,
+  3     80px  60px,
+  4     70px  50px,
+  5     60px  40px,
+  6     40px  30px,
+  7     30px  15px,
+  8     24px  24px,
+  9     20px  20px,
+  10    14px  14px,
+  11    14px  9px,
+  12    10px,
+  13    8px;
+
+//
+// ATTENTION:
+// This file duplicates SOME (NOT ALL) logic from spec-system.
+//
+// It does so in order to avoid cryptic variable naming conflicts
+// due to Less variable scoping.
+//
+// As it duplicates code, the spacing system mechanism does not support
+// all features from spec-system:
+// - selector aliasing
+// - custom property definition
+//
+// As this is mainly a language-related issue, the idea
+// is to maintain the public API (@ui--spacing-units)
+// format conformant to the common spec-system format,
+// so that in the future the migration might be as transparent
+// as possible.
+//
 
 //
 // Applies a unit to the given property or ruleset
@@ -49,7 +69,12 @@
     //
     & when (extract(@__spacing-unit-spec, 1) = @__spacing-unit-name)
        and (isruleset(@__spacing-ruleset-or-property)) {
-      .mx__responsive-viewport-indexed-property(@__spacing-ruleset-or-property, {
+      .mx__responsive-viewport-indexed-property({
+        @spacing-value-raw: @responsive-viewport-indexed-value-raw;
+        @spacing-value: @responsive-viewport-indexed-value;
+
+        @__spacing-ruleset-or-property();
+      }, {
         min: if(
           length(@__spacing-unit-spec) > 2,
           extract(@__spacing-unit-spec, 3),
@@ -160,15 +185,24 @@
 // Generates spacing rulesets
 //
 .mx__spacing() {
-  each(@ui--spacing-units, .(@__spacing-unit-spec, @__spacing-unit-spec-index) {
-    @__spacing-unit-name: extract(@__spacing-unit-spec, 1);
-
-    .mx__spacing-apply-unit(
-      {
-        .__spacing-classes-single-unit(@__spacing-unit-name, @responsive-viewport-indexed-value);
-      },
-      @__spacing-unit-name
-    );
+  each(@ui--spacing-units, .(@__spacing-unit-spec, @index) {
+    // Skip the first row, as it should be treated
+    // as the spec header
+    & when (@index > 1) {
+      .mx__responsive-viewport-indexed-property({
+        .__spacing-classes-single-unit(
+          extract(@__spacing-unit-spec, 1),
+          @responsive-viewport-indexed-value
+        );
+      }, {
+        min: if(
+          length(@__spacing-unit-spec) > 2,
+          extract(@__spacing-unit-spec, 3),
+          extract(@__spacing-unit-spec, 2)
+        );
+        max: extract(@__spacing-unit-spec, 2);
+      });
+    }
   });
 
   .__spacing-classes-single-unit(0, 0);

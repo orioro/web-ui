@@ -20,45 +20,57 @@ main {
 
   @font-family-monospace: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 
-  @specs:
-    _name                 _       _       color    background-color font-family,
-    h1                    30px    24px    darkred  skyblue          @font-family-monospace ~'!important',
+  @responsive-font-size: {
+    --font-size-max: @spec-property-value;
+    --font-size-min: if(
+      length(@spec-values) < @spec-property-index + 1,
+      @spec-property-value,
+      extract(@spec-values, @spec-property-index + 1)
+    );
+
+    .mx__responsive-viewport-indexed-property(font-size, {
+      min: if(
+        length(@spec-values) < @spec-property-index + 1,
+        @spec-property-value,
+        extract(@spec-values, @spec-property-index + 1)
+      );
+      max: @spec-property-value;
+    });
+  };
+
+  @system-1-custom-styles: {
+    @spec-base-styles();
+    --property-values-count: length(@spec-values);
+  };
+
+  @system-1-specs:
+    _name                 @responsive-font-size _       color    background-color font-family,
+    h1                    30px                  24px    darkred  skyblue          @font-family-monospace ~'!important',
     ~'ol',
-    h3                    26px    22px    null     green,
+    h3                    26px                  22px    null     green,
     ~'.custom-component',
     h6,
-    h2                    24px    18px    yellow   darkgrey,
+    h2                    24px                  18px    yellow   darkgrey,
     h4,
-    h5                    14px    12px    navy     null             ~'serif !important',
-    p                     1rem    .8rem   darkred  white;
+    h5                    14px                  12px    navy     null             ~'serif !important',
+    p                     1rem                  .8rem   darkred  white;
 
-  .mx__spec-system-rulesets(@specs, {
-    @selector: if(isstring(@spec-name), @spec-name, ~'> @{spec-name}');
+  @system-2-specs:
+    _name     _copy-from,
+    some-spec h3;
 
-    @{selector} {
-      @spec-base-ruleset();
+  @system-2-custom-styles: {
+    @spec-base-styles();
+    .mx__spec-system-apply(@system-1-specs, extract(@spec-values, 2));
+  };
 
-      .mx__responsive-viewport-indexed-property(font-size, {
-        min: if(
-          length(@spec) < 3,
-          extract(@spec, 2),
-          extract(@spec, 3)
-        );
-        max: extract(@spec, 2);
-      });
-    }
-  }, test-spec);
+  .mx__spec-system-rulesets(@system-1-specs, @system-1-custom-styles);
 
   ul {
-    .mx__spec-system-apply(@specs, h2, {
-      .mx__responsive-viewport-indexed-property(font-size, {
-        min: if(
-          length(@spec) < 3,
-          extract(@spec, 2),
-          extract(@spec, 3)
-        );
-        max: extract(@spec, 2);
-      });
-    });
+    .mx__spec-system-apply(@system-1-specs, h2, @system-1-custom-styles);
+  }
+
+  .custom-component-2 {
+    .mx__spec-system-apply(@system-2-specs, some-spec, @system-2-custom-styles);
   }
 }

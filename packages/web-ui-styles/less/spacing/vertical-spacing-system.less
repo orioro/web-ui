@@ -32,6 +32,39 @@
   }
 }
 
+//
+// Given a reference selector, establish spacing relationships
+//
+.__vertical-spacing-system-item(
+  @__reference-selector,
+  @__item-distances,
+  @important: false) {
+  //
+  // Reference after Other
+  //
+  > *:not(@{__reference-selector}) + @{__reference-selector}:not(.vertical-spacing-exception) {
+    .__vertical-spacing-system-apply-distance(@__item-distances[from-other], @important);
+  }
+
+  //
+  // Other after Reference
+  // TODO: test the chaining of :not() selector.
+  // If working on all browsers, remove the first line, wich is just a
+  // "defensive one"
+  //
+  > @{__reference-selector} + *:not(@{__reference-selector}),
+  > @{__reference-selector} + *:not(@{__reference-selector}):not(.vertical-spacing-exception) {
+    .__vertical-spacing-system-apply-distance(@__item-distances[to-other], @important);
+  }
+
+  //
+  // Reference after another occurrence of Reference
+  //
+  > @{__reference-selector} + @{__reference-selector}:not(.vertical-spacing-exception) {
+    .__vertical-spacing-system-apply-distance(@__item-distances[from-itself], @important);
+  }
+}
+
 .mx__vertical-spacing-system(
   @__default-vertical-spacing: false,
   @__vertical-spacing-specs
@@ -58,45 +91,14 @@
 
   .mx__spec-system-rulesets(
     @__vertical-spacing-specs,
+    false,
     {
-      // Explicitly do not apply the @spec-base-ruleset here,
-      // to prevent logging in the wrong position
-      // @spec-base-ruleset();
-      .mx__vertical-spacing-system-item(@spec-name, {
-        from-other: extract(@spec, 2);
-        to-other: extract(@spec, 3);
-        from-itself: extract(@spec, 4);
-      }, boolean(extract(@spec, 5) = ~'!important'));
+      // Ruleset generator
+      .__vertical-spacing-system-item(@spec-name, {
+        from-other: extract(@spec-values, 2);
+        to-other: extract(@spec-values, 3);
+        from-itself: extract(@spec-values, 4);
+      }, boolean(extract(@spec-values, 5) = ~'!important'));
     }
   );
-}
-
-//
-// Given a reference selector, establish spacing relationships
-//
-.mx__vertical-spacing-system-item(@__reference-selector, @__item-distances, @important: false) {
-  //
-  // Reference after Other
-  //
-  > *:not(@{__reference-selector}) + @{__reference-selector} {
-    .__vertical-spacing-system-apply-distance(@__item-distances[from-other], @important);
-  }
-
-  //
-  // Other after Reference
-  // TODO: test the chaining of :not() selector.
-  // If working on all browsers, remove the first line, wich is just a
-  // "defensive one"
-  //
-  > @{__reference-selector} + *:not(@{__reference-selector}),
-  > @{__reference-selector} + *:not(@{__reference-selector}):not(.vertical-spacing-exception) {
-    .__vertical-spacing-system-apply-distance(@__item-distances[to-other], @important);
-  }
-
-  //
-  // Reference after another occurrence of Reference
-  //
-  > @{__reference-selector} + @{__reference-selector} {
-    .__vertical-spacing-system-apply-distance(@__item-distances[from-itself], @important);
-  }
 }
