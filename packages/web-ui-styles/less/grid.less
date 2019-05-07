@@ -35,27 +35,27 @@
 		});
 
 		&.row--no-gutters {
-			.mx-private__grid-apply-rules-to-columns-with-prefix(
-				all,
-				{
-					.mx-private__grid-cancel-horizontal-gutters();
-					.mx-private__grid-cancel-vertical-gutters();
-				}
-			);
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+
+			.__grid-apply-rules-to-columns(all, {
+				.mx-private__grid-col-cancel-horizontal-gutters();
+				.mx-private__grid-col-cancel-vertical-gutters();
+			});
 		}
 
 		&.row--no-horizontal-gutters {
-			.mx-private__grid-apply-rules-to-columns-with-prefix(
-				all,
-				.mx-private__grid-cancel-horizontal-gutters()
-			);
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			.__grid-apply-rules-to-columns(all, {
+				.mx-private__grid-col-cancel-horizontal-gutters();
+			});
 		}
 
 		&.row--no-vertical-gutters {
-			.mx-private__grid-apply-rules-to-columns-with-prefix(
-				all,
-				.mx-private__grid-cancel-vertical-gutters()
-			);
+			.__grid-apply-rules-to-columns(all, {
+				.mx-private__grid-col-cancel-vertical-gutters();
+			});
 		}
 	}
 

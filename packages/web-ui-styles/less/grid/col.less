@@ -3,18 +3,16 @@
 @import '../util.less';
 
 .mx-private__grid-col-rulesets() {
-  //
-  // Rules that apply to:
-  // ANY column in ANY media size
-  //
-  .mx-private__grid-apply-rules-to-columns-with-prefix(all, {
-    width: 100%;
+  .row {
+    .__grid-apply-rules-to-columns(all, {
+      width: 100%;
 
-    .mx__grid-apply-gutter(horizontal, {
-      padding-left: @gutter-value / 2;
-      padding-right: @gutter-value / 2;
+      .mx__grid-apply-gutter(horizontal, {
+        padding-left: @gutter-value / 2;
+        padding-right: @gutter-value / 2;
+      });
     });
-  });
+  }
 
   //
   // col-{N}
@@ -27,14 +25,14 @@
     flex-grow: 1;
     max-width: 100%;
 
-    .mx-private__grid-cancel-vertical-gutters();
+    .mx-private__grid-col-cancel-vertical-gutters();
   }
 
   .mx-private__util-rulesets-from-countdown(
     ~'.row > .col-',
     {
       width: (100% / @total) * @current;
-      .mx-private__grid-cancel-vertical-gutters();
+      .mx-private__grid-col-cancel-vertical-gutters();
     },
     @ui--grid-column-count
   );
@@ -57,21 +55,23 @@
     @col-prefix: @key;
 
     @smaller-than-breakpoint: {
-      .mx-private__grid-apply-rules-to-columns-with-prefix(@col-prefix, {
-        .mx__grid-apply-gutter(vertical, {
-          padding-top: @gutter-value / 2;
-          padding-bottom: @gutter-value / 2;
+      .row {
+        .__grid-apply-rules-to-columns(@col-prefix, {
+          .mx__grid-apply-gutter(vertical, {
+            padding-top: @gutter-value / 2;
+            padding-bottom: @gutter-value / 2;
+          });
+
+          // Remove gutter padding from edges
+          &:first-child {
+            padding-top: 0 !important;
+          }
+
+          &:last-child {
+            padding-bottom: 0 !important;
+          }
         });
-
-        // Remove gutter padding from edges
-        &:first-child {
-          padding-top: 0 !important;
-        }
-
-        &:last-child {
-          padding-bottom: 0 !important;
-        }
-      });
+      }
     };
 
     @greater-than-breakpoint: {
@@ -89,7 +89,7 @@
           // no vertical gutters should be applied.
           //
           // Rely on @media-query to remove the `!important`s effect.
-          .mx-private__grid-cancel-vertical-gutters();
+          .mx-private__grid-col-cancel-vertical-gutters();
         },
         @ui--grid-column-count
       );
