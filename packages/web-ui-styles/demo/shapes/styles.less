@@ -1,0 +1,90 @@
+@import '../../less/dev.less';
+@import '../../less/base.less';
+@import '../../less/shapes.less';
+
+main {
+  max-width: 800px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin: 100px auto;
+
+  > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  > * + * {
+    margin-top: 40px;
+  }
+}
+
+.__align-absolute(@dimension: horizontal, @alignment: 50%) {
+  & when (@dimension = horizontal) {
+    left: @alignment;
+    transform+: translateX(-50%);
+  }
+
+  & when (@dimension = vertical) {
+    top: @alignment;
+    transform+: translateY(-50%);
+  }
+}
+
+.tooltip {
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.2);
+  max-width: 200px;
+
+  padding: 20px;
+
+  position: relative;
+
+  background-color: skyblue;
+
+  &.tooltip--arrow-bottom::after {
+    .mx__shape-arrow(bottom, {
+      base: 20px;
+      height: 10px;
+    });
+
+    position: absolute;
+    top: 100%;
+    .__align-absolute(horizontal);
+    color: skyblue;
+  }
+
+  &.tooltip--arrow-top::after {
+    .mx__shape-arrow(top, {
+      base: 20px;
+      height: 10px;
+    });
+
+    position: absolute;
+    bottom: 100%;
+    .__align-absolute(horizontal);
+    color: skyblue;
+  }
+
+  &.tooltip--arrow-right::after {
+    .mx__shape-arrow(right, {
+      base: 20px;
+      height: 10px;
+    });
+
+    position: absolute;
+    left: 100%;
+    .__align-absolute(vertical);
+    color: skyblue;
+  }
+
+  &.tooltip--arrow-left::after {
+    .mx__shape-arrow(left, {
+      base: 20px;
+      height: 10px;
+    });
+
+    position: absolute;
+    right: 100%;
+    .__align-absolute(vertical);
+    color: skyblue;
+  }
+}

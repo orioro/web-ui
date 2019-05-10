@@ -1,0 +1,47 @@
+.mx__shape-arrow(
+  @arrow-direction,
+  @arrow-dimensions: {
+    base: 8px;
+    height: 4px;
+  }) {
+
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0;
+
+  & when (@arrow-direction = right) {
+    border-top-width: @arrow-dimensions[base] / 2;
+    border-bottom-width: @arrow-dimensions[base] / 2;
+
+    border-left-width: @arrow-dimensions[height];
+    border-left-color: currentColor;
+  }
+
+  & when (@arrow-direction = left) {
+    border-top-width: @arrow-dimensions[base] / 2;
+    border-bottom-width: @arrow-dimensions[base] / 2;
+
+    border-right-width: @arrow-dimensions[height];
+    border-right-color: currentColor;
+  }
+
+  & when (@arrow-direction = top) {
+    border-left-width: @arrow-dimensions[base] / 2;
+    border-right-width: @arrow-dimensions[base] / 2;
+
+    border-bottom-width: @arrow-dimensions[height];
+    border-bottom-color: currentColor;
+  }
+
+  & when (@arrow-direction = bottom) {
+    border-left-width: @arrow-dimensions[base] / 2;
+    border-right-width: @arrow-dimensions[base] / 2;
+
+    border-top-width: @arrow-dimensions[height];
+    border-top-color: currentColor;
+  }
+}
