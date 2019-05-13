@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo-1</title>
+	<style type="text/css">
+		body {
+			font-family: 'Helvetica', sans-serif;
+		}
+
+		#display {
+			padding: 100px;
+		}
+
+		#display .some-component-within.custom-active-class {
+			background-color: red;
+			color: white;
+
+			padding: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div
+		id="display"
+		data-component="class-toggle"
+		data-class-toggle-target=".some-component-within"
+		data-class-toggle-target-class="custom-active-class">
+		<button data-component="trigger">
+			Trigger
+		</button>
+
+		<div class="some-component-within">
+			some-component-within
+		</div>
+	</div>
+	<script type="text/javascript" src="index.bundle.js"></script>
+</body>
+</html>
