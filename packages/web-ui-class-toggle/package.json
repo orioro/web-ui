@@ -15,6 +15,9 @@
   },
   "author": "",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
@@ -31,5 +34,6 @@
   "dependencies": {
     "@orioro/web-ui-core": "0.0.1-alpha.19",
     "classlist.js": "^1.1.20150312"
-  }
+  },
+  "gitHead": "92b65ead2e7daae304a866550d6215f007b8d31c"
 }
