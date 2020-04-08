@@ -1,0 +1,140 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:list';
+@use './util';
+@use './responsive';
+@use './vertical-spacing';
+
+$anchor: (
+  'color': blue,
+  'active-color': color.adjust(blue, $saturation: 40%),
+  'visited-color': color.adjust(blue, $saturation: 20%),
+  'hover-color': color.adjust(blue, $saturation: 40%),
+) !default;
+
+$vertical-spacing: (
+  'default-distance': 1.5em,
+  'selector-groups': (
+    'headings': (
+      'selectors': h1 h2 h3 h4 h5 h6,
+      'from-other': 2em,
+      'to-other': 1em,
+      'from-self': 1em
+    ),
+    'highlighted-elements': (
+      'selectors': img figure iframe blockquote,
+      'from-other': 2em,
+      'to-other': 1em,
+      'from-self': 1em
+    )
+  )
+);
+
+@mixin system($options: (
+  'anchor': $anchor,
+  'vertical-spacing': $vertical-spacing,
+)) {
+  @include vertical-spacing.system(map.get($options, 'vertical-spacing'));
+
+  //
+  // Anchor tags
+  //
+  a:not([class]) {
+    &:link {
+      color: util.map-deep-get($options, 'anchor', 'color');
+      text-decoration: underline;
+
+      transition: color .2s ease;
+    }
+
+    &:active {
+      color: util.map-deep-get($options, 'anchor', 'active-color');
+    }
+
+    &:visited {
+      color: util.map-deep-get($options, 'anchor', 'visited-color');
+    }
+
+    &:hover {
+      color: util.map-deep-get($options, 'anchor', 'hover-color');
+    }
+  }
+
+  //
+  // Image
+  //
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  //
+  // Blockquote
+  //
+  blockquote {
+    margin-left: util.map-deep-get($options, 'blockquote', 'horizontal-margin');
+    margin-right: util.map-deep-get($options, 'blockquote', 'horizontal-margin');
+
+    @include vertical-spacing.system(map.get($options, 'vertical-spacing'));
+  }
+
+  cite {
+    font-style: normal;
+  }
+
+  strong, b {
+    font-weight: bold;
+  }
+
+  em, i {
+    font-style: italic;
+  }
+
+  del, ins {
+    color: inherit;
+  }
+
+  figure {
+    margin-right: 0;
+    margin-left: 0;
+
+    > * {
+      width: 100%;
+    }
+
+    a {
+      display: block;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    figcaption {
+      margin-top: .5em;
+      font-size: .8em;
+      font-style: normal;
+    }
+  }
+
+  iframe {
+    width: 100%;
+    border: none;
+    display: block;
+  }
+
+  table {
+    border-collapse: collapse;
+    font-size: .8em;
+
+    th {
+      font-weight: bold;
+    }
+
+    th, td {
+      border: 1px solid currentColor;
+      padding: 4px;
+    }
+  }
+}

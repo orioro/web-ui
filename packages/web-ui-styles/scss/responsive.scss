@@ -1,0 +1,108 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+@use 'sass:math';
+
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1400px
+) !default;
+
+$_sizes: map.keys($breakpoints);
+$_size-count: list.length($_sizes);
+
+@mixin larger-than($breakpoint) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin smaller-than($breakpoint) {
+  @media (max-width: map.get($breakpoints, $breakpoint) - 1) {
+    @content;
+  }
+}
+
+@mixin between($breakpoint-min, $breakpoint-max) {
+  @media
+    (min-width: map.get($breakpoints, $breakpoint-min)) and
+    (max-width: map.get($breakpoints, $breakpoint-max) - 1) {
+    @content;
+  }
+}
+
+@mixin only($size) {
+  $size-index: list.index($_sizes, $size);
+  $next-size: if(
+    list.length($_sizes) > $size-index,
+    list.nth($_sizes, $size-index + 1),
+    null
+  );
+
+  @if ($size-index == 1) {
+    @include smaller-than($next-size) { @content; }
+  } @else if ($next-size) {
+    @include between($size, $next-size) { @content; }
+  } @else {
+    @include larger-than($size) { @content; }
+  }
+}
+
+@function get-size-value($values, $size) {
+  $value: map.get($values, $size);
+  $size-index: list.index($_sizes, $size);
+
+  @if $value == null and $size-index > 1 {
+    @return get-size-value($values, list.nth($_sizes, $size-index - 1));
+  } @else {
+    @return $value;
+  }
+}
+
+@mixin value-by-size($values) {
+  @each $size, $breakpoint-value in $breakpoints {
+    @include only($size) {
+      @content(get-size-value($values, $size));
+    }
+  }
+}
+
+@mixin value-by-interpolation($values) {
+  $min: list.nth($values, 1);
+  $max: list.nth($values, 2);
+
+  @each $size in $_sizes {
+    @include only($size) {
+      $size-index: list.index($_sizes, $size);
+
+      @content($min + ($max - $min) * ($size-index - 1) / ($_size-count - 1));
+    }
+  }
+}
+
+@mixin value($values) {
+  @if (meta.type-of($values) == map) {
+    @include value-by-size($values) using ($value) { @content($value); }
+  } @else if (meta.type-of($values) == list and list.length($values) == 2) {
+    @include value-by-interpolation($values) using ($value) { @content($value); }
+  } @else {
+    @content($values);
+  }
+}
+
+@mixin property($properties, $values, $round: false) {
+  @include value($values) using ($value) {
+    $value: if($round, math.round($value), $value);
+
+    @if (meta.type-of($properties) == list) {
+      @each $property in $properties {
+        #{$property}: $value;
+      }
+    } @else {
+      #{$properties}: $value;
+    }
+  }
+}

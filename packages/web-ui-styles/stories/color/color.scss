@@ -1,0 +1,9 @@
+@use '../../scss/color';
+
+@include color.system((
+  'red': red,
+  'blue': blue,
+  'green': green,
+  'yellow': yellow,
+  'yellow-with-skyblue': yellow skyblue,
+), yellow, green);

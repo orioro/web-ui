@@ -1,0 +1,47 @@
+@use 'sass:map';
+@use './responsive';
+
+@mixin _system-items($options) {
+  @each $selector in map.get($options, 'selectors') {
+    //
+    // From other
+    //
+    *:not(#{$selector}) + #{$selector} {
+      @include responsive.property(margin-top, map.get($options, 'from-other'));
+    }
+
+    //
+    // To other
+    //
+    #{$selector} + *:not(#{$selector}) {
+      @include responsive.property(margin-top, map.get($options, 'to-other'));
+    }
+
+    //
+    // From self
+    //
+    #{$selector} + #{$selector} {
+      @include responsive.property(margin-top, map.get($options, 'from-self'));
+    }
+  }
+}
+
+@mixin system($options) {
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  > * + * {
+    @include responsive.property(margin-top, map.get($options, 'default-distance'));
+  }
+
+  > {
+    @each $group-name, $group in map.get($options, 'selector-groups') {
+      @include _system-items($group);
+    }
+  }
+}

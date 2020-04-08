@@ -1,0 +1,12 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+
+@function map-deep-get($value, $keys...) {
+  $key-index: 1;
+  @while (meta.type-of($value) == map and $key-index <= list.length($keys)) {
+    $value: map.get($value, list.nth($keys, $key-index));
+    $key-index: $key-index + 1;
+  }
+  @return $value;
+}
