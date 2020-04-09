@@ -1,21 +1,29 @@
 import {PropTypes} from '@orioro/web-ui-core'
 import Swiper from 'swiper'
-import SwiperCSS from 'swiper/dist/css/swiper.min.css'
-import delegate from 'delegate'
+import SwiperCSS from 'swiper/css/swiper.min.css'
 import insertCss from 'insert-css'
 
 insertCss(SwiperCSS)
 
 const COMPONENT_NAME = 'swiper'
 
-const createInstance = (system, componentRoot, {
+const SWIPER_OPTION_DEFAULTS = {
+  direction: 'horizontal',
+  loop: true,
+  lazy: true,
+  autoplay: true,
+}
 
+const createInstance = (system, componentRoot, {
+	options
 }) => {
-	const swiperInstance = new Swiper(componentRoot, {
-    direction: 'horizontal',
-    loop: true,
-    lazy: true,
-    autoplay: true,
+	options = options ? JSON.parse(options) : {}
+
+	const swiperRoot = componentRoot.querySelector('.swiper-container') || componentRoot
+
+	const swiperInstance = new Swiper(swiperRoot, {
+		...SWIPER_OPTION_DEFAULTS,
+		...options
 	})
 
 	const ELEMENTS = {
@@ -59,9 +67,12 @@ const createInstance = (system, componentRoot, {
 	}
 }
 
-export default () => {
+export const swiper = () => {
 	return {
 		componentName: COMPONENT_NAME,
+		instancePropTypes: {
+			options: PropTypes.string,
+		},
 		createInstance,
 	}
 }
