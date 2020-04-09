@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-class-toggle",
-  "version": "3.2.0-alpha.1",
+  "version": "4.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "dependencies": {
-    "@orioro/web-ui-core": "0.0.1-alpha.19",
+    "@orioro/web-ui-core": "^4.0.0",
     "classlist.js": "^1.1.20150312"
   },
   "gitHead": "92b65ead2e7daae304a866550d6215f007b8d31c"
