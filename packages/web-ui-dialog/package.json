@@ -3,7 +3,6 @@
   "version": "3.0.0-alpha.0",
   "description": "",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "scripts": {
     "test": "jest",
     "serve": "browser-sync start --server demo --watch --ignore **/*/index.js --no-ui --no-ghost-mode",
