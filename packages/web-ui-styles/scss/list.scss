@@ -1,0 +1,81 @@
+@use 'sass:math';
+@use 'sass:map';
+@use '@orioro/web-ui-styles/scss/responsive.scss';
+
+$_floor-multiplier: 10000;
+
+@mixin n-columns($column-count, $gutters: (
+  'horizontal-gutter': 15px 20px,
+  'vertical-gutter': 15px 20px,
+)) {
+  $gutter-count: $column-count - 1;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    //
+    // Values that vary according to the horizontal gutter width
+    // @type {[type]}
+    //
+    @include responsive.value(map.get($gutters, 'horizontal-gutter')) using ($horizontal-gutter) {
+      $horizontal-gutter-total: $gutter-count * $horizontal-gutter;
+
+      $percentage-part: math.floor($_floor-multiplier * 100% / $column-count) / $_floor-multiplier;
+      $px-part: math.floor($_floor-multiplier * $horizontal-gutter-total / $column-count) / $_floor-multiplier;
+
+      //
+      // EDGE rounds the pixels upwards causing lists to break in incorrect places.
+      // Example case: 3 columns, gutter-width 40px
+      // `(100% - 80px) / 3` becomes
+      // `33.333333% - 26.666667px` in EDGE
+      //
+      // Thus we need to pre-calculate and correctly round
+      // numbers using floor.
+      //
+      width: calc(#{$percentage-part} - #{$px-part});
+      margin-right: $horizontal-gutter;
+    }
+
+
+    //
+    // Values that vary according to the vertical gutter
+    //
+    @include responsive.value(map.get($gutters, 'vertical-gutter')) using ($vertical-gutter) {
+      margin-top: $vertical-gutter;
+    }
+
+    //
+    // Styles that do not depend on gutter width or heights
+    //
+    // Neutralize margin right for all items located
+    // on the right edge of the container.
+    // Example:
+    // If column count is 3, ensure any item
+    // that is multiple of 3 has no margin right.
+    //
+
+    @for $i from 1 through $column-count {
+      //
+      // nth-column
+      //
+      &:nth-child(#{$column-count}n+#{$i}) {
+        //
+        // Last column
+        //
+        @if ($i == $column-count) {
+          margin-right: 0;
+        }
+
+        @content(column-#{$i});
+      }
+    }
+
+    //
+    // First row
+    //
+    &:nth-child(-n+#{$column-count}) {
+      margin-top: 0;
+    }
+  }
+}
