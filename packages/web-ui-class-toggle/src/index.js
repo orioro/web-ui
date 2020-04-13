@@ -7,7 +7,9 @@ const createInstance = (system, componentRoot, {
 	target = null,
 	targetClass = 'active'
 }) => {
-	target = target ? componentRoot.querySelector(target) : componentRoot
+	target = target
+		? componentRoot.querySelector(target) || document.querySelector(target)
+		: componentRoot
 
 	const activate = () => {
 		target.classList.add(targetClass)
@@ -24,6 +26,8 @@ const createInstance = (system, componentRoot, {
 			activate()
 		}
 	}
+
+	componentRoot.addEventListener('click', e => toggle())
 
 	return {
 		activate,

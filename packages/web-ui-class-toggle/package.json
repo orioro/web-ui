@@ -8,7 +8,7 @@
     "serve": "browser-sync start --server demo --watch --ignore **/*/index.js --no-ui --no-ghost-mode",
     "dev-serve": "npm run serve & rollup --config ./rollup/dev.config.js --watch",
     "dev-test": "jest --watch",
-    "dev-bundle": "rollup --config ./rollup/dev.config.js",
+    "dev-bundle": "rollup --config ./rollup/dev.config.js --watch",
     "build": "rm -rf dist && rollup --config ./rollup/build.config.js",
     "prepublish": "npm run build"
   },
