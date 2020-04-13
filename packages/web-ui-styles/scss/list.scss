@@ -4,9 +4,12 @@
 
 $_floor-multiplier: 10000;
 
+$horizontal-gutter: 15px 20px !default;
+$vertical-gutter: 15px 20px !default;
+
 @mixin n-columns($column-count, $gutters: (
-  'horizontal-gutter': 15px 20px,
-  'vertical-gutter': 15px 20px,
+  'horizontal-gutter': $horizontal-gutter,
+  'vertical-gutter': $vertical-gutter,
 )) {
   $gutter-count: $column-count - 1;
 
@@ -76,6 +79,19 @@ $_floor-multiplier: 10000;
     //
     &:nth-child(-n+#{$column-count}) {
       margin-top: 0;
+    }
+  }
+}
+
+@mixin horizontal-no-wrap($gutter: $horizontal-gutter) {
+  display: flex;
+  flex-wrap: nowrap;
+
+  > * {
+    @include responsive.property(margin-left, $gutter);
+
+    &:first-child {
+      margin-left: 0;
     }
   }
 }
