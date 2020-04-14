@@ -1,7 +1,13 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "lerna-bootstrap": "lerna bootstrap --hoist",
+    "develop-all": "lerna run develop --stream --parallel",
+    "lerna-update": "lernaupdate"
+  },
   "devDependencies": {
-    "lerna": "^3.11.1"
+    "lerna": "^3.11.1",
+    "lerna-update-wizard": "^0.17.8"
   }
 }
