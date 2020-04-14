@@ -47,7 +47,7 @@ const createInstance = (system, componentRoot, {
 			if (navigatable) {
 				system.navHistoryReplaceState('#')
 			}
-			
+
 			focusTrap.deactivate()
 			componentRoot.classList.remove(activeClass)
 			state.active = false
@@ -83,7 +83,7 @@ const createInstance = (system, componentRoot, {
 	}
 }
 
-export default () => {
+export const dialog = () => {
 	return {
 		componentName: DIALOG_COMPONENT_NAME,
 		instancePropTypes: {

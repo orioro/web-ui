@@ -46,7 +46,7 @@ const createInstance = (system, componentRoot, {
 	}
 }
 
-export default () => {
+export const tabs = () => {
 	return {
 		componentName: TABS_COMPONENT_NAME,
 		instancePropTypes: {

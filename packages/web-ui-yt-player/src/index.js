@@ -19,7 +19,7 @@ const createInstance = (system, componentRoot, {
 	}
 
 	player.load(id)
-	
+
 	const play = () => {
 		player.play()
 	}
@@ -55,7 +55,7 @@ const createInstance = (system, componentRoot, {
 	}
 }
 
-export default () => {
+export const ytPlayer = () => {
 	return {
 		componentName: COMPONENT_NAME,
 		instancePropTypes: {

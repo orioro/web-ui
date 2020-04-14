@@ -37,7 +37,7 @@ const createInstance = (system, componentRoot, {
 	}
 }
 
-export default () => {
+export const classToggle = () => {
 	return {
 		componentName: COMPONENT_NAME,
 		instancePropTypes: {
