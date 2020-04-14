@@ -1,5 +1,5 @@
 {
-  "name": "@orioro/web-ui-yt-player",
+  "name": "@orioro/web-ui-youtube-player",
   "version": "4.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -34,7 +34,7 @@
   "dependencies": {
     "@orioro/web-ui-core": "^4.0.0",
     "get-video-id": "^3.1.0",
-    "yt-player": "^3.1.0"
+    "youtube-player": "^3.1.0"
   },
   "gitHead": "bef9dabd0aacc1a04015d75065a6a9295727f2a9"
 }

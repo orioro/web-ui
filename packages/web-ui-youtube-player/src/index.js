@@ -1,8 +1,8 @@
 import {PropTypes} from '@orioro/web-ui-core'
-import YTPlayer from 'yt-player'
+import YTPlayer from 'youtube-player'
 import getVideoId from 'get-video-id'
 
-const COMPONENT_NAME = 'yt-player'
+const COMPONENT_NAME = 'youtube-player'
 
 const createInstance = (system, componentRoot, {
 	video
