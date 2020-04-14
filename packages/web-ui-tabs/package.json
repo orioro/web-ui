@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-tabs",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "dependencies": {
-    "@orioro/web-ui-core": "^4.0.0",
+    "@orioro/web-ui-core": "^4.2.3",
     "@orioro/web-ui-util": "^4.0.0"
   },
   "gitHead": "0aa23ffe39d519666f96617d6600a46fa1318011"

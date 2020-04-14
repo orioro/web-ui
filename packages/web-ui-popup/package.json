@@ -1,6 +1,6 @@
 {
   "name": "@orioro/web-ui-popup",
-  "version": "4.0.0",
+  "version": "4.2.3",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "rollup-plugin-node-resolve": "^3.4.0"
   },
   "dependencies": {
-    "@orioro/web-ui-core": "^4.0.0",
+    "@orioro/web-ui-core": "^4.2.3",
     "classlist.js": "^1.1.20150312",
     "focus-trap": "^4.0.2"
   }
