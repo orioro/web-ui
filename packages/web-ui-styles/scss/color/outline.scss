@@ -1,0 +1,9 @@
+@use 'sass:list';
+
+@mixin outline($color-scheme, $border-width: 1px, $border-style: solid) {
+  color: list.nth($color-scheme, 1);
+  border-width: $border-width;
+  border-style: $border-style;
+  border-color: list.nth($color-scheme, 1);
+  outline-color: list.nth($color-scheme, 1);
+}

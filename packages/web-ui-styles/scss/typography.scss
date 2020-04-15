@@ -1,0 +1,29 @@
+@use 'sass:list';
+@use 'sass:color' as sass-color;
+@use './color';
+
+@mixin a(
+  $default-color: blue,
+  $hover-color: null,
+  $active-color: null,
+  $visited-color: null
+) {
+  $visited-color: if($visited-color, $visited-color, sass-color.scale(
+    list.nth($default-color, 1),
+    $saturation: -20%,
+  ));
+
+  &:visited {
+    color: list.nth($visited-color, 1);
+  }
+
+  @include color.interactive-color(
+    $default: $default-color,
+    $hover: $hover-color,
+    $active: $active-color
+  );
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

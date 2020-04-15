@@ -1,2 +1,7 @@
+@use 'sass:list';
+@forward './color/variables';
 @forward './color/contrast';
-@forward './color/bg';
+@forward './color/scheme';
+@forward './color/background';
+@forward './color/outline';
+@forward './color/interactive';

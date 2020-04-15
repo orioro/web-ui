@@ -1,0 +1,99 @@
+@use 'sass:list';
+@use 'sass:color' as sass-color;
+@use './outline';
+@use './background';
+
+$interactive-lightness-scale-step: -10%;
+
+@function _auto-color($maybe-color, $base-color, $lightness) {
+  @return if($maybe-color, $maybe-color, sass-color.scale(
+    list.nth($base-color, 1),
+    $lightness: $lightness * $interactive-lightness-scale-step
+  ));
+}
+
+@mixin interactive-outline(
+  $default: skyblue,
+  $hover: null,
+  $active: null,
+) {
+  $hover: _auto-color($hover, $default, $lightness: 1);
+  $active: _auto-color($active, $color, $lightness: 2);
+
+  @include outline.outline($default);
+
+  &:hover,
+  &:focus {
+    @include outline.outline($hover);
+  }
+
+  &:active {
+    @include outline.outline($active);
+  }
+}
+
+@mixin interactive-outline-to-bg(
+  $default: skyblue,
+  $hover: null,
+  $active: null,
+) {
+  $hover: if($hover, $hover, $default);
+  $active: _auto-color($active, $hover, $lightness: 1);
+
+  @include outline.outline($default);
+
+  &:hover,
+  &:focus {
+    @include background.background($hover);
+    outline-color: list.nth($hover, 1);
+  }
+
+  &:active {
+    @include background.background($active);
+    outline-color: list.nth($active, 1);
+  }
+}
+
+@mixin interactive-color(
+  $default: skyblue,
+  $hover: null,
+  $active: null,
+) {
+  $hover: _auto-color($hover, $default, $lightness: 1);
+  $active: _auto-color($active, $hover, $lightness: 2);
+
+  color: list.nth($default, 1);
+  outline-color: currentColor;
+
+  &:hover,
+  &:focus {
+    color: list.nth($hover, 1);
+  }
+
+  &:active {
+    color: list.nth($active, 1);
+  }
+}
+
+@mixin interactive-background(
+  $default: skyblue,
+  $hover: null,
+  $active: null,
+) {
+  $hover: _auto-color($hover, $default, $lightness: 1);
+  $active: _auto-color($active, $hover, $lightness: 2);
+
+  @include background.background($default);
+  outline-color: list.nth($default, 1);
+
+  &:hover,
+  &:focus {
+    @include background.background($hover);
+    outline-color: list.nth($hover, 1);
+  }
+
+  &:active {
+    @include background.background($active);
+    outline-color: list.nth($active, 1);
+  }
+}

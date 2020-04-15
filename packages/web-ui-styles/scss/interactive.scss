@@ -1,0 +1,248 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:color' as sass-color;
+@use '../responsive';
+@use '../color';
+
+$height: null;
+$width: null;
+$button-vertical-padding: 8px 12px;
+$button-horizontal-padding: 10px 30px;
+$button-border-radius: 8px;
+$button-font-size: 1rem 1.25rem;
+$button-font-weight: normal;
+
+$hover-color-lightness-scale: -10%;
+$active-color-lightness-scale: -20%;
+
+@function _color-default($base-color, $maybe-color: null, $amount) {
+  @return if(
+    $maybe-color,
+    $maybe-color,
+    sass-color.scale(
+      list.nth($base-color, 1),
+      $lightness: $amount
+    )
+  );
+}
+
+@mixin button-layout(
+  $height: $height,
+  $width: $width,
+  $button-vertical-padding: $button-vertical-padding,
+  $button-horizontal-padding: $button-horizontal-padding,
+  $button-border-radius: $button-border-radius,
+  $button-font-size: $button-font-size,
+  $button-font-weight: $button-font-weight
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: $button-border-radius;
+  cursor: pointer;
+  @include responsive.property(font-size, $button-font-size);
+  line-height: 1;
+  font-weight: $button-font-weight;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @if ($height) {
+    @include responsive.property(
+      height,
+      $height,
+      true
+    );
+  } @else {
+    @include responsive.property(
+      padding-top padding-bottom,
+      $button-vertical-padding,
+      true
+    );
+  }
+
+
+  @if ($width) {
+    @include responsive.property(
+      width,
+      $width,
+      true
+    );
+  } @else {
+    @include responsive.property(
+      padding-left padding-right,
+      $button-horizontal-padding,
+      true
+    );
+  }
+
+  > svg {
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  > i {
+    font-size: 1.2em;
+  }
+
+  > * {
+    margin-right: 10px;
+  }
+
+  > *:last-child {
+    margin-right: 0;
+  }
+}
+
+@mixin link-button-layout(
+  $height: $height,
+  $width: $width,
+  $button-vertical-padding: $button-vertical-padding,
+  $button-horizontal-padding: 0,
+  $button-border-radius: $button-border-radius,
+  $button-font-size: $button-font-size,
+  $button-font-weight: $button-font-weight
+) {
+  @include button-layout(
+    $height,
+    $width,
+    $button-vertical-padding,
+    $button-horizontal-padding,
+    $button-border-radius,
+    $button-font-size,
+    $button-font-weight,
+  );
+
+  > *:not(i) {
+    text-decoration: underline;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+@mixin outline(
+  $color: skyblue,
+  $hover-color: null,
+  $active-color: null,
+) {
+  color: list.nth($color, 1);
+  border: 1px solid list.nth($color, 1);
+  outline-color: list.nth($color, 1);
+
+  &:hover {
+    $hover-color: _color-default(
+      $color,
+      $hover-color,
+      $hover-color-lightness-scale
+    );
+
+    @include color.bg($hover-color);
+    border-color: list.nth($hover-color, 1);
+  }
+
+  &:active {
+    $active-color: _color-default(
+      $color,
+      $active-color,
+      $active-color-lightness-scale
+    );
+
+    @include color.bg($active-color);
+    border-color: list.nth($active-color, 1);
+  }
+}
+
+@mixin _apply-color($properties, $value) {
+  @each $property in $properties {
+    #{$property}: list.nth($value, 1);
+  }
+}
+
+@mixin _interactive-colors($color, $hover:null, $focus:null, $active:null) {
+  $hover: if($hover, $hover, sass-color.adjust(
+    list.nth($color, 1),
+    $lightness: $hover-color-lightness-scale,
+  ));
+
+  $focus: if($focus, $focus, $hover);
+  $active: if($active, $active, sass-color.adjust(
+    list.nth($color, 1),
+    $lightness: $active-color-lightness-scale
+  ));
+
+  @content($color, $hover, $focus, $active);
+}
+
+@mixin outline-to-bg($args...) {
+  border-width: 1px;
+  border-style: solid;
+
+  @include _interactive-colors($args...) using ($color, $hover, $focus, $active) {
+    @include _apply-color(
+      color border-color outline-color,
+      $color
+    );
+
+    &:focus {
+      @include color.bg($color);
+      @include _apply-color(border-color outline-color, $color);
+    }
+
+    &:hover {
+      @include color.bg($color);
+      @include _apply-color(border-color outline-color, $color);
+    }
+
+    &:active {
+      @include color.bg($hover);
+      @include _apply-color(border-color outline-color, $hover);
+    }
+  }
+
+}
+
+@mixin color($args...) {
+  outline-color: currentColor;
+
+  @include _interactive-colors($args...) using ($color, $hover, $focus, $active) {
+    @include _apply-color(color, $color);
+
+    &:focus {
+      @include _apply-color(color, $focus);
+    }
+
+    &:hover {
+      @include _apply-color(color, $hover);
+    }
+
+    &:active {
+      @include _apply-color(color, $active);
+    }
+  }
+}
+
+@mixin bg($args...) {
+
+  @include _interactive-colors($args...) using ($color, $hover, $focus, $active) {
+    @include color.bg($color);
+
+    &:focus {
+      @include _apply-color(color, $focus);
+    }
+
+    &:hover {
+      @include _apply-color(color, $hover);
+    }
+
+    &:active {
+      @include _apply-color(color, $active);
+    }
+  }
+}

@@ -1,6 +1,6 @@
 @use 'sass:math';
 @use 'sass:map';
-@use '@orioro/web-ui-styles/scss/responsive.scss';
+@use './responsive.scss';
 
 $_floor-multiplier: 10000;
 

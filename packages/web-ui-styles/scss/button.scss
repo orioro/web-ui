@@ -1,0 +1,109 @@
+@use './responsive';
+
+$height: null !default;
+$width: null !default;
+$vertical-padding: 8px 12px !default;
+$horizontal-padding: 10px 30px !default;
+$border-radius: 8px !default;
+$font-size: 1rem 1.25rem !default;
+$font-weight: normal !default;
+
+@mixin layout(
+  $height: $height,
+  $width: $width,
+  $vertical-padding: $vertical-padding,
+  $horizontal-padding: $horizontal-padding,
+  $border-radius: $border-radius,
+  $font-size: $font-size,
+  $font-weight: $font-weight
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  @include responsive.property(font-size, $font-size);
+  line-height: 1;
+  font-weight: $font-weight;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @if ($height) {
+    @include responsive.property(
+      height,
+      $height,
+      true
+    );
+  } @else {
+    @include responsive.property(
+      padding-top padding-bottom,
+      $vertical-padding,
+      true
+    );
+  }
+
+
+  @if ($width) {
+    @include responsive.property(
+      width,
+      $width,
+      true
+    );
+  } @else {
+    @include responsive.property(
+      padding-left padding-right,
+      $horizontal-padding,
+      true
+    );
+  }
+
+  > svg {
+    height: 1.2em;
+    width: 1.2em;
+  }
+
+  > i {
+    font-size: 1.2em;
+  }
+
+  > * {
+    margin-right: 10px;
+  }
+
+  > *:last-child {
+    margin-right: 0;
+  }
+}
+
+@mixin layout-link(
+  $height: $height,
+  $width: $width,
+  $vertical-padding: $vertical-padding,
+  $horizontal-padding: 0,
+  $border-radius: $border-radius,
+  $font-size: $font-size,
+  $font-weight: $font-weight
+) {
+  @include layout(
+    $height,
+    $width,
+    $vertical-padding,
+    $horizontal-padding,
+    $border-radius,
+    $font-size,
+    $font-weight,
+  );
+
+  border: none;
+
+  > *:not(i) {
+    text-decoration: underline;
+  }
+}
+
+@mixin layout-outline($args...) {
+  @include layout($args...);
+
+  border: 1px solid currentColor;
+}

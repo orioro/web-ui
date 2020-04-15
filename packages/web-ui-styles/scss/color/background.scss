@@ -1,0 +1,42 @@
+@use './scheme';
+@use './variables';
+@use 'sass:map';
+
+@mixin background($args...) {
+  @include scheme.scheme($args...) using ($main-color, $contrast-color) {
+
+    background-color: $main-color;
+    color: $contrast-color;
+  }
+}
+
+@mixin background-system(
+  $prefixes: (
+    'prefix': '.bg-',
+  ),
+  $color-specs: variables.$color-specs,
+  $light-color: variables.$light-color,
+  $dark-color: variables.$dark-color,
+) {
+  $background-prefix: map.get($prefixes, 'prefix');
+
+  @each $name, $color-scheme in $color-specs {
+    #{$background-prefix}#{$name} {
+      @include bg($color-scheme, $light-color, $dark-color);
+
+      @content($name);
+    }
+  }
+}
+
+@mixin bg($args...) {
+  @warn 'color.bg() mixin is deprecated. Include color.background() instead.';
+  @include background($args...);
+}
+
+@mixin bg-system($args...) {
+  @warn 'color.bg-system() mixin is deprecated. Include color.background-system() instead.';
+  @include background-system($args...) using ($args...) {
+    @content($args...);
+  }
+}

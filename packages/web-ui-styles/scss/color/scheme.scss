@@ -1,0 +1,18 @@
+@use 'sass:list';
+@use './variables';
+@use './contrast';
+
+@mixin scheme(
+  $color-scheme,
+  $default-light-color: variables.$light-color,
+  $default-dark-color: variables.$dark-color
+) {
+  $main-color: list.nth($color-scheme, 1);
+  $contrast-color: if(
+    list.length($color-scheme) > 1,
+    list.nth($color-scheme, 2),
+    contrast.get-contrast-color($main-color, $default-light-color, $default-dark-color)
+  );
+
+  @content($main-color, $contrast-color);
+}
