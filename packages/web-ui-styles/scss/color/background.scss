@@ -22,7 +22,7 @@
 
   @each $name, $color-scheme in $color-specs {
     #{$background-prefix}#{$name} {
-      @include bg($color-scheme, $light-color, $dark-color);
+      @include background($color-scheme, $light-color, $dark-color);
 
       @content($name);
     }

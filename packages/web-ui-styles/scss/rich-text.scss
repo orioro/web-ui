@@ -23,8 +23,8 @@ $vertical-spacing: (
     ),
     'highlighted-elements': (
       'selectors': img figure iframe blockquote,
-      'from-other': 2em,
-      'to-other': 1em,
+      'from-other': 50px,
+      'to-other': 50px,
       'from-self': 1em
     )
   )
@@ -35,30 +35,6 @@ $vertical-spacing: (
   'vertical-spacing': $vertical-spacing,
 )) {
   @include vertical-spacing.system(map.get($options, 'vertical-spacing'));
-
-  //
-  // Anchor tags
-  //
-  a:not([class]) {
-    &:link {
-      color: util.map-deep-get($options, 'anchor', 'color');
-      text-decoration: underline;
-
-      transition: color .2s ease;
-    }
-
-    &:active {
-      color: util.map-deep-get($options, 'anchor', 'active-color');
-    }
-
-    &:visited {
-      color: util.map-deep-get($options, 'anchor', 'visited-color');
-    }
-
-    &:hover {
-      color: util.map-deep-get($options, 'anchor', 'hover-color');
-    }
-  }
 
   //
   // Image
