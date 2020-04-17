@@ -64,6 +64,7 @@ const createInstance = (system, componentRoot, {
 		previousSlide,
 		nextSlide,
 		slideTo,
+		swiperInstance,
 	}
 }
 
