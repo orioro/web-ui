@@ -76,15 +76,15 @@ $vertical-spacing: (
     margin-left: 0;
 
     > * {
-      width: 100%;
+      max-width: 100%;
     }
 
-    a {
+    > a {
       display: block;
     }
 
     img {
-      width: 100%;
+      max-width: 100%;
     }
 
     figcaption {
