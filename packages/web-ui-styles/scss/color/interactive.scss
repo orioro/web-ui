@@ -3,7 +3,7 @@
 @use './outline';
 @use './background';
 
-$interactive-lightness-scale-step: -10%;
+$interactive-lightness-scale-step: -10% !default;
 
 @function _auto-color($maybe-color, $base-color, $lightness) {
   @return if($maybe-color, $maybe-color, sass-color.scale(

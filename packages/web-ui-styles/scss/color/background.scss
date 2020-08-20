@@ -11,17 +11,19 @@
 }
 
 @mixin background-system(
-  $prefixes: (
+  $selector-parts: (
     'prefix': '.bg-',
+    'suffix': '',
   ),
   $color-specs: variables.$color-specs,
   $light-color: variables.$light-color,
   $dark-color: variables.$dark-color,
 ) {
-  $background-prefix: map.get($prefixes, 'prefix');
+  $background-prefix: map.get($selector-parts, 'prefix');
+  $background-suffix: map.get($selector-parts, 'suffix');
 
   @each $name, $color-scheme in $color-specs {
-    #{$background-prefix}#{$name} {
+    #{$background-prefix}#{$name}#{$background-suffix} {
       @include background($color-scheme, $light-color, $dark-color);
 
       @content($name);
