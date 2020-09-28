@@ -37,6 +37,7 @@ $vertical-gutter: 15px 20px !default;
       // numbers using floor.
       //
       width: calc(#{$percentage-part} - #{$px-part});
+      flex-basis: calc(#{$percentage-part} - #{$px-part});
       margin-right: $horizontal-gutter;
     }
 
