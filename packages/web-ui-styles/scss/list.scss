@@ -1,16 +1,16 @@
 @use 'sass:math';
 @use 'sass:map';
-@use './responsive';
 
 $_floor-multiplier: 10000;
 
-$horizontal-gutter: 15px 20px !default;
-$vertical-gutter: 15px 20px !default;
+$horizontal-gutter: 20px !default;
+$vertical-gutter: 20px !default;
 
-@mixin n-columns($column-count, $gutters: (
-  'horizontal-gutter': $horizontal-gutter,
-  'vertical-gutter': $vertical-gutter,
-)) {
+@mixin n-columns(
+  $column-count,
+  $horizontal-gutter: $horizontal-gutter,
+  $vertical-gutter: $vertical-gutter
+) {
   $gutter-count: $column-count - 1;
 
   display: flex;
@@ -21,33 +21,29 @@ $vertical-gutter: 15px 20px !default;
     // Values that vary according to the horizontal gutter width
     // @type {[type]}
     //
-    @include responsive.value(map.get($gutters, 'horizontal-gutter')) using ($horizontal-gutter) {
-      $horizontal-gutter-total: $gutter-count * $horizontal-gutter;
+    $horizontal-gutter-total: $gutter-count * $horizontal-gutter;
 
-      $percentage-part: math.floor($_floor-multiplier * 100% / $column-count) / $_floor-multiplier;
-      $px-part: math.floor($_floor-multiplier * $horizontal-gutter-total / $column-count) / $_floor-multiplier;
+    $percentage-part: math.floor($_floor-multiplier * 100% / $column-count) / $_floor-multiplier;
+    $px-part: math.floor($_floor-multiplier * $horizontal-gutter-total / $column-count) / $_floor-multiplier;
 
-      //
-      // EDGE rounds the pixels upwards causing lists to break in incorrect places.
-      // Example case: 3 columns, gutter-width 40px
-      // `(100% - 80px) / 3` becomes
-      // `33.333333% - 26.666667px` in EDGE
-      //
-      // Thus we need to pre-calculate and correctly round
-      // numbers using floor.
-      //
-      width: calc(#{$percentage-part} - #{$px-part});
-      flex-basis: calc(#{$percentage-part} - #{$px-part});
-      margin-right: $horizontal-gutter;
-    }
+    //
+    // EDGE rounds the pixels upwards causing lists to break in incorrect places.
+    // Example case: 3 columns, gutter-width 40px
+    // `(100% - 80px) / 3` becomes
+    // `33.333333% - 26.666667px` in EDGE
+    //
+    // Thus we need to pre-calculate and correctly round
+    // numbers using floor.
+    //
+    width: calc(#{$percentage-part} - #{$px-part});
+    flex-basis: calc(#{$percentage-part} - #{$px-part});
+    margin-right: $horizontal-gutter;
 
 
     //
     // Values that vary according to the vertical gutter
     //
-    @include responsive.value(map.get($gutters, 'vertical-gutter')) using ($vertical-gutter) {
-      margin-top: $vertical-gutter;
-    }
+    margin-top: $vertical-gutter;
 
     //
     // Styles that do not depend on gutter width or heights
@@ -81,6 +77,13 @@ $vertical-gutter: 15px 20px !default;
     &:nth-child(-n+#{$column-count}) {
       margin-top: 0;
     }
+
+    //
+    // Last item
+    //
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 
@@ -89,7 +92,7 @@ $vertical-gutter: 15px 20px !default;
   flex-wrap: nowrap;
 
   > * {
-    @include responsive.property(margin-left, $gutter);
+    margin-left: $gutter;
 
     &:first-child {
       margin-left: 0;
@@ -102,7 +105,8 @@ $vertical-gutter: 15px 20px !default;
   flex-wrap: wrap;
 
   > * {
-    @include responsive.property(margin-left margin-top, $gutter);
+    margin-left: $gutter;
+    margin-top: $gutter;
 
     &:first-child {
       margin-left: 0;
