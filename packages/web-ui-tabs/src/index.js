@@ -19,20 +19,34 @@ const createInstance = (system, componentRoot, {
 
 	const activateTab = (tabId) => {
 		tabContainers.forEach(element => {
-			element.classList.toggle(
-				tabContainerActiveClass,
-				element.getAttribute('id') === tabId
-			)
+			if (element.getAttribute('id') === tabId) {
+				element.classList.add(tabContainerActiveClass)
+			} else {
+				element.classList.remove(tabContainerActiveClass)
+			}
+
+			// element.classList.toggle(
+			// 	tabContainerActiveClass,
+			// 	element.getAttribute('id') === tabId
+			// )
 		})
 
 		const targetTabHash = `#${tabId}`
 
 		tabTriggers.forEach(element => {
-			element.classList.toggle(
-				tabTriggerActiveClass,
-				element.getAttribute('href') === targetTabHash ||
-				element.getAttribute('data-trigger-target') === targetTabHash
-			)
+
+			if (element.getAttribute('href') === targetTabHash ||
+					element.getAttribute('data-trigger-target') === targetTabHash) {
+				element.classList.add(tabTriggerActiveClass)
+			} else {
+				element.classList.remove(tabTriggerActiveClass)
+			}
+
+			// element.classList.toggle(
+			// 	tabTriggerActiveClass,
+			// 	element.getAttribute('href') === targetTabHash ||
+			// 	element.getAttribute('data-trigger-target') === targetTabHash
+			// )
 		})
 	}
 
