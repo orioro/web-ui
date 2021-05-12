@@ -35,7 +35,7 @@
     "@orioro/web-ui-core": "^4.2.3",
     "delegate": "^3.2.0",
     "insert-css": "^2.0.0",
-    "swiper": "^5.3.6"
+    "swiper": "^6.5.1"
   },
   "gitHead": "bef9dabd0aacc1a04015d75065a6a9295727f2a9"
 }
